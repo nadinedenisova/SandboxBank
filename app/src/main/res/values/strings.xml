@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">SandboxBank</string>
+
+
+
+    «  Repository Card  »
+
+    <string name="maximum_card">Максимум 5 карт</string>
+
+    «  Card View  »
+
+    <string name="card_bank_title">SandboxBank</string>
+    <string name="one_million_rouble">1 000 000Р</string>
+
+
+    «  Success Card Dialog  »
+
+    <string name="card_success_title">"Карта успешно оформлена"</string>
+    <string name="clossed">Закрыть</string>
+
+    «  Debit Card Screen  »
+
+    <string name="cards">Карты</string>
+    <string name="virtual_card_bank_debit">"Виртуальная дебетовая карта SandboxBank"</string>
+    <string name="design_debit_card">"Оформить виртуальную карту"</string>
+    <string name="maximum_5_cards">Можно открыть только 5 карт.
+           Чтобы открыть новую, необходимо закрыть предыдущую карту.</string>
+    <string name="release_and_service">Выпуск и обслуживание</string>
+    <string name="free">Бесплатно</string>
+    <string name="cashback_30">Кэшбек до 30%</string>
+    <string name="cashback_30_value">"Получайте супер кэшбэк рублями каждый месяц и бесплатно снимайте наличные в любых банкоматах"</string>
+    <string name="pay_Qr">Платите через SandBox Pay или по QR-коду</string>
+
+
 </resources>
