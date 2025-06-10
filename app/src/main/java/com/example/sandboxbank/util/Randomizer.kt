@@ -8,7 +8,7 @@ object Randomizer{
         return (Random.nextDouble() * 100) > percent
     }
 
-    fun randomString(length: Int): String{
+    fun randomToken(length: Int): String{
         val charRange = ('a'..'z') + ('A'..'Z') + ('0'..'9')
         val random = Random
         val resultString = StringBuilder(length)
