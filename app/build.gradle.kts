@@ -56,6 +56,8 @@ dependencies {
     implementation(libs.accompanist.pager.indicators)
     implementation(libs.compose.navigation)
     debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.compose.material3)
 
     //Retrofit
     implementation(libs.retrofit)
