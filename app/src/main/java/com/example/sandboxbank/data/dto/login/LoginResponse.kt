@@ -1,6 +1,6 @@
 package com.example.sandboxbank.data.dto.login
 
-import com.example.sandboxbank.domain.model.Result
+import com.example.sandboxbank.domain.model.ResultState
 
 sealed class LoginResponse {
     data object Loading : LoginResponse()
@@ -8,8 +8,8 @@ sealed class LoginResponse {
     data class Error(val message: String) : LoginResponse()
 }
 
-fun LoginResponse.mapToDomain(): Result<String> = when (this) {
-    is LoginResponse.Success -> Result.Success(token)
-    is LoginResponse.Error -> Result.Error(message)
-    LoginResponse.Loading -> Result.Loading
+fun LoginResponse.mapToDomain(): ResultState<String> = when (this) {
+    is LoginResponse.Success -> ResultState.Success(token)
+    is LoginResponse.Error -> ResultState.Error(message)
+    LoginResponse.Loading -> ResultState.Loading
 }
