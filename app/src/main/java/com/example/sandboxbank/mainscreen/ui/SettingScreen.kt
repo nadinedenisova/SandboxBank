@@ -19,6 +19,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +33,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.sandboxbank.mainscreen.domain.SettingScreenViewModel
 import com.example.sandboxbank.mode.LightColorPalette
 
 
@@ -56,7 +58,7 @@ fun ComposeSetting() {
                     contentDescription = "back",Modifier.size(34.dp)
                 )
             }
-            Text(text = "Мои профиль", fontSize = 26.sp)
+            Text(modifier = Modifier.padding(top = 10.dp), text = "Мои профиль", fontSize = 26.sp)
         }
         Box(
             Modifier
@@ -109,6 +111,19 @@ fun ComposeSetting() {
                             checked2 = it
                         })
                 }
+            }
+        }
+        Box(
+            Modifier
+                .padding(12.dp)
+                .fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ){
+            Button(
+                modifier = Modifier.clip(RoundedCornerShape(20.dp)),
+                onClick = {},
+            ){
+                Text(text = "Выход из аккаунта")
             }
         }
     }
