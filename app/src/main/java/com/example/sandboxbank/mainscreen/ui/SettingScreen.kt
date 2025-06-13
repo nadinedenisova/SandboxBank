@@ -1,15 +1,18 @@
 package com.example.sandboxbank.mainscreen.ui
 
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
@@ -21,81 +24,93 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.sandboxbank.mode.LightColorPalette
 
 
 @Composable
 fun SettingScreen(){
-    ComposeSwitch()
+    ComposeSetting()
 }
 
 
 @Composable
-fun ComposeSwitch() {
+fun ComposeSetting() {
     val context = LocalContext.current
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(start = 20.dp, end = 20.dp)
-    ) {
-        IconButton(
-            onClick = {
-                (context as? ComponentActivity)?.finish()
-            }
-        ) {
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = "back",Modifier.size(34.dp)
-            )
-        }
-        Text(text = "Settings", fontSize = 26.sp)
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 30.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Column {
-                Text(
-                    text = "Dark Mode",
-                    fontWeight = FontWeight.Bold
+    Column(){
+        Row(modifier = Modifier.padding(top = 20.dp)){
+            IconButton(
+                onClick = {
+                    (context as? ComponentActivity)?.finish()
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "back",Modifier.size(34.dp)
                 )
-                Text(text = "Changing mode of app", color = Color.DarkGray)
             }
-            var checked1 by remember { mutableStateOf(false) }
-
-            Switch(
-                checked = checked1,
-                onCheckedChange = {
-                    checked1 = it
-                })
+            Text(text = "Мои профиль", fontSize = 26.sp)
         }
-        Row(
-            modifier = Modifier
+        Box(
+            Modifier
+                .padding(12.dp)
                 .fillMaxWidth()
-                .padding(top = 30.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        )
-        {
-            Column {
-                Text(
-                    text = "Language",
-                    fontWeight = FontWeight.Bold
-                )
-                Text(text = "Choose your language", color = Color.DarkGray)
-            }
-            Text(
+                .height(100.dp)
+                .clip(RoundedCornerShape(20.dp))
+                .background(LightColorPalette.secondaryFixedDim),
+            contentAlignment = Alignment.Center
+        ){
+            Column(
                 modifier = Modifier
-                    .clickable { println("Change") }
-                    .padding(top = 10.dp),
-                text = "English",
-                fontWeight = FontWeight.Bold
-            )
+                    .fillMaxSize()
+                    .padding(start = 20.dp, end = 20.dp)
+            ) {
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        modifier = Modifier.padding(top = 15.dp),
+                        text = "Смена темы: светлый/темный",
+                        fontWeight = FontWeight.Bold
+                    )
+                    var checked1 by remember { mutableStateOf(false) }
+
+                    Switch(
+                        checked = checked1,
+                        onCheckedChange = {
+                            checked1 = it
+                        })
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        modifier = Modifier.padding(top = 15.dp),
+                        text = "Смена языка: английский/русский",
+                        fontWeight = FontWeight.Bold
+                    )
+                    var checked2 by remember { mutableStateOf(false) }
+
+                    Switch(
+                        checked = checked2,
+                        onCheckedChange = {
+                            checked2 = it
+                        })
+                }
+            }
         }
     }
+
 }
