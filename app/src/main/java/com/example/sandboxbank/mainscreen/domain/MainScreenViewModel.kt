@@ -1,6 +1,7 @@
 package com.example.sandboxbank.mainscreen.domain
 
 import androidx.lifecycle.ViewModel
+import javax.inject.Inject
 
-class MainScreenViewModel : ViewModel() {
+class MainScreenViewModel @Inject constructor() : ViewModel() {
 }
