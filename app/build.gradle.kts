@@ -59,6 +59,7 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.lifecycle.viewmodel.ktx)
 
     //Retrofit
     implementation(libs.retrofit)

@@ -25,6 +25,7 @@ easypermission = "3.0.0"
 compose-lifecycle = "2.6.2"
 navigation = "2.7.7"
 material3 = "1.2.0"
+lifecycle = "2.6.2"
 
 [libraries]
 #Compose
@@ -38,6 +39,7 @@ compose-navigation = { module = "androidx.navigation:navigation-compose", versio
 compose-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "compose-lifecycle" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 
 #Retrofit
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
