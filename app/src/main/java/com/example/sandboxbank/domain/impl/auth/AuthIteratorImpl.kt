@@ -17,7 +17,6 @@ class AuthIteratorImpl@Inject constructor(
     }
 
     override fun loginUser(email: String, password: String): Flow<Result<String>> = flow {
-        repository.registerUser(email, password)
-            .map { response -> response.mapToDomain() }
+        TODO()
     }
 }

@@ -29,12 +29,6 @@ class AuthViewModel (
     }
 
     fun login(email: String, password: String) {
-        viewModelScope.launch {
-            authIterator.loginUser(email, password)
-                .onEach { result ->
-                    _registerState.value = result
-                }
-                .collect{ }
-        }
+        TODO()
     }
 }

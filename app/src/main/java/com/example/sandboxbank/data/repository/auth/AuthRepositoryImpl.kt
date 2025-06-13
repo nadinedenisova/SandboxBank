@@ -34,18 +34,6 @@ class AuthRepositoryImpl
     }
 
     override fun loginUser(email: String, password: String): Flow<LoginResponse> = flow {
-        when(val response = networkClient.login(LoginRequest(email, password))) {
-            is LoginResponse.Success -> {
-                val accessToken = response.token
-                secureStorage.saveToken(accessToken)
-                emit(LoginResponse.Success(accessToken))
-            }
-            is LoginResponse.Error -> {
-                emit(LoginResponse.Error(response.message))
-            }
-            is LoginResponse.Loading ->  {
-                emit(LoginResponse.Loading)
-            }
-        }
+        TODO()
     }
 }
