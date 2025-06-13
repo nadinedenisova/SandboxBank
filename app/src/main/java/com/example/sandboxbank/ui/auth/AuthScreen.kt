@@ -20,6 +20,8 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,18 +33,35 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.sandboxbank.domain.model.Result
 
 
 @Composable
-fun AuthScreen() {
+fun AuthScreen(
+    viewModel: AuthViewModel = viewModel(), onLoginSuccess: () -> Unit,
+    onNavigateToRegistration: () -> Unit
+) {
+
+
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
-    var errorMessage by remember { mutableStateOf<String?>(null) }
     var emailError by remember { mutableStateOf(false) }
     var passwordError by remember { mutableStateOf(false) }
 
     val isFormValid = email.isNotBlank() && password.length >= 6
+    val loginState by viewModel.loginState.collectAsState()
+
+    var errorMessage = remember(loginState) {
+        if (loginState is Result.Error) (loginState as Result.Error).message else null
+    }
+
+    LaunchedEffect(loginState) {
+        if (loginState is Result.Success) {
+            onLoginSuccess()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -135,19 +154,12 @@ fun AuthScreen() {
 
         Button(
             onClick = {
-                if (!email.contains("@") || !email.contains(".")) {
-                    emailError = true
-                    errorMessage = "Ошибка входа, повторите попытку через 5 минут"
-                    return@Button
-                }
+                emailError = email.isBlank() || !email.contains("@") || !email.contains(".")
+                passwordError = password.length < 6
 
-                if (password.length < 6) {
-                    passwordError = true
-                    errorMessage = "Ошибка входа, повторите попытку через 5 минут"
-                    return@Button
+                if (!emailError && !passwordError) {
+                    viewModel.login(email, password)
                 }
-
-                errorMessage = null
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -165,7 +177,7 @@ fun AuthScreen() {
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedButton(
-            onClick = { /* Handle registration */ },
+            onClick = { onNavigateToRegistration() },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp),
