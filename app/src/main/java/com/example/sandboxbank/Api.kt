@@ -26,36 +26,37 @@ interface Api {
     @POST("card/debit/create")
     suspend fun createDebitCard(
         @Body request: CreateCardRequest,
-        @Header("Authorization") accessToken: String
+        @Header("Authorization") accessToken: String //"Bearer $accessToken"
     ): Response<CreateCardResponse>
 
     @POST("card/credit/create")
     suspend fun createCreditCard(
         @Body request: CreateCardRequest,
-        @Header("Authorization") accessToken: String
+        @Header("Authorization") accessToken: String //"Bearer $accessToken"
     ): Response<CreateCardResponse>
 
     @GET("/cards")
     suspend fun getAllCards(
         @Query("user_id") userId: Long,
-        @Header("Authorization") accessToken: String
+        @Header("Authorization") accessToken: String //"Bearer $accessToken"
     ): Response<GetAllCardsResponse>
 
     @POST("/deposit/create")
     suspend fun createDeposit(
         @Body request: CreateDepositRequest,
-        @Header("Authorization") accessToken: String
+        @Header("Authorization") accessToken: String //"Bearer $accessToken"
     ): Response<CreateDepositResponse>
 
     @POST("/credit/create")
     suspend fun createCredit(
         @Body request: CreateCreditRequest,
-        @Header("Authorization") accessToken: String
+        @Header("Authorization") accessToken: String //"Bearer $accessToken"
     ): Response<CreateCreditResponse>
 
     @GET("/products")
     suspend fun getProducts(
         @Query("user_id") userId: Long,
-        @Header("Authorization") accessToken: String
+        @Header("Authorization") accessToken: String //"Bearer $accessToken"
     ): Response<ProductsResponse>
+
 }
