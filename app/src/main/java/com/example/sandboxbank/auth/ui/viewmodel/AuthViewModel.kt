@@ -1,10 +1,10 @@
-package com.example.sandboxbank.ui.auth.viewmodel
+package com.example.sandboxbank.auth.ui.viewmodel
 
 import com.example.sandboxbank.R
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.sandboxbank.domain.api.auth.AuthIterator
-import com.example.sandboxbank.domain.model.ResultAuthState
+import com.example.sandboxbank.auth.domain.api.AuthIteractor
+import com.example.sandboxbank.auth.domain.model.ResultAuthState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class AuthViewModel (
-    private val authIterator: AuthIterator
+    private val authIterator: AuthIteractor
 ) : ViewModel()
 {
     private val _authState = MutableStateFlow<ResultAuthState<String>?>(null)
