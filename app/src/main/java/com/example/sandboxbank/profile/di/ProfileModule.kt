@@ -1,19 +1,17 @@
 package com.example.sandboxbank.profile.di
 
-import com.example.sandboxbank.profile.domain.ProfileScreenViewModel
+import android.content.SharedPreferences
+import com.example.sandboxbank.di.annotations.EncryptedPref
+import com.example.sandboxbank.profile.domain.SettingStoreManager
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
-
 
 @Module
-class ProfileModule {
+object ProfileModule {
 
-    @Singleton
     @Provides
-    fun provideSettingScreenViewModel(): ProfileScreenViewModel {
-        return ProfileScreenViewModel()
+    fun provideSettingStoreManager(@EncryptedPref prefs: SharedPreferences): SettingStoreManager {
+        return SettingStoreManager(prefs)
     }
-
 
 }

@@ -20,6 +20,8 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,17 +33,43 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.sandboxbank.mode.LightColorPalette
+import com.example.sandboxbank.profile.data.Language
+import com.example.sandboxbank.profile.data.ProfileState
+import com.example.sandboxbank.profile.domain.ProfileScreenViewModel
 
 
 @Composable
-fun ProfileScreen(){
-    ComposeSetting()
+fun ProfileScreen(viewModel: ProfileScreenViewModel){
+    ComposeSetting(viewModel)
 }
 
 
 @Composable
-fun ComposeSetting() {
+fun ComposeSetting(viewModel: ProfileScreenViewModel) {
+    val settingState = viewModel.profileState.collectAsState()
+    var theme by remember { mutableStateOf(false) }
+    var language by remember { mutableStateOf(false) }
+
+    LaunchedEffect(settingState) {
+        println(settingState.value)
+        when(settingState.value){
+            is ProfileState.CurrentSets -> {
+                theme = (settingState.value as ProfileState.CurrentSets).isDark
+                when((settingState.value as ProfileState.CurrentSets).language) {
+                    Language.RUS -> language = false
+                    Language.ENG -> language = true
+                }
+            }
+            is ProfileState.Language ->{
+                language = (settingState.value as ProfileState.Language).isEng
+            }
+
+            is ProfileState.Theme -> theme = (settingState.value as ProfileState.Theme).isDark
+        }
+    }
+
     val context = LocalContext.current
     Column(){
         Row(modifier = Modifier.padding(top = 20.dp)){
@@ -82,12 +110,11 @@ fun ComposeSetting() {
                         text = "Смена темы: светлый/темный",
                         fontWeight = FontWeight.Bold
                     )
-                    var checked1 by remember { mutableStateOf(false) }
 
                     Switch(
-                        checked = checked1,
+                        checked = theme,
                         onCheckedChange = {
-                            checked1 = it
+                            theme = it
                         })
                 }
                 Row(
@@ -100,12 +127,11 @@ fun ComposeSetting() {
                         text = "Смена языка: английский/русский",
                         fontWeight = FontWeight.Bold
                     )
-                    var checked2 by remember { mutableStateOf(false) }
 
                     Switch(
-                        checked = checked2,
+                        checked = language,
                         onCheckedChange = {
-                            checked2 = it
+                            language = it
                         })
                 }
             }

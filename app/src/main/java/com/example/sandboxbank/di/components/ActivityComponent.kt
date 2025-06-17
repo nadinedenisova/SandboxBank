@@ -8,6 +8,7 @@ import com.example.sandboxbank.di.modules.PinCodeModule
 import com.example.sandboxbank.di.modules.ViewModelFactoryModule
 import com.example.sandboxbank.di.modules.ViewModelModule
 import com.example.sandboxbank.pinCode.PinCodeViewModel
+import com.example.sandboxbank.profile.di.ProfileModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Subcomponent
@@ -18,6 +19,7 @@ import dagger.Subcomponent
         ViewModelFactoryModule::class,
         PinCodeModule::class,
         ViewModelModule::class,
+        ProfileModule::class,
     ]
 )
 
