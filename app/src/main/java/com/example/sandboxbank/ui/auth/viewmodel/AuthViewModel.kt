@@ -4,7 +4,7 @@ import com.example.sandboxbank.R
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sandboxbank.domain.api.auth.AuthIterator
-import com.example.sandboxbank.domain.model.ResultState
+import com.example.sandboxbank.domain.model.ResultAuthState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,11 +16,8 @@ class AuthViewModel (
     private val authIterator: AuthIterator
 ) : ViewModel()
 {
-    private val _registerState = MutableStateFlow<Result<String>?>(null)
-    val registerState: StateFlow<Result<String>?> = _registerState
-
-    private val _loginState = MutableStateFlow<ResultState<String>?>(null)
-    val loginState: StateFlow<ResultState<String>?> = _loginState
+    private val _authState = MutableStateFlow<ResultAuthState<String>?>(null)
+    val authState: StateFlow<ResultAuthState<String>?> = _authState
 
     private var failedAttempts = 0
     private val _isLoginButtonEnabled = MutableStateFlow(true)
@@ -30,7 +27,7 @@ class AuthViewModel (
         viewModelScope.launch {
             authIterator.registerUser(email, password)
                 .onEach { result ->
-                    _registerState.value = result
+                    _authState.value = result
                 }
                 .collect{ }
         }
@@ -38,24 +35,24 @@ class AuthViewModel (
 
     fun login(email: String, password: String) {
         if (!_isLoginButtonEnabled.value) {
-            _loginState.value = ResultState.Error(R.string.repeat_again.toString())
+            _authState.value = ResultAuthState.Error(R.string.repeat_again.toString())
             return
         }
 
         viewModelScope.launch {
-            _loginState.value = ResultState.Loading
+            _authState.value = ResultAuthState.Loading
 
             authIterator.loginUser(email, password)
                 .catch { e ->
-                    _loginState.value = ResultState.Error("Ошибка: ${e.message}")
+                    _authState.value = ResultAuthState.Error("Ошибка: ${e.message}")
                 }
                 .collect { result ->
                     when (result) {
-                        is ResultState.Success<String> -> {
+                        is ResultAuthState.Success<String> -> {
                             failedAttempts = 0
-                            _loginState.value = ResultState.Success(result.data)
+                            _authState.value = ResultAuthState.Success(result.data)
                         }
-                        is ResultState.Error -> {
+                        is ResultAuthState.Error -> {
                             failedAttempts++
                             if (failedAttempts >= 5) {
                                 _isLoginButtonEnabled.value = false
@@ -65,10 +62,10 @@ class AuthViewModel (
                                     failedAttempts = 0
                                 }
                             }
-                            _loginState.value = ResultState.Error(result.message)
+                            _authState.value = ResultAuthState.Error(result.message)
                         }
                         else -> {
-                            _loginState.value = ResultState.Loading
+                            _authState.value = ResultAuthState.Loading
                         }
                     }
                 }
