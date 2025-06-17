@@ -1,5 +1,6 @@
 package com.example.sandboxbank.ui.auth.viewmodel
 
+import com.example.sandboxbank.R
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sandboxbank.domain.api.auth.AuthIterator
@@ -37,7 +38,7 @@ class AuthViewModel (
 
     fun login(email: String, password: String) {
         if (!_isLoginButtonEnabled.value) {
-            _loginState.value = ResultState.Error("Попробуйте снова через 5 минут")
+            _loginState.value = ResultState.Error(R.string.repeat_again.toString())
             return
         }
 
@@ -46,7 +47,7 @@ class AuthViewModel (
 
             authIterator.loginUser(email, password)
                 .catch { e ->
-                    _loginState.value = ResultState.Error("Ошибка сети: ${e.message}")
+                    _loginState.value = ResultState.Error("Ошибка: ${e.message}")
                 }
                 .collect { result ->
                     when (result) {
