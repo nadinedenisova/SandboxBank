@@ -1,11 +1,18 @@
-package com.example.sandboxbank.domain.api.auth
+package com.example.sandboxbank.auth.domain.api
 
-import com.example.sandboxbank.domain.model.ResultAuthState
+
+import com.example.sandboxbank.auth.domain.model.ResultAuthState
 import kotlinx.coroutines.flow.Flow
 
-interface AuthIterator {
+interface AuthRepository {
 
     fun registerUser(email: String, password: String): Flow<ResultAuthState<String>>
     fun loginUser(email: String, password: String): Flow<ResultAuthState<String>>
 
 }
+
+
+
+
+
+

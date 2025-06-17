@@ -1,4 +1,4 @@
-package com.example.sandboxbank.domain.model
+package com.example.sandboxbank.auth.domain.model
 
 sealed class ResultAuthState<out T> {
     data class Success<out T>(val data: T) : ResultAuthState<T>()
