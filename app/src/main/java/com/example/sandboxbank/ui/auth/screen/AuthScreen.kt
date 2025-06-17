@@ -35,7 +35,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.sandboxbank.domain.model.ResultState
+import com.example.sandboxbank.domain.model.ResultAuthState
 import com.example.sandboxbank.mode.LightColorPalette
 import com.example.sandboxbank.ui.auth.viewmodel.AuthViewModel
 
@@ -45,8 +45,6 @@ fun AuthScreen(
     viewModel: AuthViewModel = viewModel(), onLoginSuccess: () -> Unit,
     onNavigateToRegistration: () -> Unit
 ) {
-
-
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
@@ -54,14 +52,14 @@ fun AuthScreen(
     var passwordError by remember { mutableStateOf(false) }
 
     val isFormValid = email.isNotBlank() && password.length >= 6
-    val loginState by viewModel.loginState.collectAsState()
+    val loginState by viewModel.authState.collectAsState()
 
     var errorMessage = remember(loginState) {
-        if (loginState is ResultState.Error) (loginState as ResultState.Error).message else null
+        if (loginState is ResultAuthState.Error) (loginState as ResultAuthState.Error).message else null
     }
 
     LaunchedEffect(loginState) {
-        if (loginState is ResultState.Success) {
+        if (loginState is ResultAuthState.Success) {
             onLoginSuccess()
         }
     }
