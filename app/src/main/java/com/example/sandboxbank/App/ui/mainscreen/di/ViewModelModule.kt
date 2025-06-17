@@ -7,7 +7,7 @@ import dagger.Provides
 @Module
 class ViewModelModule {
     @Provides
-    fun provideMainScreenViewModel(): com.example.sandboxbank.App.ui.mainscreen.domain.MainScreenViewModel {
-        return com.example.sandboxbank.App.ui.mainscreen.domain.MainScreenViewModel()
+    fun provideMainScreenViewModel(): MainScreenViewModel {
+        return MainScreenViewModel()
     }
 }

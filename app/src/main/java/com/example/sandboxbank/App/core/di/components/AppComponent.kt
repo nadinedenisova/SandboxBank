@@ -6,8 +6,7 @@ import com.example.sandboxbank.App.core.CoreAppModule
 import com.example.sandboxbank.App.core.di.annotations.ApplicationScope
 import com.example.sandboxbank.App.core.di.annotations.BaseUrl
 import com.example.sandboxbank.App.core.di.annotations.PrefsKey
-import com.example.sandboxbank.ui.mainscreen.di.ViewModelModule
-import com.example.sandboxbank.App.ui.mainscreen.domain.MainScreenViewModel
+import com.example.sandboxbank.App.ui.mainscreen.di.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
 
