@@ -9,7 +9,7 @@ import com.example.sandboxbank.App.core.di.annotations.PrefsKey
 import com.example.sandboxbank.App.ui.debitcards.debit.di.ViewModelModuleCardScreen
 import com.example.sandboxbank.App.ui.mainscreen.di.ViewModelModule
 import com.example.sandboxbank.HostActivity
-
+import com.example.sandboxbank.App.ui.mainscreen.di.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
 

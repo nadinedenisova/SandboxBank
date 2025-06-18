@@ -30,7 +30,8 @@ fun NavGraph(
             TransfersScreen()
         }
         composable(route = Routes.Profile.name) {
-            ProfileScreen()
+//            ProfileScreen()
+            SettingScreen()
         }
     }
 }
