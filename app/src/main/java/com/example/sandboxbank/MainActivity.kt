@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.sandboxbank.App.App
 import com.example.sandboxbank.di.ViewModelFactory
 import com.example.sandboxbank.pinCode.ui.PinCodeScreen
+import com.example.sandboxbank.ui.auth.AuthScreen
 import javax.inject.Inject
 
 
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
             LocalViewModelFactoryProvider(viewModelProviderFactory) {
-                PinCodeScreen()
+                AuthScreen({}, {})
             }
         }
     }

@@ -1,17 +1,18 @@
 package com.example.sandboxbank.data.repository.api
 
-import com.example.sandboxbank.data.dto.login.LoginRequest
-import com.example.sandboxbank.data.dto.login.LoginResponse
-import com.example.sandboxbank.data.dto.register.RegisterRequest
-import com.example.sandboxbank.data.dto.register.RegisterResponse
+import com.example.sandboxbank.auth.data.dto.LoginRequest
+import com.example.sandboxbank.auth.data.dto.RegisterRequest
+import com.example.sandboxbank.auth.data.network.api.NetworkClient
+import com.example.sandboxbank.auth.domain.model.ResultAuthState
 import javax.inject.Inject
 
 class NetworkClientImpl @Inject constructor() : NetworkClient {
-    override suspend fun register(registerRequest: RegisterRequest): RegisterResponse {
+    override suspend fun register(registerRequest: RegisterRequest): ResultAuthState<String> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun login(loginRequest: LoginRequest): LoginResponse {
+    override suspend fun login(loginRequest: LoginRequest): ResultAuthState<String> {
         TODO("Not yet implemented")
     }
+
 }

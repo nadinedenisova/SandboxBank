@@ -34,7 +34,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.example.sandboxbank.domain.model.ResultAuthState
+import com.example.sandboxbank.auth.domain.model.ResultAuthState
 import com.example.sandboxbank.mode.LightColorPalette
 import com.example.sandboxbank.ui.auth.viewmodel.AuthViewModel
 import com.example.sandboxbank.viewModel
@@ -58,7 +58,7 @@ fun AuthScreen(
 
     var errorMessage = when {
         !isLoginButtonEnabled -> stringResource(R.string.repeat_again)
-        loginState is ResultAuthState.Error -> stringResource(R.string.error)
+        loginState is ResultAuthState.Error -> stringResource(R.string.auth_error)
         else -> null
     }
 

@@ -1,6 +1,6 @@
 package com.example.sandboxbank.di.modules
 
-import com.example.sandboxbank.data.storage.SecureStorage
+import com.example.sandboxbank.auth.data.storage.SecureStorage
 import dagger.Module
 import dagger.Provides
 
