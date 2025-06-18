@@ -11,11 +11,11 @@ import javax.inject.Inject
 class AuthIteractorImpl@Inject constructor(
     private val repository: AuthRepository
 ): AuthIteractor {
-    override fun registerUser(email: String, password: String): Flow<ResultAuthState<String>> = flow {
+    override fun registerUser(email: String, password: String): Flow<ResultAuthState<Unit>> = flow {
         repository.registerUser(email, password)
     }
 
-    override fun loginUser(email: String, password: String): Flow<ResultAuthState<String>> = flow {
+    override fun loginUser(email: String, password: String): Flow<ResultAuthState<Unit>> = flow {
         repository.loginUser(email, password)
     }
 }

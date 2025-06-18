@@ -1,6 +1,5 @@
 package com.example.sandboxbank.auth.ui.viewmodel
 
-import com.example.sandboxbank.R
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sandboxbank.auth.domain.api.AuthIteractor
@@ -11,13 +10,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AuthViewModel (
+class AuthViewModel @Inject constructor (
     private val authIterator: AuthIteractor
 ) : ViewModel()
 {
-    private val _authState = MutableStateFlow<ResultAuthState<String>?>(null)
-    val authState: StateFlow<ResultAuthState<String>?> = _authState
+    private val _authState = MutableStateFlow<ResultAuthState<Unit>?>(null)
+    val authState: StateFlow<ResultAuthState<Unit>?> = _authState
 
     private var failedAttempts = 0
     private val _isLoginButtonEnabled = MutableStateFlow(true)
@@ -35,7 +35,7 @@ class AuthViewModel (
 
     fun login(email: String, password: String) {
         if (!_isLoginButtonEnabled.value) {
-            _authState.value = ResultAuthState.Error(R.string.repeat_again.toString())
+            _authState.value = ResultAuthState.Error(Unit.toString())
             return
         }
 
@@ -44,13 +44,13 @@ class AuthViewModel (
 
             authIterator.loginUser(email, password)
                 .catch { e ->
-                    _authState.value = ResultAuthState.Error("Ошибка: ${e.message}")
+                    _authState.value = ResultAuthState.Error(Unit.toString())
                 }
                 .collect { result ->
                     when (result) {
-                        is ResultAuthState.Success<String> -> {
+                        is ResultAuthState.Success -> {
                             failedAttempts = 0
-                            _authState.value = ResultAuthState.Success(result.data)
+                            _authState.value = ResultAuthState.Success(Unit)
                         }
                         is ResultAuthState.Error -> {
                             failedAttempts++
@@ -62,7 +62,7 @@ class AuthViewModel (
                                     failedAttempts = 0
                                 }
                             }
-                            _authState.value = ResultAuthState.Error(result.message)
+                            _authState.value = ResultAuthState.Error(Unit.toString())
                         }
                         else -> {
                             _authState.value = ResultAuthState.Loading
