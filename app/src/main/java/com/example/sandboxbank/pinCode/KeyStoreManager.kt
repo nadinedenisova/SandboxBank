@@ -1,7 +1,7 @@
 package com.example.sandboxbank.pinCode
 
 import android.content.SharedPreferences
-import com.example.sandboxbank.di.annotations.EncryptedPref
+import com.example.sandboxbank.App.core.di.annotations.EncryptedPref
 import javax.inject.Inject
 
 class KeyStoreManager @Inject constructor(

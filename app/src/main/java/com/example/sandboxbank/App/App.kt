@@ -2,10 +2,10 @@ package com.example.sandboxbank.App
 
 import android.app.Application
 import android.content.Context
-import com.example.sandboxbank.di.components.ActivityComponent
-import com.example.sandboxbank.di.components.AppComponent
-import com.example.sandboxbank.di.components.ComponentContainer
-import com.example.sandboxbank.di.components.DaggerAppComponent
+import com.example.sandboxbank.App.core.di.components.ActivityComponent
+import com.example.sandboxbank.App.core.di.components.AppComponent
+import com.example.sandboxbank.App.core.di.components.DaggerAppComponent
+import com.example.sandboxbank.App.core.di.components.ComponentContainer
 
 private const val APP_PREFERENCES = "app_preferences"
 
