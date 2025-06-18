@@ -9,4 +9,10 @@
     <string name="hint_six_symbols" translatable="false">Не менее 6 символов</string>
     <string name="repeat_again" translatable="false">Попробуйте снова через 5 минут</string>
     <string name="auth_error" translatable="false">Ошибка</string>
+    <string name="increase_deposit" translatable="false">Пополнение вклада</string>
+    <string name="increase_button_deposit" translatable="false">Пополнить</string>
+    <string name="income_deposit" translatable="false">Счёт пополнения</string>
+    <string name="outcome_deposit" translatable="false">Счёт списания</string>
+    <string name="sum_deposit" translatable="false">Сумма</string>
+    <string name="sum_symbol_deposit" translatable="false">₽</string>
 </resources>
