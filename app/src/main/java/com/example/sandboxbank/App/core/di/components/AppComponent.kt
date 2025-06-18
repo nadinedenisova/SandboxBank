@@ -6,8 +6,10 @@ import com.example.sandboxbank.App.core.CoreAppModule
 import com.example.sandboxbank.App.core.di.annotations.ApplicationScope
 import com.example.sandboxbank.App.core.di.annotations.BaseUrl
 import com.example.sandboxbank.App.core.di.annotations.PrefsKey
-import com.example.sandboxbank.ui.mainscreen.di.ViewModelModule
-import com.example.sandboxbank.App.ui.mainscreen.domain.MainScreenViewModel
+import com.example.sandboxbank.App.ui.debitcards.debit.di.ViewModelModuleCardScreen
+import com.example.sandboxbank.App.ui.mainscreen.di.ViewModelModule
+import com.example.sandboxbank.HostActivity
+
 import dagger.BindsInstance
 import dagger.Component
 
@@ -15,12 +17,18 @@ import dagger.Component
 @Component(
     modules = [
         CoreAppModule::class,
-        ViewModelModule::class
+        ViewModelModule::class,
+        ViewModelModuleCardScreen::class,
     ]
 )
 
 interface AppComponent {
     fun inject(app: App)
+
+
+    // Inject для проверки работы экранов и систем
+    fun inject(hostActivity: HostActivity)
+
 
     fun getMainScreenViewModel(): com.example.sandboxbank.App.ui.mainscreen.domain.MainScreenViewModel
 

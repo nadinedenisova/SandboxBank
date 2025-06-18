@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.sandboxbank.ui.mainscreen.data.Routes
+import com.example.sandboxbank.App.ui.mainscreen.data.Routes
 
 @Composable
 fun NavGraph(

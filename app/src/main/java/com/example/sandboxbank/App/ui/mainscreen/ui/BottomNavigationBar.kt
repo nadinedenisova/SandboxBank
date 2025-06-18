@@ -9,7 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.sandboxbank.ui.mainscreen.data.Routes
+import com.example.sandboxbank.App.ui.mainscreen.data.Routes
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {

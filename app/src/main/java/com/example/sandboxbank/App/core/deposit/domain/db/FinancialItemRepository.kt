@@ -19,4 +19,6 @@ interface FinancialItemRepository {
     fun getAllDeposits(): Flow<List<FinancialItem>>
 
     fun getAllCredits(): Flow<List<FinancialItem>>
+
+
 }

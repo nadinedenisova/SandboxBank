@@ -37,5 +37,4 @@ class FinancialItemDbConverter {
             else -> throw IllegalArgumentException("Unknown financial item type: ${financialItem.type}")
         }
     }
-
 }
