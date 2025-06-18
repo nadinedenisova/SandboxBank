@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthIteractor {
 
-    fun registerUser(email: String, password: String): Flow<ResultAuthState<String>>
-    fun loginUser(email: String, password: String): Flow<ResultAuthState<String>>
+    fun registerUser(email: String, password: String): Flow<ResultAuthState<Unit>>
+    fun loginUser(email: String, password: String): Flow<ResultAuthState<Unit>>
 
 }

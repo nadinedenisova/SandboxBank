@@ -53,9 +53,12 @@ fun AuthScreen(
 
     val isFormValid = email.isNotBlank() && password.length >= 6
     val loginState by viewModel.authState.collectAsState()
+    val isLoginButtonEnabled by viewModel.isLoginButtonEnabled.collectAsState()
 
-    var errorMessage = remember(loginState) {
-        if (loginState is ResultAuthState.Error) (loginState as ResultAuthState.Error).message else null
+    var errorMessage = when {
+        !isLoginButtonEnabled -> stringResource(R.string.repeat_again)
+        loginState is ResultAuthState.Error -> stringResource(R.string.auth_error)
+        else -> null
     }
 
     LaunchedEffect(loginState) {
