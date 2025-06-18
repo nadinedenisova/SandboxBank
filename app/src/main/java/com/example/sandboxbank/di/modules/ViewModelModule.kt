@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.sandboxbank.di.annotations.ViewModelKey
 import com.example.sandboxbank.mainscreen.domain.MainScreenViewModel
 import com.example.sandboxbank.pinCode.PinCodeViewModel
+import com.example.sandboxbank.ui.auth.viewmodel.AuthViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -19,4 +20,9 @@ interface ViewModelModule {
     @ViewModelKey(MainScreenViewModel::class)
     @Binds
     fun bindMainScreenViewModel(mainScreenViewModel: MainScreenViewModel): ViewModel
+
+    @IntoMap
+    @ViewModelKey(AuthViewModel::class)
+    @Binds
+    fun bindAuthViewModel(authViewModel: AuthViewModel): ViewModel
 }

@@ -4,7 +4,10 @@ import android.content.Context
 import com.example.sandboxbank.MainActivity
 import com.example.sandboxbank.di.annotations.ActivityContext
 import com.example.sandboxbank.di.annotations.ActivityScope
+import com.example.sandboxbank.di.modules.AuthModule
+import com.example.sandboxbank.di.modules.NetworkModule
 import com.example.sandboxbank.di.modules.PinCodeModule
+import com.example.sandboxbank.di.modules.StorageModule
 import com.example.sandboxbank.di.modules.ViewModelFactoryModule
 import com.example.sandboxbank.di.modules.ViewModelModule
 import com.example.sandboxbank.pinCode.PinCodeViewModel
@@ -18,6 +21,9 @@ import dagger.Subcomponent
         ViewModelFactoryModule::class,
         PinCodeModule::class,
         ViewModelModule::class,
+        AuthModule::class,
+        NetworkModule::class,
+        StorageModule::class,
     ]
 )
 
