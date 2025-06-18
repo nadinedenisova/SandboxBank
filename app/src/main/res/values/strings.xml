@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">SandboxBank</string>
+    <string name="auth" translatable="false">Авторизация</string>
+    <string name="registration" translatable="false">Регистрация</string>
+    <string name="password" translatable="false">Пароль</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="enter" translatable="false">Вход</string>
+    <string name="wrong_pwd_email" translatable="false">Неверно введён пароль или email</string>
+    <string name="hint_six_symbols" translatable="false">Не менее 6 символов</string>
+    <string name="repeat_again" translatable="false">Попробуйте снова через 5 минут</string>
+    <string name="auth_error" translatable="false">Ошибка</string>
+</resources>
