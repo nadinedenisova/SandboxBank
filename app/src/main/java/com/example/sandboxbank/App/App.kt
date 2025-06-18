@@ -2,16 +2,16 @@ package com.example.sandboxbank.App
 
 import android.app.Application
 import android.content.Context
+import com.example.sandboxbank.App.core.di.components.ActivityComponent
 import com.example.sandboxbank.App.core.di.components.AppComponent
 import com.example.sandboxbank.App.core.di.components.DaggerAppComponent
-
-//import com.example.sandboxbank.App.core.di.components
+import com.example.sandboxbank.App.core.di.components.ComponentContainer
 
 private const val APP_PREFERENCES = "app_preferences"
 
-class App: Application() {
+class App : Application(), ComponentContainer {
 
-    val component by lazy(LazyThreadSafetyMode.NONE) {
+    override val appComponent by lazy(LazyThreadSafetyMode.NONE) {
         DaggerAppComponent.factory()
             .create(
                 context = this,
@@ -20,14 +20,45 @@ class App: Application() {
             )
     }
 
+    private var _activityComponent: ActivityComponent? = null
+
+    override fun createActivityComponent(context: Context) {
+        _activityComponent = appComponent
+            .provideActivityComponent()
+            .context(context)
+            .build()
+    }
+
+    override fun releaseActivityComponent() {
+        _activityComponent = null
+    }
+
+    override val activityComponent: ActivityComponent
+        get() = _activityComponent
+            ?: error("ActivityComponent не создан. Сначала вызови createActivityComponent(context)")
+
+
     override fun onCreate() {
-        component.inject(this)
+        applicationInstance = this
+        appComponent.inject(this)
         super.onCreate()
+    }
+
+
+
+    companion object {
+
+        lateinit var applicationInstance: App
+            private set
+
+        @JvmStatic
+        val componentsContainer: ComponentContainer
+            get() = applicationInstance
     }
 }
 
-val Context.appComponent: AppComponent
+val Context.appContext: AppComponent
     get() = when(this){
-        is App -> component
-        else -> this.applicationContext.appComponent
+        is App -> appComponent
+        else -> (this.applicationContext as App).appComponent
     }

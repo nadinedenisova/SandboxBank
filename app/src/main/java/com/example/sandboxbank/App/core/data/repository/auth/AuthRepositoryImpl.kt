@@ -1,6 +1,5 @@
 package com.example.sandboxbank.App.core.data.repository.auth
 
-import com.example.sandboxbank.App.core.data.dto.login.LoginRequest
 import com.example.sandboxbank.App.core.data.dto.register.RegisterRequest
 import com.example.sandboxbank.App.core.data.repository.api.NetworkClient
 import com.example.sandboxbank.App.core.data.storage.SecureStorage

@@ -1,34 +1,34 @@
 <resources>
     <string name="app_name">SandboxBank</string>
-    « debit-credit-card »
+    <!-- debit-credit-card -->
 
-    «  Repository Card  »
+    <!--  Repository Card  -->
 
-    <string name="maximum_card">Максимум 5 карт</string>
+    <string name="maximum_card" translatable="false">Максимум 5 карт</string>
 
-    «  Card View  »
+    <!--  Card View  -->
 
-    <string name="card_bank_title">SandboxBank</string>
-    <string name="one_million_rouble">1 000 000Р</string>
+    <string name="card_bank_title" translatable="false">SandboxBank</string>
+    <string name="one_million_rouble" translatable="false">1 000 000Р</string>
 
 
-    «  Success Card Dialog  »
+    <!--  Success Card Dialog  -->
 
-    <string name="card_success_title">"Карта успешно оформлена"</string>
-    <string name="clossed">Закрыть</string>
+    <string name="card_success_title" translatable="false">"Карта успешно оформлена"</string>
+    <string name="clossed" translatable="false">Закрыть</string>
 
-    «  Debit Card Screen  »
+    <!-- Debit Card Screen -->
 
-    <string name="cards">Карты</string>
-    <string name="virtual_card_bank_debit">"Виртуальная дебетовая карта SandboxBank"</string>
-    <string name="design_debit_card">"Оформить виртуальную карту"</string>
-    <string name="maximum_5_cards">Можно открыть только 5 карт.
+    <string name="cards" translatable="false">Карты</string>
+    <string name="virtual_card_bank_debit" translatable="false">"Виртуальная дебетовая карта SandboxBank"</string>
+    <string name="design_debit_card" translatable="false">"Оформить виртуальную карту"</string>
+    <string name="maximum_5_cards" translatable="false">Можно открыть только 5 карт.
            Чтобы открыть новую, необходимо закрыть предыдущую карту.</string>
-    <string name="release_and_service">Выпуск и обслуживание</string>
-    <string name="free">Бесплатно</string>
-    <string name="cashback_30">Кэшбек до 30%</string>
-    <string name="cashback_30_value">"Получайте супер кэшбэк рублями каждый месяц и бесплатно снимайте наличные в любых банкоматах"</string>
-    <string name="pay_Qr">Платите через SandBox Pay или по QR-коду</string>
+    <string name="release_and_service" translatable="false">Выпуск и обслуживание</string>
+    <string name="free" translatable="false">Бесплатно</string>
+    <string name="cashback_30" translatable="false">Кэшбек до 30%</string>
+    <string name="cashback_30_value" translatable="false">"Получайте супер кэшбэк рублями каждый месяц и бесплатно снимайте наличные в любых банкоматах"</string>
+    <string name="pay_Qr" translatable="false">Платите через SandBox Pay или по QR-коду</string>
 
     <string name="auth" translatable="false">Авторизация</string>
     <string name="registration" translatable="false">Регистрация</string>
@@ -37,5 +37,6 @@
     <string name="enter" translatable="false">Вход</string>
     <string name="wrong_pwd_email" translatable="false">Неверно введён пароль или email</string>
     <string name="hint_six_symbols" translatable="false">Не менее 6 символов</string>
-
+    <string name="repeat_again" translatable="false">Попробуйте снова через 5 минут</string>
+    <string name="auth_error" translatable="false">Ошибка</string>
 </resources>
