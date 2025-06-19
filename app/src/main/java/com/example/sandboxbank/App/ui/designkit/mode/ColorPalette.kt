@@ -4,7 +4,8 @@ import androidx.compose.ui.graphics.Color
 
 object LightColorPalette {
     // Основные цвета
-    val primary = Color(0xFF65558F)            // (Основной фон) Кнопка, текст в outline кнопке
+    val primary = Color(0xFF65558F)// (Основной фон) Кнопка, текст в outline кнопке
+    val primary2 = Color(0xFF65558F) // Кнопка на экране Дебитовой и кредитной карты
     val primaryFixedVariant = Color(0xFF4F378B)     // Заголовоки
     val primaryInverce = Color(0xFF6750A4)     // Кнопка стереть в пинкоде, сумма вкладов, сроки кроедитов с вкладами
     val secondary = Color(0xFF625B71)           // ввод пинкода, иконки
@@ -52,7 +53,7 @@ object DarkColorPalette {
     // Основные цвета
     val primary = Color(0xFF65558F)     //выделенное поле ввода экрана авторизации, текст в главном меню
     val primary1 = Color(0xFF6B548D)    //активный переключатель
-    val primary2 = Color(0xFFD0BCFE)
+    val primary2 = Color(0xFFD0BCFE)    // Кнопка на экране Дебитовой и кредитной карты
 
     val primary3 = Color(0xFFD3C1FF)    //Кнопка обновить приложение
     val onPrimary3 = Color(0xFFD3C1FF)    //Текст кнопки обновить приложение
