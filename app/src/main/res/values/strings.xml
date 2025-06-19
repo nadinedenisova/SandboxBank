@@ -50,4 +50,12 @@
     <string name="rouble_symbol" translatable="false">₽</string>
     <string name="interest_rate" translatable="false">Ставка %1$.1f%% годовых</string>
 
+    <!-- Кредит -->
+
+    <string name="credit" translatable="false">Кредит</string>
+    <string name="credit_operations" translatable="false">Необходимо внести</string>
+    <string name="credit_graph" translatable="false">График платежей</string>
+    <string name="credit_add_money" translatable="false">Внести платёж</string>
+    <string name="credit_close" translatable="false">Закрыть</string>
+
 </resources>

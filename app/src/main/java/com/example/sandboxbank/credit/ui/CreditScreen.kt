@@ -1,4 +1,4 @@
-package com.example.sandboxbank.deposit.ui
+package com.example.sandboxbank.credit.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,12 +17,13 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.sandboxbank.App.core.deposit.data.db.FinancialType
-import com.example.sandboxbank.App.core.deposit.domain.model.Deposit
+import com.example.sandboxbank.App.core.deposit.domain.model.Credit
 import com.example.sandboxbank.App.ui.financialitem.FinancialItemActionButton
 import com.example.sandboxbank.App.ui.financialitem.FinancialItemActionRow
 import com.example.sandboxbank.App.ui.financialitem.FinancialItemInfoCard
@@ -30,7 +31,7 @@ import com.example.sandboxbank.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DepositScreen(deposit: Deposit) {
+fun CreditScreen(credit: Credit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -41,7 +42,7 @@ fun DepositScreen(deposit: Deposit) {
                             contentDescription = "",
                             tint = MaterialTheme.colorScheme.onSurface,
                         )
-                }},
+                    }},
 
                 title = { Text(
                     text = stringResource(R.string.deposit),
@@ -50,8 +51,9 @@ fun DepositScreen(deposit: Deposit) {
                     )
                 ) },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                    containerColor = Color(0xFFFEF7FF)
                 ),
+
             )
         }
     ) { innerPadding ->
@@ -62,7 +64,7 @@ fun DepositScreen(deposit: Deposit) {
                 .background(MaterialTheme.colorScheme.background)
         ) {
             // Блок с названием вклада и суммой
-            FinancialItemInfoCard(deposit)
+            FinancialItemInfoCard(credit)
             // Кнопки действий
             Row(
                 modifier = Modifier
@@ -71,36 +73,36 @@ fun DepositScreen(deposit: Deposit) {
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 FinancialItemActionButton(
-                    text = stringResource(R.string.deposit_add_money),
+                    text = stringResource(R.string.credit_add_money),
                     onClick = { /* Пополнение */ },
                     modifier = Modifier.weight(1f)
                 )
                 FinancialItemActionButton(
-                    text = stringResource(R.string.deposit_close),
-                    onClick = { /* Закрытие вклада */ },
+                    text = stringResource(R.string.credit_close),
+                    onClick = { /* Закрытие кредита */ },
                     modifier = Modifier.weight(1f))
             }
 
             /* операции по вкладу */
-            FinancialItemActionRow(iconId = R.drawable.icon_operations, text = stringResource(R.string.deposit_operations), onClick = {})
+            FinancialItemActionRow(iconId = R.drawable.credit_graph_icon, text = stringResource(R.string.credit_graph), onClick = {})
 
             /* начисленные проценты */
-            FinancialItemActionRow(iconId = R.drawable.icon_percent, text = stringResource(R.string.deposit_percent_list), onClick = {})
+            FinancialItemActionRow(iconId = R.drawable.icon_percent, text = stringResource(R.string.credit_operations), onClick = {})
         }
     }
 }
 
 @Composable
 @Preview
-fun DepositScreenPreview() {
-    DepositScreen(Deposit(
+fun CreditScreenPreview() {
+    CreditScreen(Credit(
         id = 123,
-        type = FinancialType.DEPOSIT.toStringValue(),
+        type = FinancialType.CREDIT.toStringValue(),
         openDate = 1234L,
-        percentRate = 8.5,
+        percentRate = 49.5,
         percentType = 2,
         period = 12,
         balance = 1234567.0,
-        name = "Вклад №1"
+        name = "Кредит №1"
     ))
 }
