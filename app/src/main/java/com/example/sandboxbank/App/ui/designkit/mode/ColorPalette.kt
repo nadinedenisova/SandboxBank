@@ -1,5 +1,7 @@
 package com.example.sandboxbank.App.ui.designkit.mode
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 object LightColorPalette {
@@ -15,8 +17,10 @@ object LightColorPalette {
     // Нейтральные цвета
     val background = Color(0xFFFFFFFF)          // Фон приложения
     val surface = Color(0xFFFEF7FF)             // Светлая поверхность, navigationbar
+    val surfaceContainer = Color(0xFFF2ECF4)
     val surfaceContainerHigh = Color(0xFFECE6F0)
     val surfaceContainerHighest = Color(0xFFE6E0E9) //неактивный переключатель
+    val surfaceContainerLowest = Color(0xFFFFFFFF)
     val inverseSurface = Color(0xFF322F35)      //slider value indicator
     val inverseOnSurface = Color(0xFFF5EFF7)      //slider value indicator
 
@@ -69,22 +73,23 @@ object DarkColorPalette {
     val secondaryContainer2 = Color(0xFF4A4458)           //фон неактивного слайдера
     val tertiaryFixedDim = Color(0xFFEFB8C8)         //Предупреждение на экране Карты, и цвет кнопки закрыть карту
     val onTertiaryFixedVariant = Color(0xFF633B48)  //цвет текста кнопки закрыть карту
-        val tertiary = Color(0xFFE2E2E2)            //обводка и текст кнопки Выход из аккаунта
+    val tertiary = Color(0xFFE2E2E2)            //обводка и текст кнопки Выход из аккаунта
     val onTertiary = Color(0xFF1A1C1C)          //кнопка Выход из аккаунта
 
     //
     //    // Нейтральные цвета
-        val surface = Color(0xFFFEF7FF)             // мой профиль меню 2
+    val surface = Color(0xFFFEF7FF)             // мой профиль меню 2
     val surface1 = Color(0xFF151218)
     //    val surfaceContainerHigh = Color(0xFFECE6F0)
     val onSurfaceContainerHighest = Color(0xFFE6E0E9) //неактивный переключатель, пункт меню, заголовок "Открытие вклада"
-    val onSurfaceContainerLowest = Color(0xFF0F0D13) //фон главного меню
+    val surfaceContainerLowest = Color(0xFF0F0D13) //фон главного меню
     val surfaceContainer = Color(0xFF211F26) //navigationbar, меню
     val surfaceContainer2 = Color(0xFFF2ECF4)    //Открыте вкладов окно начисления процентов
     val surfaceContainer1 = Color(0xFFE7E0E8) //мой профиль меню 1 заголовок
     val surfaceContainerHigh = Color(0xFF2B292F) //История операций, дебетовая, фон истории
     val surfaceContainerHigh1 = Color(0xFFEAE7EF) //История операций, фон заглушки "нет операций"
-    //    val inverseSurface = Color(0xFF322F35)      //slider value indicator
+    val surfaceContainerHigh2 = Color(0xFF2B2930) //Экран "оформление кредита". Заголовок "Условия"
+    val inverseSurface = Color(0xFF322F35)      //slider value indicator
     //    val inverseOnSurface = Color(0xFFF5EFF7)      //slider value indicator
     //    // val error = Color(0xFFB00020)               // Красный цвет для ошибок
     //    val onPrimary = Color(0xFFFFFFFF)            // Цвет текста на основном фоне
@@ -119,3 +124,14 @@ object DarkColorPalette {
     val dialogBackground = Color(0x79797980) //фон диалога
     val checkMarkcheckMark = Color(0xFF14AE5C)
 }
+
+@Composable
+fun selectColor(light: Color, dark: Color): Color{
+    return if (isSystemInDarkTheme()){
+        dark
+    } else {
+        light
+    }
+
+}
+
