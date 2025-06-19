@@ -34,12 +34,12 @@ import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
 import com.example.sandboxbank.R
 
 @Composable
-fun DepositScreen() {
-    DepositScreenContent()
+fun DepositTopUpScreen() {
+    DepositTopUpScreenContent()
 }
 
 @Composable
-fun DepositScreenContent() {
+fun DepositTopUpScreenContent() {
     Column(modifier = Modifier.fillMaxSize()) {
         TopBar()
         Column(
@@ -181,6 +181,6 @@ fun AccountCard(title: String, amount: String, subtitle: String) {
     }
 }
 
-data class DepositScreenUiState(
+data class DepositTopUpScreenUiState(
     val titleText: String,
 )

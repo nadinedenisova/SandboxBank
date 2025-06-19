@@ -1,6 +1,6 @@
 package com.example.sandboxbank.App.core.deposit.ui.model
 
-class DepositState(val screenType: DepositState.ScreenType) {
+class DepositTopUpState(val screenType: DepositTopUpState.ScreenType) {
     enum class ScreenType {
         SUCCESS
     }
