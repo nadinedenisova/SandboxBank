@@ -39,4 +39,11 @@
     <string name="hint_six_symbols" translatable="false">Не менее 6 символов</string>
     <string name="repeat_again" translatable="false">Попробуйте снова через 5 минут</string>
     <string name="auth_error" translatable="false">Ошибка</string>
+
+    <!-- Loan -->
+    <string name="loan_title" translatable="false">Кредиты</string>
+    <string name="loan_payment" translatable="false">Внести платеж</string>
+    <string name="loan_close" translatable="false">Закрыть</string>
+    <string name="loan_schedule" translatable="false">График платежей</string>
+    <string name="loan_required" translatable="false">Необходимо внести</string>
 </resources>
