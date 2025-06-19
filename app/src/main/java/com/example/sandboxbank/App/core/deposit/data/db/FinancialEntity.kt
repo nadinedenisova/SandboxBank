@@ -8,19 +8,11 @@ import androidx.room.PrimaryKey
 data class FinancialEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-
-    // Вклад / кредит
     val type: String,
-
-    // Дата открытия (Unix timestamp)
     val openDate: Long,
-
-    // Процентная ставка
+    val percentRate: Double,
     val percentType: Int,
-
-    // Срок в месяцах
     val period: Int,
-
-    // Остаток средств
-    val balance: Long
+    val balance: Long,
+    val name: String
 )

@@ -39,4 +39,15 @@
     <string name="hint_six_symbols" translatable="false">Не менее 6 символов</string>
     <string name="repeat_again" translatable="false">Попробуйте снова через 5 минут</string>
     <string name="auth_error" translatable="false">Ошибка</string>
+
+    <!-- Вклад -->
+
+    <string name="deposit" translatable="false">Вклад</string>
+    <string name="deposit_operations" translatable="false">Операции по вкладу</string>
+    <string name="deposit_percent_list" translatable="false">Начисленные проценты</string>
+    <string name="deposit_add_money" translatable="false">Пополнить вклад</string>
+    <string name="deposit_close" translatable="false">Закрыть</string>
+    <string name="rouble_symbol" translatable="false">₽</string>
+    <string name="interest_rate" translatable="false">Ставка %1$.1f%% годовых</string>
+
 </resources>
