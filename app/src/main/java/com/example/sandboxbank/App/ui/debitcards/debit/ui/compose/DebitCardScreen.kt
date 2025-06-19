@@ -15,21 +15,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.sandboxbank.App.ui.debitcards.debit.ui.compose.DebitCardUiState
+import com.example.sandboxbank.R
 import com.example.sandboxbank.App.ui.debitcards.debit.ui.compose.items.NoInternetDialog
 import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
 import com.example.sandboxbank.App.ui.designkit.mode.roboto
-import com.example.sandboxbank.R
-import com.example.sandboxbank.cardmanager.cards.debit.ui.CardState
 import com.example.sandboxbank.cardmanager.cards.debit.ui.compose.items.CardDescriptionItem
 import com.example.sandboxbank.cardmanager.cards.debit.ui.compose.items.CardView
 import com.example.sandboxbank.cardmanager.cards.debit.ui.compose.items.SuccessCardDialog
 
 @Composable
 fun DebitCardScreen(
-    state: CardState,
+    uiState: DebitCardUiState,
     onCreateCardClick: () -> Unit,
     onBackClick: () -> Unit,
     onDismissSuccessDialog: () -> Unit,
@@ -37,8 +36,8 @@ fun DebitCardScreen(
 ) {
     var showSuccessDialog by remember { mutableStateOf(false) }
 
-    LaunchedEffect(state.card) {
-        if (state.card != null) {
+    LaunchedEffect(uiState.isCardCreated) {
+        if (uiState.isCardCreated) {
             showSuccessDialog = true
         }
     }
@@ -68,7 +67,6 @@ fun DebitCardScreen(
                 )
             }
 
-            // Scrollable Content
             Column(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
@@ -99,7 +97,7 @@ fun DebitCardScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                if (state.isLimitReached) {
+                if (uiState.isLimitReached) {
                     Text(
                         textAlign = TextAlign.Center,
                         text = stringResource(id = R.string.maximum_5_cards),
@@ -112,13 +110,13 @@ fun DebitCardScreen(
 
                 Button(
                     onClick = onCreateCardClick,
-                    enabled = !state.isLimitReached,
+                    enabled = !uiState.isLimitReached,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(64.dp),
                     shape = RoundedCornerShape(100.dp),
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = if (state.isLimitReached) Color.LightGray
+                        backgroundColor = if (uiState.isLimitReached) Color.LightGray
                         else LightColorPalette.primary2,
                         contentColor = LightColorPalette.background
                     )
@@ -131,18 +129,17 @@ fun DebitCardScreen(
                             fontWeight = FontWeight.Normal
                         )
                     )
-
                 }
 
-                if (state.isLoading) {
+                if (uiState.isLoading) {
                     Spacer(modifier = Modifier.height(16.dp))
                     LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
                 }
-
             }
         }
     }
-    if (state.error == stringResource(R.string.no_internet)) {
+
+    if (uiState.error == stringResource(R.string.no_internet)) {
         NoInternetDialog(
             onDismiss = onClearError,
             onRetry = {
@@ -158,21 +155,4 @@ fun DebitCardScreen(
             onDismissSuccessDialog()
         })
     }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun DebitCardScreenPreview() {
-    DebitCardScreen(
-        state = CardState(
-            isLoading = false,
-            isLimitReached = false,
-            error = null
-        ),
-        onCreateCardClick = {},
-        onBackClick = {},
-        onDismissSuccessDialog = {},
-        onClearError = {}
-    )
 }
