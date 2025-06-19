@@ -40,8 +40,23 @@
     <string name="repeat_again" translatable="false">Попробуйте снова через 5 минут</string>
     <string name="auth_error" translatable="false">Ошибка</string>
 
-    <!-- Вклад -->
 
+    <!-- Loan -->
+    <string name="loan_title" translatable="false">Кредиты</string>
+    <string name="loan_payment" translatable="false">Внести платеж</string>
+    <string name="loan_close" translatable="false">Закрыть</string>
+    <string name="loan_schedule" translatable="false">График платежей</string>
+    <string name="loan_required" translatable="false">Необходимо внести</string>
+
+    <!-- Deposit -->
+    <string name="deposit_increase" translatable="false">Пополнение вклада</string>
+    <string name="deposit_increase_button" translatable="false">Пополнить</string>
+    <string name="deposit_income" translatable="false">Счёт пополнения</string>
+    <string name="deposit_outcome" translatable="false">Счёт списания</string>
+    <string name="deposit_sum" translatable="false">Сумма</string>
+    <string name="deposit_sum_symbol" translatable="false">₽</string>
+
+    <!-- Вклад -->
     <string name="deposit" translatable="false">Вклад</string>
     <string name="deposit_operations" translatable="false">Операции по вкладу</string>
     <string name="deposit_percent_list" translatable="false">Начисленные проценты</string>
@@ -57,5 +72,5 @@
     <string name="credit_graph" translatable="false">График платежей</string>
     <string name="credit_add_money" translatable="false">Внести платёж</string>
     <string name="credit_close" translatable="false">Закрыть</string>
-
+  
 </resources>
