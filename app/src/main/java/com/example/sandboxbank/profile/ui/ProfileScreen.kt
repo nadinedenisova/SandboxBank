@@ -35,6 +35,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.sandboxbank.App.ui.designkit.mode.ColorSingleton
+import com.example.sandboxbank.App.ui.designkit.mode.baseDarkPalette
+import com.example.sandboxbank.App.ui.designkit.mode.baseLightPalette
 import com.example.sandboxbank.profile.data.Language
 import com.example.sandboxbank.profile.data.ProfileState
 import com.example.sandboxbank.profile.domain.ProfileScreenViewModel
@@ -53,7 +56,6 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
     var language by remember { mutableStateOf(false) }
 
     LaunchedEffect(settingState) {
-        println(settingState.value)
         when(settingState.value){
             is ProfileState.CurrentSets -> {
                 theme = (settingState.value as ProfileState.CurrentSets).isDark
@@ -62,16 +64,31 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
                     Language.ENG -> language = true
                 }
             }
-            is ProfileState.Language ->{
-                language = (settingState.value as ProfileState.Language).isEng
-            }
-
-            is ProfileState.Theme -> theme = (settingState.value as ProfileState.Theme).isDark
+            else -> {}
         }
     }
 
+    when(settingState.value){
+        is ProfileState.CurrentSets -> {
+        }
+        is ProfileState.Language ->{
+            println(viewModel.profileState.collectAsState().value)
+        }
+
+        is ProfileState.Theme -> {
+            theme = (settingState.value as ProfileState.Theme).isDark
+            if((settingState.value as ProfileState.Theme).isDark){
+                ColorSingleton.appPalette = baseDarkPalette
+            }
+            else{
+                ColorSingleton.appPalette = baseLightPalette
+            }
+        }
+    }
+
+
     val context = LocalContext.current
-    Column(){
+    Column(Modifier.background(ColorSingleton.appPalette.background)){
         Row(modifier = Modifier.padding(top = 20.dp)){
             IconButton(
                 onClick = {
@@ -91,7 +108,7 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
                 .fillMaxWidth()
                 .height(100.dp)
                 .clip(RoundedCornerShape(20.dp))
-                .background(Color.Black),
+                .background(baseLightPalette.secondaryFixedDim),
             contentAlignment = Alignment.Center
         ){
             Column(
@@ -114,7 +131,7 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
                     Switch(
                         checked = theme,
                         onCheckedChange = {
-                            theme = it
+                           viewModel.onEvent(ProfileEvent.SetTheme(it))
                         })
                 }
                 Row(
@@ -151,4 +168,10 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
         }
     }
 
+
+}
+
+sealed interface ProfileEvent{
+    data class SetTheme(val theme: Boolean): ProfileEvent
+    data class SetLanguage(val lang: Boolean): ProfileEvent
 }

@@ -6,6 +6,12 @@ import com.example.sandboxbank.App.core.di.components.ActivityComponent
 import com.example.sandboxbank.App.core.di.components.AppComponent
 import com.example.sandboxbank.App.core.di.components.DaggerAppComponent
 import com.example.sandboxbank.App.core.di.components.ComponentContainer
+import com.example.sandboxbank.App.core.di.modules.ProfileModule.SETTING_FILE_NAME
+import com.example.sandboxbank.App.ui.designkit.mode.ColorSingleton
+import com.example.sandboxbank.App.ui.designkit.mode.baseDarkPalette
+import com.example.sandboxbank.App.ui.designkit.mode.baseLightPalette
+import com.example.sandboxbank.profile.domain.SettingStoreManager
+import javax.inject.Inject
 
 private const val APP_PREFERENCES = "app_preferences"
 
@@ -41,6 +47,16 @@ class App : Application(), ComponentContainer {
     override fun onCreate() {
         applicationInstance = this
         appComponent.inject(this)
+
+        val shared = applicationContext.getSharedPreferences(SETTING_FILE_NAME, Context.MODE_PRIVATE)
+        val isDarkTheme = shared.getBoolean("darkTheme", false)
+        if(!isDarkTheme){
+            ColorSingleton.appPalette = baseLightPalette
+        }
+        else{
+            ColorSingleton.appPalette = baseDarkPalette
+        }
+
         super.onCreate()
     }
 

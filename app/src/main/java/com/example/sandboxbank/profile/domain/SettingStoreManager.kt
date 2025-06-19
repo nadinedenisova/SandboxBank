@@ -7,7 +7,7 @@ import com.example.sandboxbank.App.core.di.annotations.EncryptedPref
 import com.example.sandboxbank.profile.data.Language
 
 class SettingStoreManager @Inject constructor(
-    @EncryptedPref private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences
 ) {
     fun getTheme(): Boolean {
         return sharedPreferences.getBoolean("darkTheme", false)

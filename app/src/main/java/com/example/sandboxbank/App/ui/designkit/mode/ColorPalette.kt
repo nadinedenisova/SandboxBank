@@ -1,6 +1,91 @@
 package com.example.sandboxbank.App.ui.designkit.mode
 
+import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
+
+data class ColorPalette(
+    val primary: Color,          // (Основной фон) Кнопка, текст в outline кнопке
+    val primaryFixedVariant:Color,   // Заголовоки
+    val primaryInverce: Color,  // Кнопка стереть в пинкоде, сумма вкладов, сроки кроедитов с вкладами
+    val secondary: Color,        // ввод пинкода, иконки
+    val secondaryContainer: Color,          //кнопка пинкода, текущий пункт navibar
+    val secondaryFixedDim: Color,     //Мой профиль, пункты меню
+    val tertiary: Color,
+
+    val background:Color,     // Фон приложения
+    val surface :Color,            // Светлая поверхность, navigationbar
+    val surfaceContainerHigh :Color,
+    val surfaceContainerHighest: Color, //неактивный переключатель
+    val inverseSurface: Color,     //slider value indicator
+    val inverseOnSurface: Color,
+
+    val onPrimary:Color,          // Цвет текста на основном фоне
+    val onPrimaryDark: Color,     //Успешный пин
+    val onSecondary:Color,         // Черный цвет текста на вторичном фоне
+    val onSecondaryContainer: Color,
+
+    val onSurface:Color,         // Черный цвет текста на поверхности
+    val onSurfaceOpacity12:Color,
+    val onSurfaceContainer:Color,//Мой профиль, пункты меню
+    val onSurfaceVariant:Color,  //Текст над и под textField, иконки и текст navigationbar
+    val onError:Color,             // Цвет текста, обводки и иконок на фоне ошибок
+    val outline: Color,             //обводка textfield, и outlinebutton
+    val outlineVariant:Color,
+
+    val creditColor:Color,
+    val debitColor:Color,
+    val card:Color,
+    val cardBalanceLogo:Color,
+    val dialogBackground:Color,
+    val checkMarkcheckMark:Color,
+)
+
+val baseLightPalette = ColorPalette(
+    primary = Color(0xFF65558F),            // (Основной фон) Кнопка, текст в outline кнопке
+    primaryFixedVariant = Color(0xFF4F378B), // Заголовоки
+    primaryInverce = Color(0xFF6750A4),    // Кнопка стереть в пинкоде, сумма вкладов, сроки кроедитов с вкладами
+    secondary = Color(0xFF625B71),           // ввод пинкода, иконки
+    secondaryContainer = Color(0xFFE8DEF8),           //кнопка пинкода, текущий пункт navibar
+    secondaryFixedDim = Color(0xFFCCC2DC),         //Мой профиль, пункты меню
+    tertiary = Color(0xFF7D5260),            //кнопка Выход из аккаунта
+
+    // Нейтральные цвета
+    background = Color(0xFFFFFFFF),          // Фон приложения
+    surface = Color(0xFFFEF7FF),             // Светлая поверхность, navigationbar
+    surfaceContainerHigh = Color(0xFFECE6F0),
+    surfaceContainerHighest = Color(0xFFE6E0E9), //неактивный переключатель
+    inverseSurface = Color(0xFF322F35),      //slider value indicator
+    inverseOnSurface = Color(0xFFF5EFF7) ,     //slider value indicator
+
+    // val error = Color(0xFFB00020)               // Красный цвет для ошибок
+    onPrimary = Color(0xFFFFFFFF) ,           // Цвет текста на основном фоне
+    onPrimaryDark = Color(0xFF381E72),       //Успешный пин
+    onSecondary = Color(0xFF000000),          // Черный цвет текста на вторичном фоне
+    onSecondaryContainer = Color(0xFF4A4459) ,         // Черный цвет текста на вторичном фоне
+
+    //val onBackground = Color(0xFF000000)         // Черный цвет текста на фоне
+    onSurface = Color(0xFF1D1B20)  ,          // Черный цвет текста на поверхности
+    onSurfaceOpacity12 = Color(0x1D1B201F),
+    onSurfaceContainer = Color(0xFFF3EDF7) , //Мой профиль, пункты меню
+    onSurfaceVariant = Color(0xFF49454F)  ,  //Текст над и под textField, иконки и текст navigationbar
+    onError = Color(0xFFB3261E)   ,           // Цвет текста, обводки и иконок на фоне ошибок
+    outline = Color(0xFF79747E)    ,            //обводка textfield, и outlinebutton
+    outlineVariant = Color(0xFFCAC4D0)  ,              //обводка textfield, и outlinebutton
+    creditColor = Color(0xFFFFD7B6),
+    debitColor = Color(0XFFD2F1E4),
+    card = Color(0xFFDAEBFF),
+    cardBalanceLogo = Color(0xFF222222),
+    dialogBackground = Color(0x80797979),
+    checkMarkcheckMark = Color(0xFF14AE5C),
+)
+
+val baseDarkPalette = baseLightPalette.copy(
+    // Нейтральные цвета
+    background = Color(0xFF000000),          // Фон приложения
+    onSurface = Color(0xFFFFF9FF),
+    surface = Color(0xFF141218),
+)
 
 object LightColorPalette {
     // Основные цвета

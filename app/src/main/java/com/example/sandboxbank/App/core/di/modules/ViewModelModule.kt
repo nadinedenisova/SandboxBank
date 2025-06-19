@@ -22,7 +22,7 @@ interface ViewModelModule {
     fun bindMainScreenViewModel(mainScreenViewModel: MainScreenViewModel): ViewModel
 
     @IntoMap
-    @ViewModelKey(MainScreenViewModel::class)
+    @ViewModelKey(ProfileScreenViewModel::class)
     @Binds
     fun bindProfileScreenViewModel(profileScreenViewModel: ProfileScreenViewModel): ViewModel
 }
