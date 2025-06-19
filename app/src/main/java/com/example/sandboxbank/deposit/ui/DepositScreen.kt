@@ -3,17 +3,16 @@ package com.example.sandboxbank.deposit.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -28,12 +27,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.sandboxbank.App.core.deposit.data.db.FinancialType
 import com.example.sandboxbank.App.core.deposit.domain.model.Deposit
 import com.example.sandboxbank.R
+import java.text.NumberFormat
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,8 +48,8 @@ fun DepositScreen(deposit: Deposit) {
                     IconButton(onClick = {}) {
                         Icon(
                             painter = painterResource(id = R.drawable.icon_back_arrow_16x16),
-                            contentDescription = "Localized description",
-                            tint = MaterialTheme.colorScheme.primary
+                            contentDescription = "",
+                            tint = MaterialTheme.colorScheme.onSurface,
                         )
                 }},
 
@@ -74,7 +77,7 @@ fun DepositScreen(deposit: Deposit) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(start = 34.dp, end = 34.dp, top = 16.dp, bottom = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 ActionButton(
@@ -85,58 +88,40 @@ fun DepositScreen(deposit: Deposit) {
                 ActionButton(
                     text = stringResource(R.string.deposit_close),
                     onClick = { /* Закрытие вклада */ },
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.weight(1f))
             }
 
             /* операции по вкладу */
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.icon_operations),
-                    contentDescription = "",
-                    tint = MaterialTheme.colorScheme.primary
-                )
-
-                Spacer(modifier = Modifier.width(16.dp))
-
-                Text(
-                    text = stringResource(R.string.deposit_operations),
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.weight(1f)
-                )
-            }
+            ActionRow(iconId = R.drawable.icon_operations, text = stringResource(R.string.deposit_operations), onClick = {})
 
             /* начисленные проценты */
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.icon_percent),
-                    contentDescription = "",
-                    tint = MaterialTheme.colorScheme.primary
-                )
-
-                Spacer(modifier = Modifier.width(16.dp))
-
-                Text(
-                    text = stringResource(R.string.deposit_percent_list),
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.weight(1f)
-                )
-            }
-
-
-
+            ActionRow(iconId = R.drawable.icon_percent, text = stringResource(R.string.deposit_percent_list), onClick = {})
         }
+    }
+}
+
+
+@Composable
+fun ActionRow(iconId: Int, text: String, onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 44.dp, vertical = 31.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            painter = painterResource(id = iconId),
+            contentDescription = "",
+            tint = MaterialTheme.colorScheme.primary
+        )
+
+        Spacer(modifier = Modifier.width(16.dp))
+
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.weight(1f)
+        )
     }
 }
 
@@ -145,58 +130,69 @@ fun ActionButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    containerColor: Color = MaterialTheme.colorScheme.primary,
-    contentColor: Color = MaterialTheme.colorScheme.onPrimary
 ) {
     Button(
         onClick = onClick,
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(
-            containerColor = containerColor,
-            contentColor = contentColor
-        )
+            containerColor = Color(0xFFEADDFF), // Цвет фона #EADDFF
+            contentColor = Color(0xFF6750A4)    // Цвет текста #6750A4
+        ),
+        shape = RoundedCornerShape(16.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp) // ← Меняем отступы
+
     ) {
-        Text(text)
+        Text(
+            text = text,
+            style = TextStyle(
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Normal
+            ),
+        )
     }
 }
 
 @Composable
 fun DepositInfoCard(deposit: Deposit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        )
-    ) {
         Column(
-            modifier = Modifier.padding(16.dp),
-            //horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.padding(horizontal = 42.dp, vertical = 0.dp),
         ) {
             Text(
                 text = deposit.name,
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontSize = 20.sp
+                ),
+                fontWeight = FontWeight.Bold,
+                color = Color(0xFF6750A4)
             )
-
-            Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = deposit.balance.toString() + " " + stringResource(R.string.rouble_symbol),
-                style = MaterialTheme.typography.displaySmall,
-                fontWeight = FontWeight.Bold
+                text = deposit.balance.toFormattedBalance() + " " + stringResource(R.string.rouble_symbol),
+                style = MaterialTheme.typography.displaySmall.copy(
+                    fontSize = 32.sp
+                ),
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(top = 32.dp, bottom = 0.dp)
             )
-
-            Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = stringResource(R.string.interest_rate, deposit.percentRate),
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontSize = 16.sp
+                ),
+                //color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = Color(0xFF6750A4)
             )
         }
+}
+
+// Расширение для Double:
+fun Double.toFormattedBalance(): String {
+    val numberFormat = NumberFormat.getNumberInstance(Locale("ru", "RU")).apply {
+        maximumFractionDigits = 2
+        minimumFractionDigits = 2
     }
+    return numberFormat.format(this)
 }
 
 
@@ -211,7 +207,7 @@ fun DepositScreenPreview() {
         percentRate = 8.5,
         percentType = 2,
         period = 12,
-        balance = 1234567,
+        balance = 1234567.0,
         name = "Вклад №1"
     ))
 }

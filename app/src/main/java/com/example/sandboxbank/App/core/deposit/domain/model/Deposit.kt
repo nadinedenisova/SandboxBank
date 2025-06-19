@@ -7,6 +7,6 @@ data class Deposit(
     override val percentRate: Double,
     override val percentType: Int,
     override val period: Int,
-    override val balance: Long,
+    override val balance: Double,
     override val name: String = ""
 ) : FinancialItem()

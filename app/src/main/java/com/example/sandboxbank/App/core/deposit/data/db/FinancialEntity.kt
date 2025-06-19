@@ -13,6 +13,6 @@ data class FinancialEntity(
     val percentRate: Double,
     val percentType: Int,
     val period: Int,
-    val balance: Long,
+    val balance: Double,
     val name: String
 )

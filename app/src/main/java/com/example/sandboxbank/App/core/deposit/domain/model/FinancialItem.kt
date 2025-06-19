@@ -7,6 +7,6 @@ sealed class FinancialItem {
     abstract val percentRate: Double
     abstract val percentType: Int
     abstract val period: Int
-    abstract val balance: Long
+    abstract val balance: Double
     abstract val name: String
 }
