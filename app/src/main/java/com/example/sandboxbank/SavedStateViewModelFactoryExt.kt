@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.staticCompositionLocalOf
-import com.example.sandboxbank.di.ViewModelFactory
+import com.example.sandboxbank.App.core.di.ViewModelFactory
 
 @Composable
 fun AppCompatActivity.LocalSavedStateViewModelFactoryProvider(
