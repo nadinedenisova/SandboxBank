@@ -3,6 +3,7 @@ package com.example.sandboxbank.App.core.deposit.data.db
 import com.example.sandboxbank.App.core.deposit.domain.db.FinancialItemRepository
 import com.example.sandboxbank.App.core.deposit.domain.model.FinancialItem
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 
 class FinancialItemRepositoryImpl(private val financialItemDao: FinancialItemDao,
@@ -40,6 +41,14 @@ class FinancialItemRepositoryImpl(private val financialItemDao: FinancialItemDao
                 entities.map { entity ->
                     FinancialItemDbConverter().toDomain(entity)
                 }
+            }
+    }
+
+    override fun getById(id: Int): Flow<FinancialItem> {
+        return financialItemDao.getById(id)
+            .filterNotNull()
+            .map { entity ->
+                converter.toDomain(entity)
             }
     }
 

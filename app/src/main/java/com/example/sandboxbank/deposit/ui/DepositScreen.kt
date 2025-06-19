@@ -16,26 +16,41 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.sandboxbank.App.core.deposit.data.db.FinancialType
 import com.example.sandboxbank.App.core.deposit.domain.model.Deposit
 import com.example.sandboxbank.App.ui.financialitem.FinancialItemActionButton
 import com.example.sandboxbank.App.ui.financialitem.FinancialItemActionRow
+import com.example.sandboxbank.App.ui.financialitem.FinancialItemDetailsUIState
+import com.example.sandboxbank.App.ui.financialitem.FinancialItemDetailsViewModel
 import com.example.sandboxbank.App.ui.financialitem.FinancialItemInfoCard
 import com.example.sandboxbank.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DepositScreen(deposit: Deposit) {
+fun DepositScreen(deposit: Deposit, navController: NavController) {
+    val viewModel: FinancialItemDetailsViewModel = viewModel()
+
+    LaunchedEffect(Unit) {
+        viewModel.loadFinancialItem(deposit.id)
+    }
+
+    val uiState = viewModel.uiState.collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             painter = painterResource(id = R.drawable.icon_back_arrow_16x16),
                             contentDescription = "",
@@ -61,6 +76,10 @@ fun DepositScreen(deposit: Deposit) {
                 .padding(innerPadding)
                 .background(MaterialTheme.colorScheme.background)
         ) {
+//            when (uiState) {
+//
+//            }
+
             // Блок с названием вклада и суммой
             FinancialItemInfoCard(deposit)
             // Кнопки действий
@@ -102,5 +121,6 @@ fun DepositScreenPreview() {
         period = 12,
         balance = 1234567.0,
         name = "Вклад №1"
-    ))
+    ), rememberNavController()
+    )
 }
