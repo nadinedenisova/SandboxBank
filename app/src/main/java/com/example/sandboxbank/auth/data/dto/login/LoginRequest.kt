@@ -1,5 +1,4 @@
-
-package com.example.sandboxbank.App.core.data.dto.login
+package com.example.sandboxbank.auth.data.dto.login
 
 data class LoginRequest(
     val email: String,
