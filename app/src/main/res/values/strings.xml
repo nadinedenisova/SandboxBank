@@ -46,4 +46,12 @@
     <string name="loan_close" translatable="false">Закрыть</string>
     <string name="loan_schedule" translatable="false">График платежей</string>
     <string name="loan_required" translatable="false">Необходимо внести</string>
+
+    <!-- Deposit -->
+    <string name="deposit_increase" translatable="false">Пополнение вклада</string>
+    <string name="deposit_increase_button" translatable="false">Пополнить</string>
+    <string name="deposit_income" translatable="false">Счёт пополнения</string>
+    <string name="deposit_outcome" translatable="false">Счёт списания</string>
+    <string name="deposit_sum" translatable="false">Сумма</string>
+    <string name="deposit_sum_symbol" translatable="false">₽</string>
 </resources>
