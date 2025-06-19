@@ -1,9 +1,9 @@
 package com.example.sandboxbank.profile.domain
 
 import android.content.SharedPreferences
-import com.example.sandboxbank.di.annotations.EncryptedPref
 import javax.inject.Inject
 import androidx.core.content.edit
+import com.example.sandboxbank.App.core.di.annotations.EncryptedPref
 import com.example.sandboxbank.profile.data.Language
 
 class SettingStoreManager @Inject constructor(

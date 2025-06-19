@@ -33,8 +33,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.sandboxbank.mode.LightColorPalette
 import com.example.sandboxbank.profile.data.Language
 import com.example.sandboxbank.profile.data.ProfileState
 import com.example.sandboxbank.profile.domain.ProfileScreenViewModel
@@ -91,7 +91,7 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
                 .fillMaxWidth()
                 .height(100.dp)
                 .clip(RoundedCornerShape(20.dp))
-                .background(LightColorPalette.secondaryFixedDim),
+                .background(Color.Black),
             contentAlignment = Alignment.Center
         ){
             Column(
