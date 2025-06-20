@@ -13,47 +13,66 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import com.example.sandboxbank.R
 
 @Composable
 fun SuccessCardDialog(onDismiss: () -> Unit) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        buttons = {},
-        title = null,
-        text = {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = 0.4f)),
+        contentAlignment = Alignment.Center
+    ) {
+        Surface(
+            shape = RoundedCornerShape(28.dp),
+            color = Color.White,
+            elevation = 8.dp,
+            modifier = Modifier
+                .width(312.dp)
+                .height(192.dp)
+        ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier
-                    .width(312.dp)
-                    .height(192.dp)
+                    .fillMaxSize()
                     .padding(16.dp)
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.icon_card_success),
                     contentDescription = null,
                     tint = MaterialTheme.colors.primary,
-                    modifier = Modifier.size(32.dp)
+                    modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = stringResource(id = R.string.card_success_title),
                     style = MaterialTheme.typography.subtitle1,
+                    fontSize = 24.sp,
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.height(24.dp))
-                TextButton(onClick = onDismiss) {
-                    Text(text = stringResource(id = R.string.clossed), color = MaterialTheme.colors.primary)
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    TextButton(onClick = onDismiss) {
+                        Text(
+                            text = stringResource(id = R.string.clossed),
+                            color = MaterialTheme.colors.primary,
+                            fontSize = 14.sp
+                        )
+                    }
                 }
             }
-        },
-        backgroundColor = Color.White,
-        shape = RoundedCornerShape(16.dp),
-        properties = DialogProperties(usePlatformDefaultWidth = false)
-    )
+        }
+    }
 }
+
+
 
 @Preview(showBackground = true)
 @Composable

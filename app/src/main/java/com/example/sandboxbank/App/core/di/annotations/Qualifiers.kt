@@ -20,6 +20,10 @@ annotation class PlainPref
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
+annotation class ActivityPref
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
 annotation class AppContext
 
 @Qualifier

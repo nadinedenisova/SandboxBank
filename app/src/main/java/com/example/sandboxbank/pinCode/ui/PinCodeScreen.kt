@@ -16,7 +16,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -25,11 +24,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
+import com.example.sandboxbank.R
 import com.example.sandboxbank.pinCode.PinCodeViewModel
+import com.example.sandboxbank.pinCode.PinDotsType
+import com.example.sandboxbank.pinCode.ui.intent.PinCodeIntent
+import com.example.sandboxbank.pinCode.ui.model.AuthScreenUiState
 import com.example.sandboxbank.viewModel
+
+const val PIN_CODE_CORRECT_SIZE = 6
 
 @Composable
 fun PinCodeScreen(
@@ -46,7 +53,7 @@ fun PinCodeScreen(
 
 @Composable
 fun PinCodeScreenContent(
-    onEvent: (PinLockEvent) -> Unit,
+    onEvent: (PinCodeIntent) -> Unit,
     statePin: AuthScreenUiState,
 ) {
     KeyBoard(
@@ -56,20 +63,27 @@ fun PinCodeScreenContent(
 }
 
 @Composable
-fun PinDots(isFilled: Boolean) {
-    Box(
+fun PinDots(isFilled: Boolean, state: AuthScreenUiState) {
+    val color = when (state.pinDotsType) {
+        PinDotsType.DEFAULT -> if (isFilled) LightColorPalette.secondary else Color.Unspecified
+        PinDotsType.INCORRECT -> LightColorPalette.onError
+        PinDotsType.SUCCESS -> LightColorPalette.primaryInverce
+    }
+
+    Icon(
+        painter = painterResource(R.drawable.ellipse_1),
+        contentDescription = null,
+        tint = color,
         modifier = Modifier
             .padding(10.dp)
-            .size(30.dp)
-            .background(
-                if (isFilled) Color(0xFF3E206E) else Color.Gray
-            )
+            .size(14.dp)
+            .background(color = color, shape = RoundedCornerShape(25.dp))
     )
 }
 
 @Composable
 fun KeyBoard(
-    onEvent: (PinLockEvent) -> Unit,
+    onEvent: (PinCodeIntent) -> Unit,
     statePin: AuthScreenUiState
 ) {
     val listKeys = listOf(
@@ -82,24 +96,26 @@ fun KeyBoard(
         modifier = Modifier
             .fillMaxSize()
             .padding(bottom = 100.dp),
-        verticalArrangement = Arrangement.Bottom,
+        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
         Text(
             text = statePin.titleText,
-            fontSize = 18.sp,
+            fontSize = 30.sp,
             textAlign = TextAlign.Center,
-            color = Color.Black
+            color = LightColorPalette.primaryFixedVariant
         )
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 20.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            repeat(6) { index ->
+            repeat(PIN_CODE_CORRECT_SIZE) { index ->
                 val isFilled = index < statePin.pinCodeValue.length
-                PinDots(isFilled = isFilled)
+                PinDots(isFilled = isFilled, statePin)
             }
         }
         listKeys.forEach { rows ->
@@ -109,14 +125,11 @@ fun KeyBoard(
                         onClick = {
                             when (it) {
                                 "del" -> if (statePin.pinCodeValue.isNotEmpty()) onEvent(
-                                    PinLockEvent.DeleteDigit
+                                    PinCodeIntent.DeleteDigit
                                 )
 
                                 else -> {
-                                    onEvent(PinLockEvent.AddDigit(it))
-                                    if (statePin.pinCodeValue.length == 5) {
-                                        onEvent(PinLockEvent.CheckPin)
-                                    }
+                                    onEvent(PinCodeIntent.AddDigit(it))
                                 }
                             }
                         }
@@ -124,7 +137,7 @@ fun KeyBoard(
                         when (it) {
                             "del" -> {
                                 Icon(
-                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                    painter = painterResource(R.drawable.image_delete),
                                     contentDescription = "Clear",
                                     modifier = Modifier
                                         .size(30.dp),
@@ -164,27 +177,15 @@ private fun KeyButton(
             .padding(8.dp)
             .clip(shape)
             .background(
-                color = Color.Blue,
+                color = LightColorPalette.secondaryContainer,
                 shape = RoundedCornerShape(100)
             )
             .clickable(onClick = onClick)
-            .defaultMinSize(minWidth = 95.dp, minHeight = 95.dp)
+            .defaultMinSize(minWidth = 75.dp, minHeight = 75.dp)
             .padding(4.dp),
         contentAlignment = Alignment.Center
     ) {
         content()
     }
-}
-
-
-data class AuthScreenUiState(
-    val pinCodeValue: String = "",
-    val titleText: String,
-)
-
-sealed interface PinLockEvent {
-    data class AddDigit(val digit: String) : PinLockEvent
-    data object DeleteDigit : PinLockEvent
-    data object CheckPin : PinLockEvent
 }
 

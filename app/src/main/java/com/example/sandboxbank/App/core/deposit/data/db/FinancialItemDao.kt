@@ -12,7 +12,7 @@ interface FinancialItemDao {
     suspend fun insert(entity: FinancialEntity)
 
     @Query("SELECT * FROM financial_items WHERE id = :id")
-    fun getById(id: String): Flow<FinancialEntity?>
+    fun getById(id: Int): Flow<FinancialEntity?>
 
     // Количество депозитов/кредитов
     @Query("SELECT COUNT(*) FROM financial_items WHERE type = :type")

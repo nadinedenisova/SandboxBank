@@ -7,6 +7,9 @@ import com.example.sandboxbank.App.core.di.annotations.AppContext
 import com.example.sandboxbank.App.core.di.annotations.ApplicationScope
 import com.example.sandboxbank.App.core.di.annotations.BaseUrl
 import com.example.sandboxbank.App.core.di.annotations.PrefsKey
+import com.example.sandboxbank.App.core.di.modules.PinCodeModule
+import com.example.sandboxbank.App.core.di.modules.ProfileModule
+import com.example.sandboxbank.App.core.di.modules.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
 
