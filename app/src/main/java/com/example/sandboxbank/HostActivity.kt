@@ -36,10 +36,6 @@ class HostActivity : ComponentActivity() {
                 onBackClick = { finish() }
             )
         }
-
-
-
-
     }
 
 }
