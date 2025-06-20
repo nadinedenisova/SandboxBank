@@ -34,7 +34,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.sandboxbank.viewModel
 import com.example.sandboxbank.auth.domain.model.ResultAuthState
 import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
 import com.example.sandboxbank.auth.ui.viewmodel.AuthViewModel
@@ -42,9 +42,10 @@ import com.example.sandboxbank.auth.ui.viewmodel.AuthViewModel
 
 @Composable
 fun AuthScreen(
-    viewModel: AuthViewModel = viewModel(), onLoginSuccess: () -> Unit,
+    onLoginSuccess: () -> Unit,
     onNavigateToRegistration: () -> Unit
 ) {
+    val viewModel: AuthViewModel = viewModel()
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }

@@ -3,6 +3,7 @@ package com.example.sandboxbank.App.core.di.modules
 import androidx.lifecycle.ViewModel
 import com.example.sandboxbank.App.core.di.annotations.ViewModelKey
 import com.example.sandboxbank.App.ui.mainscreen.domain.MainScreenViewModel
+import com.example.sandboxbank.auth.ui.viewmodel.AuthViewModel
 import com.example.sandboxbank.cardmanager.cards.debit.ui.CardViewModel
 import com.example.sandboxbank.pinCode.PinCodeViewModel
 import dagger.Binds
@@ -26,4 +27,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(CardViewModel::class)
     fun bindCardViewModel(cardViewModel: CardViewModel): ViewModel
+
+    @IntoMap
+    @ViewModelKey(AuthViewModel::class)
+    @Binds
+    fun bindAuthViewModel(authViewModel: AuthViewModel): ViewModel
 }

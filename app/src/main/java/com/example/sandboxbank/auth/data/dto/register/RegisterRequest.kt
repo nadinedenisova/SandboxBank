@@ -1,4 +1,4 @@
-package com.example.sandboxbank.App.core.data.dto.register
+package com.example.sandboxbank.auth.data.dto.register
 
 data class RegisterRequest(
     val email: String,
