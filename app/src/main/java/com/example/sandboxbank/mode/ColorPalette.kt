@@ -20,7 +20,7 @@ object LightColorPalette {
     val inverseSurface = Color(0xFF322F35)      //slider value indicator
     val inverseOnSurface = Color(0xFFF5EFF7)      //slider value indicator
 
-    // val error = Color(0xFFB00020)               // Красный цвет для ошибок
+    val error = Color(0xFFB00020)               // Красный цвет для ошибок
     val onPrimary = Color(0xFFFFFFFF)            // Цвет текста на основном фоне
     val onPrimaryDark = Color(0xFF381E72)       //Успешный пин
     val onSecondary = Color(0xFF000000)          // Черный цвет текста на вторичном фоне

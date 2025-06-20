@@ -2,6 +2,8 @@
     <string name="app_name">SandboxBank</string>
     <string name="auth" translatable="false">Авторизация</string>
     <string name="registration" translatable="false">Регистрация</string>
+    <string name="register" translatable="false">Зарегистрироваться</string>
+    <string name="userExists" translatable="false">Пользователь с таким именем уже зарегистрирован</string>
     <string name="password" translatable="false">Пароль</string>
     <string name="email" translatable="false">Email</string>
     <string name="enter" translatable="false">Вход</string>
