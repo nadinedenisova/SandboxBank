@@ -34,12 +34,6 @@ class HostActivity : ComponentActivity() {
             LocalViewModelFactoryProvider(viewModelFactory) {
                 PinCodeScreen()
             }
-//            val viewModel = ViewModelProvider(this, viewModelFactory)[CardViewModel::class.java]
-//
-//            DebitCardScreenRoute(
-//                viewModel = viewModel,
-//                onBackClick = { finish() }
-//            )
         }
     }
 
