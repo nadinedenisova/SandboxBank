@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import com.example.sandboxbank.App.App
 import com.example.sandboxbank.App.core.di.ViewModelFactory
+import com.example.sandboxbank.App.ui.creditcard.CreditCardScreen
 import com.example.sandboxbank.App.ui.debitcards.debit.ui.compose.DebitCardScreenRoute
 import com.example.sandboxbank.cardmanager.cards.debit.ui.CardViewModel
 import com.example.sandboxbank.cardmanager.cards.dto.CardRequest
@@ -35,7 +36,6 @@ class HostActivity : ComponentActivity() {
                 PinCodeScreen()
             }
         }
+
     }
-
 }
-
