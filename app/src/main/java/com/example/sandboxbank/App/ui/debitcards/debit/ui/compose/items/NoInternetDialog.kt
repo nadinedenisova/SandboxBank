@@ -15,10 +15,13 @@ import androidx.compose.material.Surface
 import androidx.compose.material.TextButton
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.roboto
 import com.example.sandboxbank.R
 
 @Composable
@@ -66,10 +69,11 @@ fun NoInternetDialog(
                     ) {
                         Text(
                             text = stringResource(id = R.string.closed_notification),
-                            color = MaterialTheme.colors.primary,
+                            color = Color(0xFF6750A4), //TODO когда будет тема, переработать
                             fontSize = 14.sp
                         )
                     }
+
 
                     Spacer(modifier = Modifier.width(8.dp))
 
@@ -77,18 +81,22 @@ fun NoInternetDialog(
                         onClick = onRetry,
                         modifier = Modifier
                             .height(48.dp)
-                            .wrapContentWidth(), 
+                            .wrapContentWidth(),
                         shape = RoundedCornerShape(100.dp),
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = MaterialTheme.colors.primary
+                            backgroundColor = LightColorPalette.primary2,
+                            contentColor = LightColorPalette.background
                         )
                     ) {
                         Text(
                             text = stringResource(id = R.string.try_again_refresh),
-                            color = Color.White,
-                            fontSize = 14.sp
+                            fontFamily = roboto,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Normal,
+                            color = LightColorPalette.background
                         )
                     }
+
 
                 }
 
