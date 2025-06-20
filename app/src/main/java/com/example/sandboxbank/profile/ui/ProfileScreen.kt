@@ -1,11 +1,14 @@
 package com.example.sandboxbank.profile.ui
 
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,6 +22,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -34,10 +39,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.sandboxbank.App.ui.designkit.mode.ColorSingleton
 import com.example.sandboxbank.App.ui.designkit.mode.baseDarkPalette
 import com.example.sandboxbank.App.ui.designkit.mode.baseLightPalette
+import com.example.sandboxbank.R
 import com.example.sandboxbank.profile.data.Language
 import com.example.sandboxbank.profile.data.ProfileState
 import com.example.sandboxbank.profile.domain.ProfileScreenViewModel
@@ -88,20 +98,26 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
 
 
     val context = LocalContext.current
-    Column(Modifier.background(ColorSingleton.appPalette.background)){
-        Row(modifier = Modifier.padding(top = 20.dp)){
+    Column(Modifier.background(ColorSingleton.appPalette.background)
+        .fillMaxHeight()){
+        Box(modifier = Modifier.fillMaxWidth().height(15.dp).background(ColorSingleton.appPalette.surface))
+        Row(modifier = Modifier.background(ColorSingleton.appPalette.surface)){
             IconButton(
+                colors = IconButtonDefaults.iconButtonColors(contentColor = ColorSingleton.appPalette.onSurface),
                 onClick = {
                     (context as? ComponentActivity)?.finish()
                 }
             ) {
                 Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "back",Modifier.size(34.dp)
+                    imageVector = ImageVector.vectorResource(id = R.drawable.icon_back_arrow_16x16),
+                    contentDescription = "back",
+                    Modifier.size(34.dp),
                 )
             }
-            Text(modifier = Modifier.padding(top = 10.dp), text = "Мои профиль", fontSize = 26.sp)
+            Text(modifier = Modifier.padding(top = 10.dp)
+                .fillMaxWidth(), color = ColorSingleton.appPalette.onSurface, text = "Мои профиль", fontSize = 26.sp)
         }
+        Box(modifier = Modifier.fillMaxWidth().height(15.dp).background(ColorSingleton.appPalette.surface))
         Box(
             Modifier
                 .padding(12.dp)
@@ -160,7 +176,9 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
             contentAlignment = Alignment.Center
         ){
             Button(
+                border = BorderStroke(1.dp, ColorSingleton.appPalette.tertiary),
                 modifier = Modifier.clip(RoundedCornerShape(20.dp)),
+                colors = ButtonDefaults.buttonColors(containerColor = ColorSingleton.appPalette.onTertiary, contentColor = ColorSingleton.appPalette.tertiary),
                 onClick = {},
             ){
                 Text(text = "Выход из аккаунта")

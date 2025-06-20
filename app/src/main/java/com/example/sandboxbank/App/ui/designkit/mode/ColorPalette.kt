@@ -12,6 +12,7 @@ data class ColorPalette(
     val secondaryContainer: Color,          //кнопка пинкода, текущий пункт navibar
     val secondaryFixedDim: Color,     //Мой профиль, пункты меню
     val tertiary: Color,
+    val onTertiary: Color,
 
     val background:Color,     // Фон приложения
     val surface :Color,            // Светлая поверхность, navigationbar
@@ -48,7 +49,8 @@ val baseLightPalette = ColorPalette(
     secondary = Color(0xFF625B71),           // ввод пинкода, иконки
     secondaryContainer = Color(0xFFE8DEF8),           //кнопка пинкода, текущий пункт navibar
     secondaryFixedDim = Color(0xFFCCC2DC),         //Мой профиль, пункты меню
-    tertiary = Color(0xFF7D5260),            //кнопка Выход из аккаунта
+    tertiary = Color(0xFF7D5260),
+    onTertiary = Color(0xFFFFFFFF),//кнопка Выход из аккаунта
 
     // Нейтральные цвета
     background = Color(0xFFFFFFFF),          // Фон приложения
@@ -85,6 +87,8 @@ val baseDarkPalette = baseLightPalette.copy(
     background = Color(0xFF000000),          // Фон приложения
     onSurface = Color(0xFFFFF9FF),
     surface = Color(0xFF141218),
+    tertiary = Color(0xFFE2E2E2),
+    onTertiary = Color(0xFF1A1C1C),
 )
 
 object LightColorPalette {
