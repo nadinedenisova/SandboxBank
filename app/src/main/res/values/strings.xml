@@ -1,23 +1,46 @@
 <resources>
     <string name="app_name">SandboxBank</string>
-    <!-- debit-credit-card -->
 
-    <!--  Repository Card  -->
+
+    «  credit card »
+
+    <string name="virtual_credit_card" translatable="false">Виртуальная кредитная карта SandboxBank</string>
+    <string name="free_usage" translatable="false">Бесплатное обслуживание</string>
+    <string name="free_usage_value" translatable="false">в 1-й год, далее 990 ₽ в год</string>
+    <string name="one_million" translatable="false">1 000 000 ₽</string>
+    <string name="maximal_limit" translatable="false">максимальный кредитный лимит</string>
+    <string name="six_months" translatable="false">60 дней без %</string>
+    <string name="for_all_shopping" translatable="false">на любые покупки</string>
+
+    <string name="cashback" translatable="false">Кэшбэк каждый месяц</string>
+    <string name="partnership_buying" translatable="false">до 50% за покупки у партнёров</string>
+    <string name="chosen_credit_limit" translatable="false">Выбор кредитного лимита</string>
+
+    <string name="submit_card" translatable="false">Оформить карту</string>
+
+    «  debit-card »
+
+    «  Repository Card  »
 
     <string name="maximum_card" translatable="false">Максимум 5 карт</string>
 
-    <!--  Card View  -->
+    «  Card View  »
 
     <string name="card_bank_title" translatable="false">SandboxBank</string>
     <string name="one_million_rouble" translatable="false">1 000 000Р</string>
 
+    «  Error Card Dialog  »
 
-    <!--  Success Card Dialog  -->
+    <string name="no_internet" translatable="false">Нет подключения к интернету</string>"
+    <string name="try_again_refresh" translatable="false">Повторить попытку</string>
+    <string name="closed_notification" translatable="false">Закрыть</string>
+
+    «  Success Card Dialog  »
 
     <string name="card_success_title" translatable="false">"Карта успешно оформлена"</string>
     <string name="clossed" translatable="false">Закрыть</string>
 
-    <!-- Debit Card Screen -->
+    «  Debit Card Screen  »
 
     <string name="cards" translatable="false">Карты</string>
     <string name="virtual_card_bank_debit" translatable="false">"Виртуальная дебетовая карта SandboxBank"</string>
@@ -30,6 +53,8 @@
     <string name="cashback_30_value" translatable="false">"Получайте супер кэшбэк рублями каждый месяц и бесплатно снимайте наличные в любых банкоматах"</string>
     <string name="pay_Qr" translatable="false">Платите через SandBox Pay или по QR-коду</string>
 
+
+
     <string name="auth" translatable="false">Авторизация</string>
     <string name="registration" translatable="false">Регистрация</string>
     <string name="password" translatable="false">Пароль</string>
@@ -40,10 +65,37 @@
     <string name="repeat_again" translatable="false">Попробуйте снова через 5 минут</string>
     <string name="auth_error" translatable="false">Ошибка</string>
 
+
     <!-- Loan -->
     <string name="loan_title" translatable="false">Кредиты</string>
     <string name="loan_payment" translatable="false">Внести платеж</string>
     <string name="loan_close" translatable="false">Закрыть</string>
     <string name="loan_schedule" translatable="false">График платежей</string>
     <string name="loan_required" translatable="false">Необходимо внести</string>
+
+    <!-- Deposit -->
+    <string name="deposit_increase" translatable="false">Пополнение вклада</string>
+    <string name="deposit_increase_button" translatable="false">Пополнить</string>
+    <string name="deposit_income" translatable="false">Счёт пополнения</string>
+    <string name="deposit_outcome" translatable="false">Счёт списания</string>
+    <string name="deposit_sum" translatable="false">Сумма</string>
+    <string name="deposit_sum_symbol" translatable="false">₽</string>
+
+    <!-- Вклад -->
+    <string name="deposit" translatable="false">Вклад</string>
+    <string name="deposit_operations" translatable="false">Операции по вкладу</string>
+    <string name="deposit_percent_list" translatable="false">Начисленные проценты</string>
+    <string name="deposit_add_money" translatable="false">Пополнить вклад</string>
+    <string name="deposit_close" translatable="false">Закрыть</string>
+    <string name="rouble_symbol" translatable="false">₽</string>
+    <string name="interest_rate" translatable="false">Ставка %1$.1f%% годовых</string>
+
+    <!-- Кредит -->
+
+    <string name="credit" translatable="false">Кредит</string>
+    <string name="credit_operations" translatable="false">Необходимо внести</string>
+    <string name="credit_graph" translatable="false">График платежей</string>
+    <string name="credit_add_money" translatable="false">Внести платёж</string>
+    <string name="credit_close" translatable="false">Закрыть</string>
+  
 </resources>

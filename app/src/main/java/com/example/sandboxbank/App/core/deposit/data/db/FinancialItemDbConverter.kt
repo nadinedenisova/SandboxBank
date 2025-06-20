@@ -10,9 +10,11 @@ class FinancialItemDbConverter {
             financialItem.id,
             financialItem.type,
             financialItem.openDate,
+            financialItem.percentRate,
             financialItem.percentType,
             financialItem.period,
-            financialItem.balance
+            financialItem.balance,
+            financialItem.name,
         )
     }
 
@@ -22,17 +24,21 @@ class FinancialItemDbConverter {
                 id = financialItem.id,
                 type = financialItem.type,
                 openDate = financialItem.openDate,
+                percentRate = financialItem.percentRate,
                 percentType = financialItem.percentType,
                 period = financialItem.period,
-                balance = financialItem.balance
+                balance = financialItem.balance,
+                name = financialItem.name,
             )
             FinancialType.CREDIT.toStringValue() -> Credit(
                 id = financialItem.id,
                 type = financialItem.type,
                 openDate = financialItem.openDate,
+                percentRate = financialItem.percentRate,
                 percentType = financialItem.percentType,
                 period = financialItem.period,
-                balance = financialItem.balance
+                balance = financialItem.balance,
+                name = financialItem.name,
             )
             else -> throw IllegalArgumentException("Unknown financial item type: ${financialItem.type}")
         }
