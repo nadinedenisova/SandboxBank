@@ -11,6 +11,7 @@ import com.example.sandboxbank.App.core.di.ViewModelFactory
 import com.example.sandboxbank.App.ui.debitcards.debit.ui.compose.DebitCardScreenRoute
 import com.example.sandboxbank.cardmanager.cards.debit.ui.CardViewModel
 import com.example.sandboxbank.cardmanager.cards.dto.CardRequest
+import com.example.sandboxbank.pinCode.ui.PinCodeScreen
 import javax.inject.Inject
 
 
@@ -28,13 +29,17 @@ class HostActivity : ComponentActivity() {
 
         App.componentsContainer.createActivityComponent(this)
         App.componentsContainer.activityComponent.inject(this)
-        setContent {
-            val viewModel = ViewModelProvider(this, viewModelFactory)[CardViewModel::class.java]
 
-            DebitCardScreenRoute(
-                viewModel = viewModel,
-                onBackClick = { finish() }
-            )
+        setContent {
+            LocalViewModelFactoryProvider(viewModelFactory) {
+                PinCodeScreen()
+            }
+//            val viewModel = ViewModelProvider(this, viewModelFactory)[CardViewModel::class.java]
+//
+//            DebitCardScreenRoute(
+//                viewModel = viewModel,
+//                onBackClick = { finish() }
+//            )
         }
     }
 
