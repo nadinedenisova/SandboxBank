@@ -10,6 +10,7 @@ import com.example.sandboxbank.App.core.di.modules.ProfileModule.SETTING_FILE_NA
 import com.example.sandboxbank.App.ui.designkit.mode.ColorSingleton
 import com.example.sandboxbank.App.ui.designkit.mode.baseDarkPalette
 import com.example.sandboxbank.App.ui.designkit.mode.baseLightPalette
+import com.example.sandboxbank.profile.domain.GetStoreManager
 import com.example.sandboxbank.profile.domain.SettingStoreManager
 import javax.inject.Inject
 
@@ -44,12 +45,13 @@ class App : Application(), ComponentContainer {
             ?: error("ActivityComponent не создан. Сначала вызови createActivityComponent(context)")
 
 
+    @Inject
+    lateinit var getStoreManager: GetStoreManager
     override fun onCreate() {
         applicationInstance = this
         appComponent.inject(this)
 
-        val shared = applicationContext.getSharedPreferences(SETTING_FILE_NAME, Context.MODE_PRIVATE)
-        val isDarkTheme = shared.getBoolean("darkTheme", false)
+        val isDarkTheme = getStoreManager.getTheme()
         if(!isDarkTheme){
             ColorSingleton.appPalette = baseLightPalette
         }

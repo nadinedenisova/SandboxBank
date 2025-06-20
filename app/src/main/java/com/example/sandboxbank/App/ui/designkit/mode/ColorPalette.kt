@@ -99,7 +99,9 @@ object LightColorPalette {
     val secondary = Color(0xFF625B71)           // ввод пинкода, иконки
     val secondaryContainer = Color(0xFFE8DEF8)           //кнопка пинкода, текущий пункт navibar
     val secondaryFixedDim = Color(0xFFCCC2DC)         //Мой профиль, пункты меню
-    val tertiary = Color(0xFF7D5260)            //кнопка Выход из аккаунта
+    val tertiary = Color(0xFF7D5260)
+    val primary1 = Color(0xFF6B548D)    //активный переключатель
+    val primary2 = Color(0xFFD0BCFE)//кнопка Выход из аккаунта
 
     // Нейтральные цвета
     val background = Color(0xFFFFFFFF)          // Фон приложения

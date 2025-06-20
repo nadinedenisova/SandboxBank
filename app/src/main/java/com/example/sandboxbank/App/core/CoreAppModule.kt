@@ -11,6 +11,7 @@ import com.example.sandboxbank.App.core.di.annotations.PrefsKey
 import com.example.sandboxbank.App.ui.debitcards.debit.model.data.RemoteCardRepository
 import com.example.sandboxbank.App.ui.debitcards.utils.InternetUtil
 import com.example.sandboxbank.cardmanager.cards.debit.model.data.CardRepository
+import com.example.sandboxbank.profile.domain.GetStoreManager
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -32,6 +33,13 @@ object CoreAppModule {
         @AppContext context: Context
     ): SharedPreferences {
         return context.getSharedPreferences(prefsKey, Context.MODE_PRIVATE)
+    }
+
+    @ApplicationScope
+    @Provides
+    @PlainPref
+    fun provideGetStoreManager(@PlainPref sharedPreferences: SharedPreferences): GetStoreManager {
+        return GetStoreManager(sharedPreferences)
     }
 
     @ApplicationScope
