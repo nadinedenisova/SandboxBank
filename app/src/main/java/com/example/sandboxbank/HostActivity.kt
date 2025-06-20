@@ -12,6 +12,7 @@ import com.example.sandboxbank.App.ui.creditcard.CreditCardScreen
 import com.example.sandboxbank.App.ui.debitcards.debit.ui.compose.DebitCardScreenRoute
 import com.example.sandboxbank.cardmanager.cards.debit.ui.CardViewModel
 import com.example.sandboxbank.cardmanager.cards.dto.CardRequest
+import com.example.sandboxbank.pinCode.ui.PinCodeScreen
 import javax.inject.Inject
 
 
@@ -29,16 +30,12 @@ class HostActivity : ComponentActivity() {
 
         App.componentsContainer.createActivityComponent(this)
         App.componentsContainer.activityComponent.inject(this)
+
         setContent {
-            CreditCardScreen(
-                onSubmit = { limit ->
-                    // Здесь можно обработать выбранный лимит
-                    finish()
-                }
-            )
-
+            LocalViewModelFactoryProvider(viewModelFactory) {
+                PinCodeScreen()
+            }
         }
+
     }
-
 }
-

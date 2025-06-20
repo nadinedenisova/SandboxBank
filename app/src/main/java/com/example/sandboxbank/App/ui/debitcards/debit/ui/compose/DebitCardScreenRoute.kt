@@ -35,7 +35,7 @@ fun DebitCardScreenRoute(
                         123L,
                         currentCardNumber = 123123123L,
                         requestNumber = 123123123L
-                    ) // ✅
+                    )
 
             )
             )
