@@ -70,8 +70,8 @@ fun ApplyCredit(){
         Box(
             modifier = Modifier.background(
                 selectColor(
-                    LightColorPalette.surfaceContainerLowest,
-                    DarkColorPalette.surfaceContainerLowest
+                    LightColorPalette.background,
+                    DarkColorPalette.onSurfaceContainerLowest
                 )
             )
         ) {
