@@ -1,18 +1,14 @@
 package com.example.sandboxbank
 
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import com.example.sandboxbank.App.App
 import com.example.sandboxbank.App.core.di.ViewModelFactory
-import com.example.sandboxbank.App.ui.creditcard.CreditCardScreen
-import com.example.sandboxbank.App.ui.debitcards.debit.ui.compose.DebitCardScreenRoute
-import com.example.sandboxbank.cardmanager.cards.debit.ui.CardViewModel
-import com.example.sandboxbank.cardmanager.cards.dto.CardRequest
 import com.example.sandboxbank.pinCode.ui.PinCodeScreen
+import com.example.sandboxbank.profile.domain.ProfileScreenViewModel
+import com.example.sandboxbank.profile.ui.ProfileScreen
 import javax.inject.Inject
 
 
@@ -24,7 +20,10 @@ class HostActivity : ComponentActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    @RequiresApi(Build.VERSION_CODES.M)
+    @Inject
+    lateinit var profileScreenViewModel: ProfileScreenViewModel
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,10 +31,8 @@ class HostActivity : ComponentActivity() {
         App.componentsContainer.activityComponent.inject(this)
 
         setContent {
-            LocalViewModelFactoryProvider(viewModelFactory) {
-                PinCodeScreen()
-            }
+            ProfileScreen(profileScreenViewModel)
         }
-
     }
 }
+
