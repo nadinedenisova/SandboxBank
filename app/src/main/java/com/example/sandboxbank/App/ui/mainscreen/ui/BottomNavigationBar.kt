@@ -9,6 +9,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.sandboxbank.App.ui.designkit.mode.language.LanguageSingleton
+import com.example.sandboxbank.App.ui.designkit.mode.language.getForRoute
 import com.example.sandboxbank.App.ui.mainscreen.data.Routes
 
 @Composable
@@ -22,7 +24,7 @@ fun BottomNavigationBar(navController: NavHostController) {
         Routes.entries.forEach { it ->
             BottomNavigationItem(
                 icon = { Icon(it.icon, contentDescription = "") },
-                label = { Text(it.title) },
+                label = { Text(LanguageSingleton.localization.value.getForRoute(it.route)) },
                 selected = currentDestination?.route == it.route,
                 onClick = { navController.navigate(it.route) }
             )

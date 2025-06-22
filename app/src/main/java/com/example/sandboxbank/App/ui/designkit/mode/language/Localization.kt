@@ -27,6 +27,25 @@ private fun registerLocalizationForLocale(locale: Language) {
     localizationMap[locale] = Localization(locale)
 }
 
+fun Localization.getForRoute(route: String):String{
+    if(route == "cards"){
+        return LanguageSingleton
+            .localization.value.cards()}
+    else if(route == "finance"){
+        return LanguageSingleton
+            .localization.value.finance()}
+    else if(route == "transfers"){
+        return LanguageSingleton
+            .localization.value.transfers()}
+    else if(route == "history"){
+        return LanguageSingleton
+            .localization.value.history()}
+    else{
+        return LanguageSingleton
+            .localization.value.profile()
+    }
+}
+
 /**
  * Builder function for translatable string resource
  *
@@ -121,7 +140,7 @@ object Vocabulary {
 
 
 fun localizationApp(locale: Language){
-    LanguageSingleton.localization = localizationMap[locale]?: defaultLocalization
+    LanguageSingleton.localization.value = localizationMap[locale]?: defaultLocalization
 }
 
 @Composable

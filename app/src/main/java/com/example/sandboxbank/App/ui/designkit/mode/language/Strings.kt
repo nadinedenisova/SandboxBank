@@ -24,4 +24,26 @@ val exitProfile = Translatable(
     hashMapOf(RUSSIAN to "Выход из аккаунта")
 )
 
+val profile = Translatable(
+    "Profile",
+    hashMapOf(RUSSIAN to "Профиль"))
+
+val finance = Translatable(
+    "Finance",
+    hashMapOf(RUSSIAN to "Финансы"))
+
+val history = Translatable(
+    "History",
+    hashMapOf(RUSSIAN to "История"))
+
+val transfers = Translatable(
+    "Transfers",
+    hashMapOf(RUSSIAN to "Переводы"))
+
+val cards = Translatable(
+    "Cards",
+    hashMapOf(RUSSIAN to "Карты"))
+
+
+
 

@@ -10,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.sandboxbank.App.ui.mainscreen.data.Routes
+import com.example.sandboxbank.profile.ui.ProfileScreen
 
 @Composable
 fun NavGraph(
@@ -65,9 +66,9 @@ fun HistoryScreen() {
     }
 }
 
-@Composable
-fun ProfileScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Экран Профиль")
-    }
-}
+//@Composable
+//fun ProfileScreen() {
+//    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+//        Text("Экран Профиль")
+//    }
+//}

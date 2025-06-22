@@ -3,35 +3,36 @@ package com.example.sandboxbank.App.ui.mainscreen.data
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.sandboxbank.App.ui.designkit.mode.language.LanguageSingleton
+import com.example.sandboxbank.App.ui.designkit.mode.language.getForRoute
+
 
 enum class Routes(
     val route: String,
-    val title: String,
     val icon: ImageVector
 ) {
     Cards(
         route = "cards",
-        title = "Карты",
+        //title = mutableStateOf(LanguageSingleton.localization.value.profile()),
         icon = Icons.Default.Info
     ),
     Finance(
         route = "finance",
-        title = "Финансы",
+        //title = mutableStateOf(LanguageSingleton.localization.value.profile()),
         icon = Icons.Default.Info
     ),
     Transfers(
         route = "transfers",
-        title = "Переводы",
+       // title = mutableStateOf(LanguageSingleton.localization.value.profile()),
         icon = Icons.Default.Info
     ),
     History(
         route = "history",
-        title = "История",
+        //title = mutableStateOf(LanguageSingleton.localization.value.profile()),
         icon = Icons.Default.Info
     ),
     Profile(
         route = "profile",
-        title = "Профиль",
         icon = Icons.Default.Info
     ),
 }

@@ -51,10 +51,13 @@ import com.example.sandboxbank.App.ui.designkit.mode.language.myProfile
 import com.example.sandboxbank.App.ui.designkit.mode.language.changeTheme
 import com.example.sandboxbank.App.ui.designkit.mode.language.changeLanguage
 import com.example.sandboxbank.App.ui.designkit.mode.language.exitProfile
+import com.example.sandboxbank.App.ui.mainscreen.domain.MainScreenViewModel
+import com.example.sandboxbank.viewModel
 
 
 @Composable
-fun ProfileScreen(viewModel: ProfileScreenViewModel){
+fun ProfileScreen(){
+    val viewModel = viewModel<ProfileScreenViewModel>()
     ComposeSetting(viewModel)
 }
 
@@ -64,7 +67,6 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
     val settingState = viewModel.profileState.collectAsState()
     var theme by remember { mutableStateOf(false) }
     var language by remember { mutableStateOf(false) }
-    var vocabulary by remember { mutableStateOf(LanguageSingleton.localization) }
 
 
 
@@ -92,7 +94,6 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
                 Language.RUS
             }
             localizationApp(langEnum)
-            vocabulary = LanguageSingleton.localization
             language = (settingState.value as ProfileState.Language).isEng
         }
 
@@ -126,7 +127,7 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
                 )
             }
             Text(modifier = Modifier.padding(top = 10.dp)
-                .fillMaxWidth(), color = ColorSingleton.appPalette.onSurface, text = vocabulary.myProfile(), fontSize = 26.sp)
+                .fillMaxWidth(), color = ColorSingleton.appPalette.onSurface, text = LanguageSingleton.localization.value.myProfile(), fontSize = 26.sp)
         }
         Box(modifier = Modifier.fillMaxWidth().height(15.dp).background(ColorSingleton.appPalette.surface))
         Box(
@@ -151,7 +152,7 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
                 ) {
                     Text(
                         modifier = Modifier.padding(top = 15.dp),
-                        text = vocabulary.changeTheme(),
+                        text = LanguageSingleton.localization.value.changeTheme(),
                         fontWeight = FontWeight.Bold
                     )
 
@@ -168,7 +169,7 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
                 ) {
                     Text(
                         modifier = Modifier.padding(top = 15.dp),
-                        text = vocabulary.changeLanguage(),
+                        text = LanguageSingleton.localization.value.changeLanguage(),
                         fontWeight = FontWeight.Bold
                     )
 
@@ -192,7 +193,7 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
                 colors = ButtonDefaults.buttonColors(containerColor = ColorSingleton.appPalette.onTertiary, contentColor = ColorSingleton.appPalette.tertiary),
                 onClick = {},
             ){
-                Text(text = vocabulary.exitProfile())
+                Text(text = LanguageSingleton.localization.value.exitProfile())
             }
         }
     }
