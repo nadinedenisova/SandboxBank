@@ -1,6 +1,5 @@
 package com.example.sandboxbank.auth.ui.screen
 
-import android.util.Patterns
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -17,10 +16,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
 import com.example.sandboxbank.R
 import com.example.sandboxbank.auth.domain.model.ResultAuthState
 import com.example.sandboxbank.auth.ui.viewmodel.AuthViewModel
-import com.example.sandboxbank.mode.LightColorPalette
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
