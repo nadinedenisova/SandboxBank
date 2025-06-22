@@ -2,7 +2,7 @@ package com.example.sandboxbank.auth.data.repository
 
 import com.example.sandboxbank.auth.data.dto.RegisterRequest
 import com.example.sandboxbank.auth.data.network.api.NetworkClient
-import com.example.sandboxbank.auth.data.storage.SecureStorageToken
+import com.example.sandboxbank.auth.data.storage.SecureStorageManager
 import com.example.sandboxbank.auth.domain.api.AuthRepository
 import com.example.sandboxbank.auth.domain.model.ResultAuthState
 import com.example.sandboxbank.auth.domain.model.ResultAuthState.Success
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class AuthRepositoryImpl
 @Inject constructor(
     private val networkClient: NetworkClient,
-    private val secureStorage: SecureStorageToken
+    private val secureStorage: SecureStorageManager
 ): AuthRepository {
 
     override fun registerUser(email: String, password: String): Flow<ResultAuthState<String>> = flow {

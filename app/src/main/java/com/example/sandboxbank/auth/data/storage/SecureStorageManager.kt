@@ -8,8 +8,9 @@ import android.security.keystore.KeyProperties
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import androidx.core.content.edit
+import javax.inject.Inject
 
-class SecureStorageToken(context: Context) {
+class SecureStorageManager @Inject constructor(context: Context) {
 
     private val sharedPreferences: SharedPreferences = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         val masterKey = MasterKey.Builder(context)
