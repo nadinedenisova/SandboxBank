@@ -34,17 +34,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.sandboxbank.viewModel
 import com.example.sandboxbank.auth.domain.model.ResultAuthState
-import com.example.sandboxbank.mode.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
 import com.example.sandboxbank.auth.ui.viewmodel.AuthViewModel
 
 
 @Composable
 fun AuthScreen(
-    viewModel: AuthViewModel = viewModel(), onLoginSuccess: () -> Unit,
+    onLoginSuccess: () -> Unit,
     onNavigateToRegistration: () -> Unit
 ) {
+    val viewModel: AuthViewModel = viewModel()
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
@@ -53,9 +54,12 @@ fun AuthScreen(
 
     val isFormValid = email.isNotBlank() && password.length >= 6
     val loginState by viewModel.authState.collectAsState()
+    val isLoginButtonEnabled by viewModel.isLoginButtonEnabled.collectAsState()
 
-    var errorMessage = remember(loginState) {
-        if (loginState is ResultAuthState.Error) (loginState as ResultAuthState.Error).message else null
+    var errorMessage = when {
+        !isLoginButtonEnabled -> stringResource(R.string.repeat_again)
+        loginState is ResultAuthState.Error -> stringResource(R.string.auth_error)
+        else -> null
     }
 
     LaunchedEffect(loginState) {
