@@ -1,7 +1,5 @@
-package com.example.sandboxbank.App.ui.designkit.mode
+package com.example.sandboxbank.App.ui.designkit.mode.color
 
-import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
 data class ColorPalette(

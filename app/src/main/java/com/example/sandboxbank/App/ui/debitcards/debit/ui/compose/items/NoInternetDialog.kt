@@ -17,10 +17,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.LightColorPalette
 import com.example.sandboxbank.App.ui.designkit.mode.roboto
 import com.example.sandboxbank.R
 

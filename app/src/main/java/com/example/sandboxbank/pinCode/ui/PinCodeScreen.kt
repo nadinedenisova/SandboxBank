@@ -15,7 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -28,7 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.LightColorPalette
 import com.example.sandboxbank.R
 import com.example.sandboxbank.pinCode.PinCodeViewModel
 import com.example.sandboxbank.pinCode.PinDotsType

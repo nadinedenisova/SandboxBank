@@ -2,7 +2,7 @@ package com.example.sandboxbank.profile.domain
 
 import android.content.SharedPreferences
 import com.example.sandboxbank.App.core.di.annotations.PlainPref
-import com.example.sandboxbank.profile.data.Language
+import com.example.sandboxbank.App.ui.designkit.mode.language.Language
 import javax.inject.Inject
 
 open class GetStoreManager@Inject constructor(

@@ -36,7 +36,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.sandboxbank.viewModel
 import com.example.sandboxbank.auth.domain.model.ResultAuthState
-import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.LightColorPalette
 import com.example.sandboxbank.auth.ui.viewmodel.AuthViewModel
 
 

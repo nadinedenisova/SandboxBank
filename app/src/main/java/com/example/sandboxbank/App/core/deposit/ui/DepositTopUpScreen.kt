@@ -30,7 +30,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.LightColorPalette
 import com.example.sandboxbank.R
 
 @Composable

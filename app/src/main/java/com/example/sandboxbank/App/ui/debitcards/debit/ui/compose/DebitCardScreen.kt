@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.example.sandboxbank.App.ui.debitcards.debit.ui.compose.DebitCardUiState
 import com.example.sandboxbank.R
 import com.example.sandboxbank.App.ui.debitcards.debit.ui.compose.items.NoInternetDialog
-import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.LightColorPalette
 import com.example.sandboxbank.App.ui.designkit.mode.roboto
 import com.example.sandboxbank.cardmanager.cards.debit.ui.compose.items.CardDescriptionItem
 import com.example.sandboxbank.cardmanager.cards.debit.ui.compose.items.CardView

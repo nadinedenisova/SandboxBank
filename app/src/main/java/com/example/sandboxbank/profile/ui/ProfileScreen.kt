@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,8 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Switch
@@ -38,19 +35,22 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.sandboxbank.App.ui.designkit.mode.ColorSingleton
-import com.example.sandboxbank.App.ui.designkit.mode.baseDarkPalette
-import com.example.sandboxbank.App.ui.designkit.mode.baseLightPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
+import com.example.sandboxbank.App.ui.designkit.mode.color.baseDarkPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.baseLightPalette
+import com.example.sandboxbank.App.ui.designkit.mode.language.supportedLocalesNow
 import com.example.sandboxbank.R
-import com.example.sandboxbank.profile.data.Language
+import com.example.sandboxbank.App.ui.designkit.mode.language.Language
+import com.example.sandboxbank.App.ui.designkit.mode.language.LanguageSingleton
 import com.example.sandboxbank.profile.data.ProfileState
+import com.example.sandboxbank.App.ui.designkit.mode.language.localizationApp
 import com.example.sandboxbank.profile.domain.ProfileScreenViewModel
+import com.example.sandboxbank.App.ui.designkit.mode.language.myProfile
+import com.example.sandboxbank.App.ui.designkit.mode.language.changeTheme
+import com.example.sandboxbank.App.ui.designkit.mode.language.changeLanguage
+import com.example.sandboxbank.App.ui.designkit.mode.language.exitProfile
 
 
 @Composable
@@ -64,6 +64,9 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
     val settingState = viewModel.profileState.collectAsState()
     var theme by remember { mutableStateOf(false) }
     var language by remember { mutableStateOf(false) }
+    var vocabulary by remember { mutableStateOf(LanguageSingleton.localization) }
+
+
 
     LaunchedEffect(settingState) {
         when(settingState.value){
@@ -82,7 +85,15 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
         is ProfileState.CurrentSets -> {
         }
         is ProfileState.Language ->{
-            println(viewModel.profileState.collectAsState().value)
+            val langEnum = if((settingState.value as ProfileState.Language).isEng){
+                Language.ENG
+            }
+            else {
+                Language.RUS
+            }
+            localizationApp(langEnum)
+            vocabulary = LanguageSingleton.localization
+            language = (settingState.value as ProfileState.Language).isEng
         }
 
         is ProfileState.Theme -> {
@@ -115,7 +126,7 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
                 )
             }
             Text(modifier = Modifier.padding(top = 10.dp)
-                .fillMaxWidth(), color = ColorSingleton.appPalette.onSurface, text = "Мои профиль", fontSize = 26.sp)
+                .fillMaxWidth(), color = ColorSingleton.appPalette.onSurface, text = vocabulary.myProfile(), fontSize = 26.sp)
         }
         Box(modifier = Modifier.fillMaxWidth().height(15.dp).background(ColorSingleton.appPalette.surface))
         Box(
@@ -140,7 +151,7 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
                 ) {
                     Text(
                         modifier = Modifier.padding(top = 15.dp),
-                        text = "Смена темы: светлый/темный",
+                        text = vocabulary.changeTheme(),
                         fontWeight = FontWeight.Bold
                     )
 
@@ -157,14 +168,14 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
                 ) {
                     Text(
                         modifier = Modifier.padding(top = 15.dp),
-                        text = "Смена языка: английский/русский",
+                        text = vocabulary.changeLanguage(),
                         fontWeight = FontWeight.Bold
                     )
 
                     Switch(
                         checked = language,
                         onCheckedChange = {
-                            language = it
+                            viewModel.onEvent(ProfileEvent.SetLanguage(it))
                         })
                 }
             }
@@ -181,7 +192,7 @@ fun ComposeSetting(viewModel: ProfileScreenViewModel) {
                 colors = ButtonDefaults.buttonColors(containerColor = ColorSingleton.appPalette.onTertiary, contentColor = ColorSingleton.appPalette.tertiary),
                 onClick = {},
             ){
-                Text(text = "Выход из аккаунта")
+                Text(text = vocabulary.exitProfile())
             }
         }
     }
