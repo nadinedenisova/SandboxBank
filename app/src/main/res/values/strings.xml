@@ -18,6 +18,17 @@
 
     <string name="submit_card" translatable="false">Оформить карту</string>
 
+    <!-- Экран оформления кредита -->
+
+    <string name="apply_credit_head" translatable="false">Оформление кредита</string>
+    <string name="apply_credit_conditions" translatable="false">Выберите условия</string>
+    <string name="apply_credit_rate_head" translatable="false">Процентная ставка</string>
+    <string name="apply_credit_rate_last" translatable="false">годовых</string>
+    <string name="apply_credit_select_limit" translatable="false">Выбор кредитного лимита</string>
+    <string name="apply_credit_select_trime_limit" translatable="false">Выбор срока кредита</string>
+    <string name="apply_credit_monthly_payment" translatable="false">Ежемесячный платёж</string>
+    <string name="apply_credit_button_apply" translatable="false">Оформить кредит,</string>
+
     «  debit-card »
 
     «  Repository Card  »
