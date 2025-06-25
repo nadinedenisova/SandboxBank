@@ -2,7 +2,7 @@ package com.example.sandboxbank.App.core.di.modules
 
 import com.example.sandboxbank.auth.data.repository.api.NetworkClient
 import com.example.sandboxbank.auth.data.repository.auth.AuthRepositoryImpl
-import com.example.sandboxbank.auth.data.storage.SecureStorage
+import com.example.sandboxbank.auth.data.storage.SecureStorageManager
 import com.example.sandboxbank.auth.domain.api.AuthInteractor
 import com.example.sandboxbank.auth.domain.api.AuthRepository
 import com.example.sandboxbank.auth.domain.impl.AuthInteractorImpl
@@ -19,8 +19,8 @@ object AuthModule {
     @Provides
     fun provideAuthRepository(
         networkClient: NetworkClient,
-        secureStorage: SecureStorage
+        secureStorageManager: SecureStorageManager
     ): AuthRepository {
-        return AuthRepositoryImpl(networkClient, secureStorage)
+        return AuthRepositoryImpl(networkClient, secureStorageManager)
     }
 }
