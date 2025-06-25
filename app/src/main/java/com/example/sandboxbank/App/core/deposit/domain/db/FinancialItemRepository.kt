@@ -12,7 +12,7 @@ interface FinancialItemRepository {
 
     suspend fun getUserCreditTotal(): Flow<Long>
 
-    suspend fun insert(financialItem: FinancialItem)
+    suspend fun insert(userId: Long, financialItem: FinancialItem, requestNumber: Long): Result<FinancialItem>
 
     suspend fun changeBalance(id: Int, delta: Long)
 

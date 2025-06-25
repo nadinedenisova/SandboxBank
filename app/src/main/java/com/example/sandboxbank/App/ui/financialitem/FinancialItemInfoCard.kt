@@ -51,7 +51,7 @@ fun FinancialItemInfoCard(financialItem: FinancialItem) {
 }
 
 // Расширение для Double:
-fun Double.toFormattedBalance(): String {
+fun Long.toFormattedBalance(): String {
     val numberFormat = NumberFormat.getNumberInstance(Locale("ru", "RU")).apply {
         maximumFractionDigits = 2
         minimumFractionDigits = 2

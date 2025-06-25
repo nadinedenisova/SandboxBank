@@ -26,8 +26,13 @@ class FinancialItemRepositoryImpl(private val financialItemDao: FinancialItemDao
         return financialItemDao.getSumByType(FinancialType.CREDIT.toStringValue())
     }
 
-    override suspend fun insert(financialItem: FinancialItem) {
+    override suspend fun insert(
+        userId: Long,
+        financialItem: FinancialItem,
+        requestNumber: Long
+    ): Result<FinancialItem> {
         financialItemDao.insert(converter.toEntity(financialItem))
+        TODO()
     }
 
     override suspend fun changeBalance(id: Int, delta: Long) {
