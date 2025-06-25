@@ -2,7 +2,7 @@ package com.example.sandboxbank.auth.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.sandboxbank.auth.domain.api.AuthIteractor
+import com.example.sandboxbank.auth.domain.api.AuthInteractor
 import com.example.sandboxbank.auth.domain.model.ResultAuthState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AuthViewModel @Inject constructor (
-    private val authIterator: AuthIteractor
+    private val authInteractor: AuthInteractor
 ) : ViewModel()
 {
     private val _authState = MutableStateFlow<ResultAuthState<Unit>?>(null)
@@ -25,7 +25,7 @@ class AuthViewModel @Inject constructor (
 
     fun register(email: String, password: String) {
         viewModelScope.launch {
-            authIterator.registerUser(email, password)
+            authInteractor.registerUser(email, password)
                 .onEach { result ->
                     _authState.value = result
                 }
@@ -42,7 +42,7 @@ class AuthViewModel @Inject constructor (
         viewModelScope.launch {
             _authState.value = ResultAuthState.Loading
 
-            authIterator.loginUser(email, password)
+            authInteractor.loginUser(email, password)
                 .catch { e ->
                     _authState.value = ResultAuthState.Error(Unit.toString())
                 }
