@@ -24,7 +24,7 @@ class FinancialScreenViewModel @Inject constructor(
                     openDate = 22222,
                     percentType = 12,
                     period = 3333,
-                    balance = 10000.toDouble(),
+                    balance = 10000L,
                     percentRate = 8.9,
                     name = "Накопительный вклад"
                 ),
@@ -34,7 +34,7 @@ class FinancialScreenViewModel @Inject constructor(
                     openDate = 22222,
                     percentType = 12,
                     period = 3333,
-                    balance = 33000.0,
+                    balance = 33000L,
                     percentRate = 8.0,
                     name = "До востребования"
                 ))
@@ -48,7 +48,7 @@ class FinancialScreenViewModel @Inject constructor(
                     openDate = 22222,
                     percentType = 12,
                     period = 3333,
-                    balance = 10000.toDouble(),
+                    balance = 10000L,
                     percentRate = 8.9,
                     name = "Автокредит"
                 ),
@@ -58,7 +58,7 @@ class FinancialScreenViewModel @Inject constructor(
                     openDate = 22222,
                     percentType = 12,
                     period = 3333,
-                    balance = 33000.0,
+                    balance = 33000L,
                     percentRate = 8.0,
                     name = "Ипотека"
                 ))
