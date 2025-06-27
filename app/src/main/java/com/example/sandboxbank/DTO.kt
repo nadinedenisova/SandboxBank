@@ -76,12 +76,16 @@ data class Product(
     val balance: Long
 )
 
+interface ProductResponse {
+    val product: Product
+}
+
 @Serializable
 data class CreateDepositResponse(
-    val product: Product,
+    override val product: Product,
     val requestNumber: Long,
     val currentDepositNumber: Long
-)
+) : ProductResponse
 
 @Serializable
 data class CreateCreditRequest(
@@ -94,10 +98,10 @@ data class CreateCreditRequest(
 
 @Serializable
 data class CreateCreditResponse(
-    val product: Product,
+    override val product: Product,
     val requestNumber: Long,
     val currentCreditNumber: Long
-)
+) : ProductResponse
 
 @Serializable
 data class ProductsResponse(

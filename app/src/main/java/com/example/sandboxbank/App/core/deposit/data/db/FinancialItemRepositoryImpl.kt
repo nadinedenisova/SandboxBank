@@ -6,59 +6,68 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 
-class FinancialItemRepositoryImpl(private val financialItemDao: FinancialItemDao,
-                                  private val converter: FinancialItemDbConverter
-): FinancialItemRepository {
-
-    override suspend fun getUserDepositCount(): Flow<Int> {
-        return financialItemDao.getCountByType(FinancialType.DEPOSIT.toStringValue())
-    }
-
-    override suspend fun getUserDepositTotal(): Flow<Long> {
-        return financialItemDao.getSumByType(FinancialType.DEPOSIT.toStringValue())
-    }
-
-    override suspend fun getUserCreditCount(): Flow<Int> {
-        return financialItemDao.getCountByType(FinancialType.CREDIT.toStringValue())
-    }
-
-    override suspend fun getUserCreditTotal(): Flow<Long> {
-        return financialItemDao.getSumByType(FinancialType.CREDIT.toStringValue())
-    }
-
-    override suspend fun insert(financialItem: FinancialItem) {
-        financialItemDao.insert(converter.toEntity(financialItem))
-    }
-
-    override suspend fun changeBalance(id: Int, delta: Long) {
-        financialItemDao.changeBalanceById(id, delta)
-    }
-
-    // Получить все депозиты
-    override fun getAllDeposits(): Flow<List<FinancialItem>> {
-        return financialItemDao.getAllByType(FinancialType.DEPOSIT.toStringValue())
-            .map { entities ->
-                entities.map { entity ->
-                    FinancialItemDbConverter().toDomain(entity)
-                }
-            }
-    }
-
-    override fun getById(id: Int): Flow<FinancialItem> {
-        return financialItemDao.getById(id)
-            .filterNotNull()
-            .map { entity ->
-                converter.toDomain(entity)
-            }
-    }
-
-    // Получить все кредиты
-    override fun getAllCredits(): Flow<List<FinancialItem>> {
-        return financialItemDao.getAllByType(FinancialType.CREDIT.toStringValue())
-            .map { entities ->
-                entities.map { entity ->
-                    FinancialItemDbConverter().toDomain(entity)
-                }
-            }
-    }
-}
+//class FinancialItemRepositoryImpl(private val financialItemDao: FinancialItemDao,
+//                                  private val converter: FinancialItemDbConverter
+//): FinancialItemRepository {
+//
+//    override suspend fun getUserDepositCount(): Flow<Int> {
+//        return financialItemDao.getCountByType(FinancialType.DEPOSIT.toStringValue())
+//    }
+//
+//    override suspend fun getUserDepositTotal(): Flow<Long> {
+//        return financialItemDao.getSumByType(FinancialType.DEPOSIT.toStringValue())
+//    }
+//
+//    override suspend fun getUserCreditCount(): Flow<Int> {
+//        return financialItemDao.getCountByType(FinancialType.CREDIT.toStringValue())
+//    }
+//
+//    override suspend fun getUserCreditTotal(): Flow<Long> {
+//        return financialItemDao.getSumByType(FinancialType.CREDIT.toStringValue())
+//    }
+//
+//    override suspend fun insert(
+//        userId: Long,
+//        financialItem: FinancialItem,
+//        requestNumber: Long
+//    ): Result<FinancialItem> {
+//        financialItemDao.insert(converter.toEntity(financialItem))
+//        TODO()
+//    }
+//
+//    override suspend fun changeBalance(id: Int, delta: Long) {
+//        financialItemDao.changeBalanceById(id, delta)
+//    }
+//
+//    // Получить все депозиты
+//    override fun getAllDeposits(): Flow<List<FinancialItem>> {
+//        return financialItemDao.getAllByType(FinancialType.DEPOSIT.toStringValue())
+//            .map { entities ->
+//                entities.map { entity ->
+//                    FinancialItemDbConverter().toDomain(entity)
+//                }
+//            }
+//    }
+//
+//    override fun getById(id: Int): Flow<FinancialItem> {
+//        return financialItemDao.getById(id)
+//            .filterNotNull()
+//            .map { entity ->
+//                converter.toDomain(entity)
+//            }
+//    }
+//
+//    // Получить все кредиты
+//    override fun getAllCredits(): Flow<List<FinancialItem>> {
+//        return financialItemDao.getAllByType(FinancialType.CREDIT.toStringValue())
+//            .map { entities ->
+//                entities.map { entity ->
+//                    FinancialItemDbConverter().toDomain(entity)
+//                }
+//            }
+//    }
+//
+//    override fun getAllProducts(): Flow<List<FinancialItem>> {
+//        TODO("Not yet implemented")
+//    }
+//}
