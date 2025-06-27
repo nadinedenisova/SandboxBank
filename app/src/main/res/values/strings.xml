@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">SandboxBank</string>
 
+    <!-- debit-credit-card -->
+    <string name="deposits_title" translatable="false">Вклады</string>
+    <string name="deposits_open_button" translatable="false">Открыть вклад</string>
+    <string name="credits_title" translatable="false">Кредиты</string>
+    <string name="credit_open_button" translatable="false">Оформить кредит</string>
 
     «  credit card »
 
