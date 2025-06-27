@@ -28,6 +28,9 @@
     <string name="apply_credit_select_trime_limit" translatable="false">Выбор срока кредита</string>
     <string name="apply_credit_monthly_payment" translatable="false">Ежемесячный платёж</string>
     <string name="apply_credit_button_apply" translatable="false">Оформить кредит,</string>
+    <string name="apply_credit_month" translatable="false">мес</string>
+
+
 
     «  debit-card »
 

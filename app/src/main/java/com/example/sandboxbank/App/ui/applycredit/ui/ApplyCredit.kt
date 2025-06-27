@@ -23,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -43,21 +44,32 @@ import com.example.sandboxbank.R
 import com.google.android.material.slider.LabelFormatter
 import com.google.android.material.slider.Slider
 
+const val CREDIT_PERCENT = 25
+const val CREDIT_MAX_SUM = 3_000_000
+const val CREDIT_MIN_SUM = 30_000
+const val SLIDER_STEPS = 11
 
 @Composable
-fun ApplyCredit(
-    percent: Float,//Процентная ставка
-    minCreditValue: Float,//Минимальный размер кредита
-    maxCreditValue: Float,//Максимальный размер кредита
-    minMonth: Int,//Минимальный срок
-    maxMounth: Int,//Максимальный срок
-){
+fun ApplyCredit(){
 
-    var sliderCashLimit by remember { mutableFloatStateOf(0f) }
-    var sliderDateLimit by remember { mutableFloatStateOf(0f) }
 
+    //var sliderDateLimit by remember { mutableFloatStateOf(0f) }
+
+    val creditLength = listOf(3,6,9,12,24)
+    val creditLimit = getCreditLimit()
+
+    val dialogVisible =  remember { mutableStateOf(false)    }
 
     Column {
+        CreditApproved(
+            visible = dialogVisible.value,
+            onDismissRequest = {
+                dialogVisible.value = false
+            },
+            onConfirmation = {
+                dialogVisible.value = false
+            }
+        )
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -119,20 +131,21 @@ fun ApplyCredit(
 
                 Box (
                     modifier = Modifier
+
                         .border(
                             width = 1.dp,
                             shape = RoundedCornerShape(12.dp),
                             color = selectColor(
                                 LightColorPalette.outlineVariant,
-                                DarkColorPalette.onSurfaceVariant
-                            )
+                                DarkColorPalette.onSurfaceVariant2
+                            ),
                         )
                         .fillMaxWidth()
                 ){
                     Text(
                         modifier = Modifier.padding(16.dp),
                         text = "${stringResource(R.string.apply_credit_rate_head)} " +
-                                "\n25% " +
+                                "\n${CREDIT_PERCENT}% " +
                                 stringResource(R.string.apply_credit_rate_last),
                         fontFamily = roboto,
                         fontWeight = FontWeight.W400,
@@ -151,9 +164,8 @@ fun ApplyCredit(
                 )
 
                 ViewSlider(
-                    min = 30_000f,
-                    max = 3_000_000f,
-                    type = "Р"
+                    values = creditLimit,
+                    type = stringResource(R.string.deposit_sum_symbol)
                 )
 
                 Text(
@@ -167,9 +179,8 @@ fun ApplyCredit(
 
 
                 ViewSlider(
-                    min = 3f,
-                    max = 24f,
-                    type = "мес"
+                    values = creditLength,
+                    type = stringResource(R.string.apply_credit_month)
                 )
 
                 Column (
@@ -180,7 +191,7 @@ fun ApplyCredit(
                             shape = RoundedCornerShape(12.dp),
                             color = selectColor(
                                 LightColorPalette.outlineVariant,
-                                DarkColorPalette.onSurfaceVariant
+                                DarkColorPalette.onSurfaceVariant2
                             )
                         )
                         .fillMaxWidth()
@@ -209,7 +220,10 @@ fun ApplyCredit(
 
 
                 Button(
-                    onClick = {},
+                    onClick = {
+                        //TODO запрос на бэк "POST /credit/create"
+                        dialogVisible.value = true
+                    },
                     modifier = Modifier
                         .padding(vertical = 16.dp)
                         .fillMaxWidth(),
@@ -235,25 +249,27 @@ fun ApplyCredit(
 
 @Composable
 fun ViewSlider(
-    min: Float,
-    max: Float,
+    values: List<Int>,
     type: String,
 ){
 
-    val step: Float = (max - min) / 10
-    val default: Float = min + (step * 5)
+    val defaultValue: Int = (values.size / 2) + 1
+    var sliderValue by remember { mutableFloatStateOf(values[defaultValue].toFloat()) }
 
 
     AndroidView(
         factory = { context ->
             Slider(context).apply {
-                stepSize = step
-                valueFrom = min
-                valueTo = max
+                stepSize = (values[1] - values[0]).toFloat()
+                valueFrom = values.first().toFloat()
+                valueTo = values.last().toFloat()
                 labelBehavior = LabelFormatter.LABEL_VISIBLE
-                value = default
+                value = values[0].toFloat()
 
             }
+        },
+        update = { view ->
+            sliderValue = view.value
         },
         modifier = Modifier.padding(vertical = 8.dp)
     )
@@ -263,14 +279,14 @@ fun ViewSlider(
         horizontalArrangement = Arrangement.SpaceBetween
     ){
         Text(
-            text = "${min.toInt()} $type",
+            text = "${values.first()} $type",
             fontFamily = roboto,
             fontWeight = FontWeight.W600,
             fontSize = 14.sp,
             color = selectColor(LightColorPalette.onSurface, DarkColorPalette.onSurfaceContainerHighest)
             )
         Text(
-            text = "${max.toInt()} $type",
+            text = "${values.last()} $type",
             fontFamily = roboto,
             fontWeight = FontWeight.W600,
             fontSize = 14.sp,
@@ -281,18 +297,23 @@ fun ViewSlider(
 
 }
 
+fun getCreditLimit(): List<Int>{
+    val step = (CREDIT_MAX_SUM - CREDIT_MIN_SUM) / SLIDER_STEPS
+
+    val creditLimit = mutableListOf(CREDIT_MIN_SUM)
+
+    for(i in 1..(SLIDER_STEPS)){
+        creditLimit.add(step + creditLimit[i-1])
+    }
+
+    return creditLimit.toList()
+}
 
 @Preview(
     showSystemUi = false, showBackground = false, device = "id:pixel_5", locale = "ru",
-    uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL
 )
 @Composable
 fun PreviewApplyCredit(){
-    ApplyCredit(
-        maxCreditValue = 300_000_000f,
-        minCreditValue = 30_000f,
-        maxMounth = 24,
-        minMonth = 3,
-        percent = 25f,
-    )
+    ApplyCredit()
 }
