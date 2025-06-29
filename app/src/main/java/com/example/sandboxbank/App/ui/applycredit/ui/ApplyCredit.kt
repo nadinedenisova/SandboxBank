@@ -3,7 +3,6 @@ package com.example.sandboxbank.App.ui.applycredit.ui
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,18 +28,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
-import com.example.sandboxbank.App.App
-import com.example.sandboxbank.App.ui.applycredit.entity.CreditRequest
+import com.example.sandboxbank.App.ui.applycredit.entity.ApplyCreditEntity
+import com.example.sandboxbank.App.ui.applycredit.entity.ApplyCreditResponse
+import com.example.sandboxbank.App.ui.applycredit.sendMockRequest
 import com.example.sandboxbank.App.ui.designkit.mode.DarkColorPalette
 import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
 import com.example.sandboxbank.App.ui.designkit.mode.inter
 import com.example.sandboxbank.App.ui.designkit.mode.roboto
 import com.example.sandboxbank.App.ui.designkit.mode.selectColor
 import com.example.sandboxbank.R
-import com.google.android.material.slider.LabelFormatter
-import com.google.android.material.slider.Slider
-import java.text.DecimalFormat
 import kotlin.math.pow
 
 const val CREDIT_PERCENT = 25
@@ -75,7 +71,10 @@ fun ApplyCredit() {
 
         CreditLimit(
             visible = dialogLimitIsVisible.value,
-            onConfirmation = { dialogLimitIsVisible.value = false },
+            onConfirmation = {
+                dialogLimitIsVisible.value = false
+
+                             },
             onDismissRequest = { dialogLimitIsVisible.value = false },
         )
 
@@ -275,14 +274,23 @@ fun ApplyCredit() {
 
                 Button(
                     onClick = {
-                        //TODO запрос на бэк "POST /credit/create"
-                        val credReq = CreditRequest(
-                            sum = sliderSumValue.toLong(),
-                            time = sliderDateValue.toInt(),
-                        )
-                        dialogApprovedIsVisible.value = true
-                        //TODO Проверка интернет соединения
-                        //TODO
+                        val result = sendMockRequest()
+
+                        when (result) {
+                            ApplyCreditResponse.CreditAmountLimit -> {
+                                dialogApprovedIsVisible.value = true
+                            }
+                            ApplyCreditResponse.NoConnection -> {
+                                dialogConnectionIsVisible.value = true
+                                val creditSaveState = ApplyCreditEntity(
+                                    sum = sliderSumValue.toLong(),
+                                    time = sliderDateValue.toInt(),
+                                )
+                            }
+                            ApplyCreditResponse.Success -> {
+                                dialogLimitIsVisible.value = true
+                            }
+                        }
                     },
                     modifier = Modifier
                         .padding(vertical = 16.dp)
@@ -307,6 +315,7 @@ fun ApplyCredit() {
         }
     }
 }
+
 
 fun getCreditLimit(): List<Int> {
     val step = (CREDIT_MAX_SUM - CREDIT_MIN_SUM) / SLIDER_STEPS
