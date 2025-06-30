@@ -1,4 +1,4 @@
-package com.example.sandboxbank.App.core.deposit.data.db
+package com.example.sandboxbank.App.core.deposit.data
 
 enum class FinancialType {
     DEPOSIT,
