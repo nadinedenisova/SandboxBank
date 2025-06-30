@@ -6,22 +6,36 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.sandboxbank.App.ui.financialScreen.domain.FinancialScreenViewModel
+import com.example.sandboxbank.App.ui.financialScreen.ui.FinancialScreenContent
 import com.example.sandboxbank.App.ui.mainscreen.data.Routes
+import com.example.sandboxbank.profile.domain.ProfileScreenViewModel
+import com.example.sandboxbank.profile.ui.ProfileScreen
 
 @Composable
 fun NavGraph(
-    startDestination: String = Routes.Cards.name,
     navHostController: NavHostController,
+    viewModelFactory: ViewModelProvider.Factory,
+    startDestination: String = Routes.Cards.route // Используем route вместо name
 ) {
     NavHost(navController = navHostController, startDestination = startDestination) {
         composable(route = Routes.Cards.name) {
             CardsScreen()
         }
         composable(route = Routes.Finance.name) {
-            FinanceScreen()
+            val financialViewModel: FinancialScreenViewModel = viewModel(
+                factory = viewModelFactory
+            )
+            FinancialScreenContent(
+                financialViewModel,
+                onDepositClick = {},
+                onCreditClick = {}
+            )
         }
         composable(route = Routes.History.name) {
             HistoryScreen()
@@ -29,9 +43,11 @@ fun NavGraph(
         composable(route = Routes.Transfers.name) {
             TransfersScreen()
         }
-        composable(route = Routes.Profile.name) {
-//            ProfileScreen()
-            ProfileScreen()
+        composable(route = Routes.Profile.route) {
+            val profileViewModel: ProfileScreenViewModel = viewModel(
+                factory = viewModelFactory
+            )
+            ProfileScreen(viewModel = profileViewModel)
         }
     }
 }
@@ -41,13 +57,6 @@ fun NavGraph(
 fun CardsScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Text("Экран Карт")
-    }
-}
-
-@Composable
-fun FinanceScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Экран Финансы")
     }
 }
 
@@ -62,12 +71,5 @@ fun TransfersScreen() {
 fun HistoryScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Text("Экран История")
-    }
-}
-
-@Composable
-fun ProfileScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Экран Профиль")
     }
 }

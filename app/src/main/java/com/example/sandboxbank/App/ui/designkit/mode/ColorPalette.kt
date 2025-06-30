@@ -162,12 +162,13 @@ object DarkColorPalette {
     val secondaryContainer2 = Color(0xFF4A4458)           //фон неактивного слайдера
     val tertiaryFixedDim = Color(0xFFEFB8C8)         //Предупреждение на экране Карты, и цвет кнопки закрыть карту
     val onTertiaryFixedVariant = Color(0xFF633B48)  //цвет текста кнопки закрыть карту
-        val tertiary = Color(0xFFE2E2E2)            //обводка и текст кнопки Выход из аккаунта
+    val tertiary = Color(0xFFE2E2E2)            //обводка и текст кнопки Выход из аккаунта
     val onTertiary = Color(0xFF1A1C1C)          //кнопка Выход из аккаунта
+    val onSecondary = Color(0xFF332D41)
 
     //
     //    // Нейтральные цвета
-        val surface = Color(0xFFFEF7FF)             // мой профиль меню 2
+    val surface = Color(0xFFFEF7FF)             // мой профиль меню 2
     val surface1 = Color(0xFF151218)
     //    val surfaceContainerHigh = Color(0xFFECE6F0)
     val onSurfaceContainerHighest = Color(0xFFE6E0E9) //неактивный переключатель, пункт меню, заголовок "Открытие вклада"

@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sandboxbank.App.core.deposit.domain.model.FinancialItem
 import com.example.sandboxbank.R
+import java.math.BigDecimal
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -51,7 +52,14 @@ fun FinancialItemInfoCard(financialItem: FinancialItem) {
 }
 
 // Расширение для Double:
-fun Double.toFormattedBalance(): String {
+fun Long.toFormattedBalance(): String {
+    val numberFormat = NumberFormat.getNumberInstance(Locale("ru", "RU")).apply {
+        maximumFractionDigits = 2
+        minimumFractionDigits = 2
+    }
+    return numberFormat.format(this)
+}
+fun BigDecimal.toFormattedBalance(): String {
     val numberFormat = NumberFormat.getNumberInstance(Locale("ru", "RU")).apply {
         maximumFractionDigits = 2
         minimumFractionDigits = 2

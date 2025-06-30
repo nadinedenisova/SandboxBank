@@ -16,12 +16,37 @@ fun ApiCard.toLocalModel(): LocalCard = LocalCard(
 )
 
 fun CardState.toUiState(): DebitCardUiState {
-    return DebitCardUiState(
-        isLoading = this.isLoading,
-        card = this.card,
-        isLimitReached = this.isLimitReached,
-        error = this.error,
-        isCardCreated = this.card != null
-    )
+    return when (this) {
+        is CardState.Idle -> DebitCardUiState(
+            isLoading = false,
+            isLimitReached = false,
+            error = null,
+            isCardCreated = false
+        )
+        is CardState.Loading -> DebitCardUiState(
+            isLoading = true,
+            isLimitReached = false,
+            error = null,
+            isCardCreated = false
+        )
+        is CardState.Success -> DebitCardUiState(
+            isLoading = false,
+            isLimitReached = false,
+            error = null,
+            isCardCreated = true,
+            card = this.card
+        )
+        is CardState.LimitReached -> DebitCardUiState(
+            isLoading = false,
+            isLimitReached = true,
+            error = null,
+            isCardCreated = false
+        )
+        is CardState.Error -> DebitCardUiState(
+            isLoading = false,
+            isLimitReached = false,
+            error = this.message,
+            isCardCreated = false
+        )
+    }
 }
-

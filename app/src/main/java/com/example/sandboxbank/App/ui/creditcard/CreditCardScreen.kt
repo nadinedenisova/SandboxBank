@@ -81,9 +81,10 @@ fun CreditCardScreen(
             min = minCreditLimit,
             max = maxCreditLimit,
             step = steps,
-            value = creditLimit,
+            default = creditLimit,
             onValueChange = { creditLimit = it }
         )
+
 
         Spacer(modifier = Modifier.height(16.dp))
 

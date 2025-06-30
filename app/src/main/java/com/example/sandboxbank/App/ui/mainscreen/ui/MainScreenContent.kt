@@ -5,14 +5,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
-import com.example.sandboxbank.App.ui.mainscreen.domain.MainScreenViewModel
-import com.example.sandboxbank.viewModel
 
 
 @Composable
-fun MainScreenContent() {
-    val viewModel = viewModel<MainScreenViewModel>()
+fun MainScreenContent(
+    viewModelFactory: ViewModelProvider.Factory
+) {
     val navController = rememberNavController()
 
     Scaffold(
@@ -23,8 +23,8 @@ fun MainScreenContent() {
         Column(modifier = Modifier.padding(innerPadding)) {
             NavGraph(
                 navHostController = navController,
+                viewModelFactory = viewModelFactory
             )
         }
     }
-
 }

@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">SandboxBank</string>
 
+    <!-- debit-credit-card -->
+    <string name="deposits_title" translatable="false">Вклады</string>
+    <string name="deposits_open_button" translatable="false">Открыть вклад</string>
+    <string name="credits_title" translatable="false">Кредиты</string>
+    <string name="credit_open_button" translatable="false">Оформить кредит</string>
 
     «  credit card »
 
@@ -17,6 +22,20 @@
     <string name="chosen_credit_limit" translatable="false">Выбор кредитного лимита</string>
 
     <string name="submit_card" translatable="false">Оформить карту</string>
+
+    <!-- Экран оформления кредита -->
+
+    <string name="apply_credit_head" translatable="false">Оформление кредита</string>
+    <string name="apply_credit_conditions" translatable="false">Выберите условия</string>
+    <string name="apply_credit_rate_head" translatable="false">Процентная ставка</string>
+    <string name="apply_credit_rate_last" translatable="false">годовых</string>
+    <string name="apply_credit_select_limit" translatable="false">Выбор кредитного лимита</string>
+    <string name="apply_credit_select_trime_limit" translatable="false">Выбор срока кредита</string>
+    <string name="apply_credit_monthly_payment" translatable="false">Ежемесячный платёж</string>
+    <string name="apply_credit_button_apply" translatable="false">Оформить кредит,</string>
+    <string name="apply_credit_month" translatable="false">мес</string>
+
+
 
     «  debit-card »
 
@@ -99,5 +118,11 @@
     <string name="credit_graph" translatable="false">График платежей</string>
     <string name="credit_add_money" translatable="false">Внести платёж</string>
     <string name="credit_close" translatable="false">Закрыть</string>
-  
+
+    <!-- Нижняя навигация -->
+    <string name="bottomnav_cards" translatable="false">Карты</string>
+    <string name="bottomnav_finances" translatable="false">Финансы</string>
+    <string name="bottomnav_transactions" translatable="false">Переводы</string>
+    <string name="bottomnav_history" translatable="false">История</string>
+    <string name="bottomnav_profile" translatable="false">Профиль</string>
 </resources>

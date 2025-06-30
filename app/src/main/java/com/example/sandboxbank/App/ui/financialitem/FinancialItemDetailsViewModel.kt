@@ -21,20 +21,23 @@ class FinancialItemDetailsViewModel @Inject constructor(
     )
     val uiState: StateFlow<FinancialItemDetailsUIState<FinancialItem>> = _uiState
 
-    private var currentId: Int? = null
+    private var currentId: Long? = null
+
+    // временный костыль
+    val userId = 1L
 
     /**
      * грузим данные по id
      */
-    fun loadFinancialItem(id: Int) {
+    fun loadFinancialItem(id: Long) {
         currentId = id
 
         viewModelScope.launch {
-            financialItemRepository.getById(id)
-                .collect { item ->
-                    _financialItem.value = item
-                    _uiState.value = FinancialItemDetailsUIState.Success(item)
-                }
+            financialItemRepository.getById(id, userId)
+//                .collect { item ->
+//                    _financialItem.value = item
+//                    _uiState.value = FinancialItemDetailsUIState.Success(item)
+//                }
         }
     }
 
