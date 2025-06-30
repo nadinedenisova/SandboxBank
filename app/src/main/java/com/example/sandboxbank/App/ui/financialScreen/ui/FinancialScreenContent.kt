@@ -1,6 +1,7 @@
 package com.example.sandboxbank.App.ui.financialScreen.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -36,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import com.example.sandboxbank.App.core.deposit.domain.model.Credit
 import com.example.sandboxbank.App.core.deposit.domain.model.Deposit
 import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 import com.example.sandboxbank.App.ui.financialScreen.data.FinanceState
 import com.example.sandboxbank.App.ui.financialScreen.domain.FinancialScreenViewModel
 import com.example.sandboxbank.R
@@ -56,6 +59,7 @@ fun FinancialScreenContent(
         modifier = Modifier
             .fillMaxSize()
             .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top))
+            .background(ColorSingleton.appPalette.value.background)
             .padding(16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -84,7 +88,7 @@ fun FinancialScreenContent(
                 .fillMaxWidth()
                 .height(64.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = LightColorPalette.primary,
+                containerColor = ColorSingleton.appPalette.value.primary,
             ),
             shape = RoundedCornerShape(100.dp),
             onClick = {
@@ -93,7 +97,7 @@ fun FinancialScreenContent(
             Text(
                 text = stringResource(R.string.deposits_open_button),
                 style = TextStyle(
-                    color = LightColorPalette.background,
+                    color = ColorSingleton.appPalette.value.background,
                     fontSize = 16.sp,
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     fontWeight = FontWeight(500)
@@ -125,7 +129,7 @@ fun FinancialScreenContent(
                 .fillMaxWidth()
                 .height(64.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = LightColorPalette.primary,
+                containerColor =ColorSingleton.appPalette.value.primary,
             ),
             shape = RoundedCornerShape(100.dp),
             onClick = {
@@ -134,7 +138,7 @@ fun FinancialScreenContent(
             Text(
                 text = stringResource(R.string.credit_open_button),
                 style = TextStyle(
-                    color = LightColorPalette.background,
+                    color = ColorSingleton.appPalette.value.background,
                     fontSize = 16.sp,
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     fontWeight = FontWeight(500)
@@ -151,7 +155,7 @@ fun TitleContent(title: String) {
             .padding(top = 8.dp, start = 16.dp, bottom = 8.dp, end = 16.dp),
         text = title,
         style = TextStyle(
-            color = LightColorPalette.primaryInverce,
+            color = ColorSingleton.appPalette.value.primaryInverce,
             fontSize = 24.sp,
             fontFamily = FontFamily(Font(R.font.roboto)),
             fontWeight = FontWeight(500)
@@ -171,6 +175,7 @@ fun DepositItem(item: Deposit, onClick:(deposit: Deposit)-> Unit
             .clickable{
                 onClick.invoke(item)
             }
+            .background(ColorSingleton.appPalette.value.surface)
     ) {
         Card(
             modifier = Modifier
@@ -178,8 +183,10 @@ fun DepositItem(item: Deposit, onClick:(deposit: Deposit)-> Unit
             shape = RoundedCornerShape(8.dp)
         ) {
             Image(
+                modifier = Modifier.background(ColorSingleton.appPalette.value.background),
                 painter = painterResource(id = R.drawable.leading_icon),
                 contentDescription = null,
+                colorFilter = ColorFilter.tint(ColorSingleton.appPalette.value.primary)
             )
         }
         Column (
@@ -191,7 +198,7 @@ fun DepositItem(item: Deposit, onClick:(deposit: Deposit)-> Unit
                 text = item.name,
                 maxLines = 1,
                 style = TextStyle(
-                    color = LightColorPalette.onSecondary,
+                    color = ColorSingleton.appPalette.value.onSecondary,
                     fontSize = 15.sp,
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     fontWeight = FontWeight(600)
@@ -201,7 +208,7 @@ fun DepositItem(item: Deposit, onClick:(deposit: Deposit)-> Unit
                 text = item.balance.toString(),
                 maxLines = 1,
                 style = TextStyle(
-                    color = LightColorPalette.primaryInverce,
+                    color = ColorSingleton.appPalette.value.primaryInverce,
                     fontSize = 20.sp,
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     fontWeight = FontWeight(600)
@@ -213,7 +220,7 @@ fun DepositItem(item: Deposit, onClick:(deposit: Deposit)-> Unit
             text = "${item.percentType} %",
             maxLines = 1,
             style = TextStyle(
-                color = LightColorPalette.onSecondary,
+                color = ColorSingleton.appPalette.value.onSecondary,
                 fontSize = 14.sp,
                 fontFamily = FontFamily(Font(R.font.roboto)),
                 fontWeight = FontWeight(600)
@@ -259,7 +266,7 @@ fun CreditItem(item: Credit, onClick:(credit: Credit)-> Unit
                 text = item.name,
                 maxLines = 1,
                 style = TextStyle(
-                    color = LightColorPalette.onSecondary,
+                    color = ColorSingleton.appPalette.value.onSecondary,
                     fontSize = 15.sp,
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     fontWeight = FontWeight(600)
@@ -269,7 +276,7 @@ fun CreditItem(item: Credit, onClick:(credit: Credit)-> Unit
                 text = item.balance.toString(),
                 maxLines = 1,
                 style = TextStyle(
-                    color = LightColorPalette.primaryInverce,
+                    color = ColorSingleton.appPalette.value.primaryInverce,
                     fontSize = 20.sp,
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     fontWeight = FontWeight(600)

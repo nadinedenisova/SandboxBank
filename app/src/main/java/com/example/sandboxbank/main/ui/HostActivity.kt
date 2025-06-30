@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.lifecycle.ViewModelProvider
 import com.example.sandboxbank.App.App
 import com.example.sandboxbank.App.core.di.ViewModelFactory
+import com.example.sandboxbank.App.ui.mainscreen.ui.MainScreenContent
 import com.example.sandboxbank.pinCode.ui.PinCodeScreen
 import com.example.sandboxbank.profile.domain.ProfileScreenViewModel
 import com.example.sandboxbank.profile.ui.ProfileScreen

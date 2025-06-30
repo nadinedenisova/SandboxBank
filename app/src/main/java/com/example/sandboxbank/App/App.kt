@@ -6,9 +6,9 @@ import com.example.sandboxbank.App.core.di.components.ActivityComponent
 import com.example.sandboxbank.App.core.di.components.AppComponent
 import com.example.sandboxbank.App.core.di.components.DaggerAppComponent
 import com.example.sandboxbank.App.core.di.components.ComponentContainer
+import com.example.sandboxbank.App.ui.designkit.mode.baseDarkPalette
+import com.example.sandboxbank.App.ui.designkit.mode.baseLightPalette
 import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
-import com.example.sandboxbank.App.ui.designkit.mode.color.baseDarkPalette
-import com.example.sandboxbank.App.ui.designkit.mode.color.baseLightPalette
 import com.example.sandboxbank.App.ui.designkit.mode.language.localizationApp
 import com.example.sandboxbank.App.ui.designkit.mode.language.supportedLocalesNow
 import com.example.sandboxbank.profile.domain.GetStoreManager
@@ -52,11 +52,8 @@ class App : Application(), ComponentContainer {
         appComponent.inject(this)
 
         val isDarkTheme = getStoreManager.getTheme()
-        if(!isDarkTheme){
-            ColorSingleton.appPalette = baseLightPalette
-        }
-        else{
-            ColorSingleton.appPalette = baseDarkPalette
+        if(isDarkTheme){
+            ColorSingleton.appPalette.value = baseDarkPalette
         }
         supportedLocalesNow
         localizationApp(getStoreManager.getLanguage())

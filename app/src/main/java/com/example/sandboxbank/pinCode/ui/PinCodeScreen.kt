@@ -27,7 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.sandboxbank.App.ui.designkit.mode.color.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 import com.example.sandboxbank.R
 import com.example.sandboxbank.pinCode.PinCodeViewModel
 import com.example.sandboxbank.pinCode.PinDotsType
@@ -64,9 +64,9 @@ fun PinCodeScreenContent(
 @Composable
 fun PinDots(isFilled: Boolean, state: AuthScreenUiState) {
     val color = when (state.pinDotsType) {
-        PinDotsType.DEFAULT -> if (isFilled) LightColorPalette.secondary else Color.Unspecified
-        PinDotsType.INCORRECT -> LightColorPalette.onError
-        PinDotsType.SUCCESS -> LightColorPalette.primaryInverce
+        PinDotsType.DEFAULT -> if (isFilled) ColorSingleton.appPalette.value.secondary else Color.Unspecified
+        PinDotsType.INCORRECT -> ColorSingleton.appPalette.value.onError
+        PinDotsType.SUCCESS -> ColorSingleton.appPalette.value.primaryInverce
     }
 
     Icon(
@@ -103,7 +103,7 @@ fun KeyBoard(
             text = statePin.titleText,
             fontSize = 30.sp,
             textAlign = TextAlign.Center,
-            color = LightColorPalette.primaryFixedVariant
+            color = ColorSingleton.appPalette.value.primaryFixedVariant
         )
         Row(
             modifier = Modifier
@@ -176,7 +176,7 @@ private fun KeyButton(
             .padding(8.dp)
             .clip(shape)
             .background(
-                color = LightColorPalette.secondaryContainer,
+                color = ColorSingleton.appPalette.value.secondaryContainer,
                 shape = RoundedCornerShape(100)
             )
             .clickable(onClick = onClick)

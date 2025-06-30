@@ -6,10 +6,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.sandboxbank.App.ui.financialScreen.domain.FinancialScreenViewModel
+import com.example.sandboxbank.App.ui.financialScreen.ui.FinancialScreenContent
 import com.example.sandboxbank.App.ui.mainscreen.data.Routes
+import com.example.sandboxbank.profile.domain.ProfileScreenViewModel
+import com.example.sandboxbank.profile.ui.ProfileScreen
 
 @Composable
 fun NavGraph(
@@ -39,7 +45,10 @@ fun NavGraph(
         }
         composable(route = Routes.Profile.name) {
 //            ProfileScreen()
-            ProfileScreen()
+            val profileScreenViewModel: ProfileScreenViewModel = viewModel(
+                factory = viewModelFactory
+            )
+           ProfileScreen(profileScreenViewModel)
         }
     }
 }

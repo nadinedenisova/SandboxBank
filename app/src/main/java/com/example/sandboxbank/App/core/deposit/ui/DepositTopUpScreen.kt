@@ -30,7 +30,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.sandboxbank.App.ui.designkit.mode.color.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 import com.example.sandboxbank.R
 
 @Composable
@@ -93,11 +93,11 @@ fun DepositTopUpScreenContent() {
                     .fillMaxWidth()
                     .height(56.dp),
                 shape = RoundedCornerShape(30.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = LightColorPalette.primary)
+                colors = ButtonDefaults.buttonColors(backgroundColor = ColorSingleton.appPalette.value.primary)
             ) {
                 Text(
                     stringResource(R.string.deposit_increase_button),
-                    color = LightColorPalette.onPrimary
+                    color = ColorSingleton.appPalette.value.onPrimary
                 )
             }
         }
@@ -111,7 +111,7 @@ fun TopBar() {
             title = {
                 Text(
                     stringResource(R.string.deposit_increase), style = TextStyle(
-                        color = LightColorPalette.onSurface,
+                        color = ColorSingleton.appPalette.value.onSurface,
                         fontSize = 20.sp,
                         fontFamily = FontFamily(
                             Font(R.font.roboto, weight = FontWeight.W400)
@@ -128,7 +128,7 @@ fun TopBar() {
                 }
             },
 
-            backgroundColor = LightColorPalette.surface,
+            backgroundColor = ColorSingleton.appPalette.value.surface,
             elevation = 0.dp
         )
     }
@@ -138,7 +138,7 @@ fun TopBar() {
 fun AccountCard(title: String, amount: String, subtitle: String) {
     Card(
         elevation = 1.dp,
-        backgroundColor = LightColorPalette.surface,
+        backgroundColor = ColorSingleton.appPalette.value.surface,
         shape = RoundedCornerShape(12.dp),
         modifier = Modifier
             .fillMaxWidth()
@@ -148,18 +148,18 @@ fun AccountCard(title: String, amount: String, subtitle: String) {
             Text(
                 title,
                 style = TextStyle(
-                    color = LightColorPalette.onSecondary,
+                    color = ColorSingleton.appPalette.value.onSecondary,
                     fontSize = 16.sp,
                     fontFamily = FontFamily(
                         Font(R.font.roboto, weight = FontWeight.W600)
                     )
                 ),
-                color = LightColorPalette.onSecondary
+                color = ColorSingleton.appPalette.value.onSecondary
             )
             Text(
                 amount,
                 style = TextStyle(
-                    color = LightColorPalette.onSurface,
+                    color = ColorSingleton.appPalette.value.onSurface,
                     fontSize = 16.sp,
                     fontFamily = FontFamily(
                         Font(R.font.roboto, weight = FontWeight.W600)
@@ -170,7 +170,7 @@ fun AccountCard(title: String, amount: String, subtitle: String) {
             Text(
                 subtitle,
                 style = TextStyle(
-                    color = LightColorPalette.onSurface,
+                    color = ColorSingleton.appPalette.value.onSurface,
                     fontSize = 16.sp,
                     fontFamily = FontFamily(
                         Font(R.font.roboto, weight = FontWeight.W400)

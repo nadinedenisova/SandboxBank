@@ -34,9 +34,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 import com.example.sandboxbank.viewModel
 import com.example.sandboxbank.auth.domain.model.ResultAuthState
-import com.example.sandboxbank.App.ui.designkit.mode.color.LightColorPalette
 import com.example.sandboxbank.auth.ui.viewmodel.AuthViewModel
 
 
@@ -80,7 +80,7 @@ fun AuthScreen(
         Text(
             text = stringResource(R.string.auth),
             style = MaterialTheme.typography.headlineMedium,
-            color = LightColorPalette.primary,
+            color = ColorSingleton.appPalette.value.primary,
             modifier = Modifier.align(Alignment.Start)
         )
 
@@ -144,13 +144,13 @@ fun AuthScreen(
                 Text(
                     text = stringResource(R.string.wrong_pwd_email),
                     style = MaterialTheme.typography.labelSmall,
-                    color = LightColorPalette.onError
+                    color = ColorSingleton.appPalette.value.onError
                 )
             } else {
                 Text(
                     text = stringResource(R.string.hint_six_symbols),
                     style = MaterialTheme.typography.labelSmall,
-                    color = LightColorPalette.onSurfaceVariant
+                    color = ColorSingleton.appPalette.value.onSurfaceVariant
                 )
             }
         }
@@ -172,11 +172,11 @@ fun AuthScreen(
             shape = RoundedCornerShape(28.dp),
             enabled = isFormValid,
             colors = ButtonDefaults.buttonColors(
-                containerColor = LightColorPalette.primary ,
-                disabledContainerColor = LightColorPalette.secondaryContainer
+                containerColor = ColorSingleton.appPalette.value.primary ,
+                disabledContainerColor = ColorSingleton.appPalette.value.secondaryContainer
             )
         ) {
-            Text(stringResource(R.string.enter), color = LightColorPalette.background)
+            Text(stringResource(R.string.enter), color = ColorSingleton.appPalette.value.background)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -187,8 +187,8 @@ fun AuthScreen(
                 .fillMaxWidth()
                 .height(56.dp),
             shape = RoundedCornerShape(28.dp),
-            border = BorderStroke(1.dp, LightColorPalette.onSurfaceVariant),
-            colors = ButtonDefaults.outlinedButtonColors(contentColor = LightColorPalette.primary)
+            border = BorderStroke(1.dp, ColorSingleton.appPalette.value.onSurfaceVariant),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = ColorSingleton.appPalette.value.primary)
         ) {
             Text(stringResource(R.string.registration))
         }

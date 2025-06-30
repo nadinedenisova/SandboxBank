@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 import com.example.sandboxbank.App.ui.designkit.mode.language.LanguageSingleton
 import com.example.sandboxbank.App.ui.designkit.mode.language.getForRoute
 import com.example.sandboxbank.App.ui.mainscreen.data.Routes
@@ -19,11 +20,11 @@ fun BottomNavigationBar(navController: NavHostController) {
     val currentDestination = navBackStackEntry?.destination
 
     BottomAppBar(
-        backgroundColor = Color(0xF3, 0xED, 0xF7)
+        backgroundColor = ColorSingleton.appPalette.value.onSurfaceContainer
     ) {
         Routes.entries.forEach { it ->
             BottomNavigationItem(
-                icon = { Icon(it.icon, contentDescription = "") },
+                icon = { Icon(it.icon, contentDescription = "", tint = ColorSingleton.appPalette.value.onSurfaceVariant) },
                 label = { Text(LanguageSingleton.localization.value.getForRoute(it.route)) },
                 selected = currentDestination?.route == it.route,
                 onClick = { navController.navigate(it.route) }

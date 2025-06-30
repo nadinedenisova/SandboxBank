@@ -1,11 +1,12 @@
 package com.example.sandboxbank.App.ui.designkit.mode
 
-import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 data class ColorPalette(
-    val primary: Color,          // (Основной фон) Кнопка, текст в outline кнопке
+    val primary: Color, // (Основной фон) Кнопка, текст в outline кнопке
+    val primarySecond: Color,
     val primaryFixedVariant:Color,   // Заголовоки
     val primaryInverce: Color,  // Кнопка стереть в пинкоде, сумма вкладов, сроки кроедитов с вкладами
     val secondary: Color,        // ввод пинкода, иконки
@@ -44,6 +45,7 @@ data class ColorPalette(
 
 val baseLightPalette = ColorPalette(
     primary = Color(0xFF65558F),            // (Основной фон) Кнопка, текст в outline кнопке
+    primarySecond = Color(0xFFD0BCFE),
     primaryFixedVariant = Color(0xFF4F378B), // Заголовоки
     primaryInverce = Color(0xFF6750A4),    // Кнопка стереть в пинкоде, сумма вкладов, сроки кроедитов с вкладами
     secondary = Color(0xFF625B71),           // ввод пинкода, иконки
@@ -84,11 +86,16 @@ val baseLightPalette = ColorPalette(
 
 val baseDarkPalette = baseLightPalette.copy(
     // Нейтральные цвета
+    primary = Color(0XFFD0BCFE),
     background = Color(0xFF000000),          // Фон приложения
     onSurface = Color(0xFFFFF9FF),
     surface = Color(0xFF141218),
     tertiary = Color(0xFFE2E2E2),
     onTertiary = Color(0xFF1A1C1C),
+    onSurfaceContainer = Color(0xFF211F26),
+    onSurfaceVariant = Color(0xFFCAC4D0),
+    onSecondary = Color(0xFFFFFFFF),
+    primaryInverce = Color(0XFFD0BCFE),
 )
 
 object LightColorPalette {
@@ -102,7 +109,6 @@ object LightColorPalette {
     val tertiary = Color(0xFF7D5260)
     val primary1 = Color(0xFF6B548D)    //активный переключатель
     val primary2 = Color(0xFFD0BCFE)//кнопка Выход из аккаунта
-
     // Нейтральные цвета
     val background = Color(0xFFFFFFFF)          // Фон приложения
     val surface = Color(0xFFFEF7FF)             // Светлая поверхность, navigationbar

@@ -20,7 +20,8 @@ import androidx.compose.ui.unit.sp
 import com.example.sandboxbank.App.ui.debitcards.debit.ui.compose.DebitCardUiState
 import com.example.sandboxbank.R
 import com.example.sandboxbank.App.ui.debitcards.debit.ui.compose.items.NoInternetDialog
-import com.example.sandboxbank.App.ui.designkit.mode.color.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
+
 import com.example.sandboxbank.App.ui.designkit.mode.roboto
 import com.example.sandboxbank.cardmanager.cards.debit.ui.compose.items.CardDescriptionItem
 import com.example.sandboxbank.cardmanager.cards.debit.ui.compose.items.CardView
@@ -117,8 +118,8 @@ fun DebitCardScreen(
                     shape = RoundedCornerShape(100.dp),
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = if (uiState.isLimitReached) Color.LightGray
-                        else LightColorPalette.primary2,
-                        contentColor = LightColorPalette.background
+                        else ColorSingleton.appPalette.value.primarySecond,
+                        contentColor = ColorSingleton.appPalette.value.background
                     )
                 ) {
                     Text(
