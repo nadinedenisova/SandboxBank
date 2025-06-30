@@ -23,7 +23,7 @@ import retrofit2.Response
  */
 class FinancialItemNetworkRepositoryImpl(
     private val api: Api,
-    private val accessTokenProvider: suspend () -> String
+    // private val accessTokenProvider: suspend () -> String
 ): FinancialItemRepository {
 
     override suspend fun getUserFinancialStats(userId: Long): Result<UserFinancialStats> = withContext(Dispatchers.IO) {
@@ -71,7 +71,8 @@ class FinancialItemNetworkRepositoryImpl(
         requestNumber: Long
     ): Result<FinancialItem> = withContext(Dispatchers.IO) {
         try {
-            val token = accessTokenProvider()
+            //val token = accessTokenProvider()
+            val token = "test token"
 
             val response: Response<out ProductResponse> = when (financialItem) {
                 is Credit -> {
@@ -182,7 +183,8 @@ class FinancialItemNetworkRepositoryImpl(
 
     override suspend fun getAllProducts(userId: Long): Result<List<FinancialItem>> = withContext(Dispatchers.IO) {
         try {
-            val token = accessTokenProvider()
+            val token = "test token"
+            //val token = accessTokenProvider()
             val response = api.getProducts(userId, "Bearer $token")
             if (response.isSuccessful) {
                 val body = response.body()

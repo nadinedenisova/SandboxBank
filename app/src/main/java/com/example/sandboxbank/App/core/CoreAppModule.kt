@@ -3,6 +3,8 @@ package com.example.sandboxbank.App.core
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.sandboxbank.Api
+import com.example.sandboxbank.App.core.deposit.data.network.FinancialItemNetworkRepositoryImpl
+import com.example.sandboxbank.App.core.deposit.domain.db.FinancialItemRepository
 import com.example.sandboxbank.App.core.di.annotations.ApplicationScope
 import com.example.sandboxbank.App.core.di.annotations.AppContext
 import com.example.sandboxbank.App.core.di.annotations.BaseUrl
@@ -88,6 +90,14 @@ object CoreAppModule {
         return RemoteCardRepository(api, sharedPrefs, gson)
     }
 
+
+    @Provides
+    @ApplicationScope
+    fun provideFinancialItemRepository(
+        api: Api,
+    ): FinancialItemRepository {
+        return FinancialItemNetworkRepositoryImpl(api)
+    }
 
 
 

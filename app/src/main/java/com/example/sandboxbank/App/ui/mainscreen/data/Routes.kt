@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 enum class Routes(
     val route: String,
     val title: String,
-    val icon: ImageVector
+    val icon: ImageVector?
 ) {
     Cards(
         route = "cards",
@@ -33,5 +33,15 @@ enum class Routes(
         route = "profile",
         title = "Профиль",
         icon = Icons.Default.Info
+    ),
+    Deposit(
+        route = "deposit/{depositId}",
+        title = "Вклад",
+        icon = null
+    ),
+    Credit(
+        route = "credit/{creditId}",
+        title = "Кредит",
+        icon = null
     ),
 }
