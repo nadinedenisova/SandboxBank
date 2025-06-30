@@ -1,11 +1,13 @@
 package com.example.sandboxbank.App.ui.financialScreen.domain
 
 import androidx.lifecycle.ViewModel
+import com.example.sandboxbank.App.core.deposit.data.FinancialType
 import com.example.sandboxbank.App.core.deposit.domain.model.Credit
 import com.example.sandboxbank.App.core.deposit.domain.model.Deposit
 import com.example.sandboxbank.App.ui.financialScreen.data.FinanceState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class FinancialScreenViewModel @Inject constructor(
@@ -20,21 +22,21 @@ class FinancialScreenViewModel @Inject constructor(
             deposits = listOf(
                 Deposit(
                     id = 1,
-                    type = "Накопительный вклад",
+                    type = FinancialType.DEPOSIT,
                     openDate = 22222,
                     percentType = 12,
                     period = 3333,
-                    balance = 10000L,
+                    balance = BigDecimal(10000.0),
                     percentRate = 8.9,
                     name = "Накопительный вклад"
                 ),
                 Deposit(
                     id = 1,
-                    type = "TODO()",
+                    type = FinancialType.DEPOSIT,
                     openDate = 22222,
                     percentType = 12,
                     period = 3333,
-                    balance = 33000L,
+                    balance = BigDecimal(33000.0),
                     percentRate = 8.0,
                     name = "До востребования"
                 ))
@@ -44,21 +46,21 @@ class FinancialScreenViewModel @Inject constructor(
             credits = listOf(
                 Credit(
                     id = 1,
-                    type = "Автокредит",
+                    type = FinancialType.CREDIT,
                     openDate = 22222,
                     percentType = 12,
                     period = 3333,
-                    balance = 10000L,
+                    balance = BigDecimal(10000.0),
                     percentRate = 8.9,
                     name = "Автокредит"
                 ),
                 Credit(
                     id = 1,
-                    type = "Ипотека",
+                    type = FinancialType.CREDIT,
                     openDate = 22222,
                     percentType = 12,
                     period = 3333,
-                    balance = 33000L,
+                    balance = BigDecimal(10000.0),
                     percentRate = 8.0,
                     name = "Ипотека"
                 ))
