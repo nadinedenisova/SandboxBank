@@ -3,6 +3,7 @@ package com.example.sandboxbank.App.ui.applycredit.ui
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -45,7 +46,9 @@ const val CREDIT_MIN_SUM = 30_000
 const val SLIDER_STEPS = 11
 
 @Composable
-fun ApplyCredit() {
+fun ApplyCredit(
+    onBackClick: () -> Unit,
+) {
 
     val creditDates = listOf(3, 6, 9, 12, 15, 18, 21, 24)
     val creditSumLimits = getCreditLimit()
@@ -95,11 +98,14 @@ fun ApplyCredit() {
                 contentDescription = null,
                 modifier = Modifier
                     .padding(vertical = 24.dp)
-                    .padding(horizontal = 20.dp),
+                    .padding(horizontal = 20.dp)
+                    .clickable {
+                        onBackClick()
+                    },
                 tint = selectColor(
                     LightColorPalette.onSurface,
                     DarkColorPalette.onSurfaceContainerHighest
-                )
+                ),
             )
             Text(
                 text = stringResource(R.string.apply_credit_head),
@@ -278,17 +284,19 @@ fun ApplyCredit() {
 
                         when (result) {
                             ApplyCreditResponse.CreditAmountLimit -> {
-                                dialogApprovedIsVisible.value = true
+                                dialogLimitIsVisible.value = true
+
                             }
                             ApplyCreditResponse.NoConnection -> {
                                 dialogConnectionIsVisible.value = true
                                 val creditSaveState = ApplyCreditEntity(
-                                    sum = sliderSumValue.toLong(),
+                                    sum = sliderSumValue.toBigDecimal(),
                                     time = sliderDateValue.toInt(),
                                 )
                             }
                             ApplyCreditResponse.Success -> {
-                                dialogLimitIsVisible.value = true
+                                dialogApprovedIsVisible.value = true
+                                onBackClick()
                             }
                         }
                     },
@@ -351,5 +359,7 @@ fun calculateMonthlyPay(
 )
 @Composable
 fun PreviewApplyCredit() {
-    ApplyCredit()
+    ApplyCredit(
+        onBackClick = {}
+    )
 }

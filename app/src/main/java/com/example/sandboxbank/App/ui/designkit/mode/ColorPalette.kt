@@ -220,8 +220,8 @@ object DarkColorPalette {
 @Composable
 fun selectColor(light: Color, dark: Color): Color{
 
-//    return if (ColorSingleton.appPalette == baseDarkPalette){
-    return if (isSystemInDarkTheme()){
+    return if (ColorSingleton.appPalette == baseDarkPalette){
+//    return if (isSystemInDarkTheme()){
         dark
     } else {
         light
