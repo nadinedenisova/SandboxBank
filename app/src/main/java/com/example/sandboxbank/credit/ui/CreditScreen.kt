@@ -5,7 +5,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.sandboxbank.App.core.deposit.data.db.FinancialType
+import com.example.sandboxbank.App.core.deposit.data.FinancialType
 import com.example.sandboxbank.App.core.deposit.domain.model.Credit
 import com.example.sandboxbank.App.ui.financialitem.FinancialItemDetailScreen
 import com.example.sandboxbank.R
@@ -29,7 +29,7 @@ fun CreditScreen(credit: Credit, navController: NavController) {
 fun CreditScreenPreview() {
     CreditScreen(Credit(
         id = 123,
-        type = FinancialType.CREDIT.toStringValue(),
+        type = FinancialType.CREDIT,
         openDate = 1234L,
         percentRate = 49.5,
         percentType = 2,

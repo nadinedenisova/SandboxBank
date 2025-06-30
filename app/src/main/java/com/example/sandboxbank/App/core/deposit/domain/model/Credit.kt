@@ -1,10 +1,11 @@
 package com.example.sandboxbank.App.core.deposit.domain.model
 
+import com.example.sandboxbank.App.core.deposit.data.FinancialType
 import java.math.BigDecimal
 
 data class Credit(
     override val id: Long,
-    override val type: String,
+    override val type: FinancialType,
     override val openDate: Long,
     override val percentRate: Double,
     override val percentType: Long,

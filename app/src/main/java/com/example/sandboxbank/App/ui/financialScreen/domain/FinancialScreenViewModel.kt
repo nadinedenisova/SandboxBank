@@ -1,6 +1,7 @@
 package com.example.sandboxbank.App.ui.financialScreen.domain
 
 import androidx.lifecycle.ViewModel
+import com.example.sandboxbank.App.core.deposit.data.FinancialType
 import com.example.sandboxbank.App.core.deposit.domain.model.Credit
 import com.example.sandboxbank.App.core.deposit.domain.model.Deposit
 import com.example.sandboxbank.App.ui.financialScreen.data.FinanceState
@@ -21,7 +22,7 @@ class FinancialScreenViewModel @Inject constructor(
             deposits = listOf(
                 Deposit(
                     id = 1,
-                    type = "Накопительный вклад",
+                    type = FinancialType.DEPOSIT,
                     openDate = 22222,
                     percentType = 12,
                     period = 3333,
@@ -31,7 +32,7 @@ class FinancialScreenViewModel @Inject constructor(
                 ),
                 Deposit(
                     id = 1,
-                    type = "TODO()",
+                    type = FinancialType.DEPOSIT,
                     openDate = 22222,
                     percentType = 12,
                     period = 3333,
@@ -45,7 +46,7 @@ class FinancialScreenViewModel @Inject constructor(
             credits = listOf(
                 Credit(
                     id = 1,
-                    type = "Автокредит",
+                    type = FinancialType.CREDIT,
                     openDate = 22222,
                     percentType = 12,
                     period = 3333,
@@ -55,7 +56,7 @@ class FinancialScreenViewModel @Inject constructor(
                 ),
                 Credit(
                     id = 1,
-                    type = "Ипотека",
+                    type = FinancialType.CREDIT,
                     openDate = 22222,
                     percentType = 12,
                     period = 3333,

@@ -1,6 +1,7 @@
 package com.example.sandboxbank.App.core.deposit.data.network
 
 import com.example.sandboxbank.Api
+import com.example.sandboxbank.App.core.deposit.data.FinancialType
 import com.example.sandboxbank.App.core.deposit.data.UserFinancialStats
 import com.example.sandboxbank.App.core.deposit.domain.db.FinancialItemRepository
 import com.example.sandboxbank.App.core.deposit.domain.model.Credit
@@ -35,8 +36,8 @@ class FinancialItemNetworkRepositoryImpl(
                     val allItems = result.getOrNull() ?: emptyList()
 
                     // Фильтруем по типу
-                    val deposits = allItems.filter { it.type == "product_deposit" }
-                    val credits = allItems.filter { it.type == "product_credit" }
+                    val deposits = allItems.filterByType(FinancialType.DEPOSIT)
+                    val credits = allItems.filterByType(FinancialType.CREDIT)
 
                     // Считаем статистику
                     val depositCount = deposits.size
@@ -123,7 +124,7 @@ class FinancialItemNetworkRepositoryImpl(
             when (result.isSuccess) {
                 true -> {
                     val allItems = result.getOrNull() ?: emptyList()
-                    val creditItems = allItems.filterByType("product_credit")
+                    val creditItems = allItems.filterByType(FinancialType.CREDIT)
                     Result.success(creditItems)
                 }
                 false -> {
@@ -141,7 +142,7 @@ class FinancialItemNetworkRepositoryImpl(
             when (result.isSuccess) {
                 true -> {
                     val allItems = result.getOrNull() ?: emptyList()
-                    val creditItems = allItems.filterByType("product_deposit")
+                    val creditItems = allItems.filterByType(FinancialType.DEPOSIT)
                     Result.success(creditItems)
                 }
                 false -> {
@@ -200,6 +201,6 @@ class FinancialItemNetworkRepositoryImpl(
         }
     }
 
-    private fun List<FinancialItem>.filterByType(type: String): List<FinancialItem> =
+    private fun List<FinancialItem>.filterByType(type: FinancialType): List<FinancialItem> =
         this.filter { it.type == type }
 }
