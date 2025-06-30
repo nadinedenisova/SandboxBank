@@ -19,9 +19,11 @@ fun BottomNavigationBar(navController: NavHostController) {
     BottomAppBar(
         backgroundColor = Color(0xF3, 0xED, 0xF7)
     ) {
-        Routes.entries.forEach { it ->
+        Routes.entries
+            .filter { it.icon != null }
+            .forEach { it ->
             BottomNavigationItem(
-                icon = { Icon(it.icon, contentDescription = "") },
+                icon = { Icon(it.icon!!, contentDescription = "") },
                 label = { Text(it.title) },
                 selected = currentDestination?.route == it.route,
                 onClick = { navController.navigate(it.route) }

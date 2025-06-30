@@ -4,13 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sandboxbank.App.core.deposit.domain.db.FinancialItemRepository
 import com.example.sandboxbank.App.core.deposit.domain.model.FinancialItem
+import com.example.sandboxbank.App.ui.debitcards.utils.InternetUtil
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class FinancialItemDetailsViewModel @Inject constructor(
-    private val financialItemRepository: FinancialItemRepository
+    private val financialItemRepository: FinancialItemRepository,
+    //userIdProvider: () -> Long,
+    private val internetUtil: InternetUtil,
 ) : ViewModel() {
 
     private val _financialItem = MutableStateFlow<FinancialItem?>(null)
@@ -23,8 +26,9 @@ class FinancialItemDetailsViewModel @Inject constructor(
 
     private var currentId: Long? = null
 
-    // временный костыль
+    //val userId = userIdProvider()
     val userId = 1L
+
 
     /**
      * грузим данные по id
@@ -32,12 +36,17 @@ class FinancialItemDetailsViewModel @Inject constructor(
     fun loadFinancialItem(id: Long) {
         currentId = id
 
+
+
         viewModelScope.launch {
-            financialItemRepository.getById(id, userId)
-//                .collect { item ->
-//                    _financialItem.value = item
-//                    _uiState.value = FinancialItemDetailsUIState.Success(item)
-//                }
+            val result = financialItemRepository.getById(id, userId)
+            if (result.isSuccess) {
+                _financialItem.value = result.getOrNull()
+            } else {
+                // обработка ошибки загрузки
+            }
+
+
         }
     }
 

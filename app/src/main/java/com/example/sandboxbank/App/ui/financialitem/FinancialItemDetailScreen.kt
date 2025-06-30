@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -30,6 +31,7 @@ import com.example.sandboxbank.R
 fun FinancialItemDetailScreen(
     financialItem: FinancialItem, // Базовый класс для Deposit и Credit
     navController: NavController,
+    viewModel: FinancialItemDetailsViewModel,
     screenTitle: String,
     addMoneyText: String,
     closeItemText: String,
@@ -37,10 +39,10 @@ fun FinancialItemDetailScreen(
     onCloseItemClick: () -> Unit,
 
     ) {
-//    val viewModel: FinancialItemDetailsViewModel = viewModel()
-//    LaunchedEffect(Unit) {
-//        viewModel.loadFinancialItem(financialItem.id)
-//    }
+
+    LaunchedEffect(Unit) {
+        viewModel.loadFinancialItem(financialItem.id)
+    }
 
 //    val uiState = viewModel.uiState.collectAsState()
 
