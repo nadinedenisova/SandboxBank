@@ -10,19 +10,26 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.sandboxbank.App.ui.mainscreen.data.Routes
-import com.example.sandboxbank.profile.ui.ProfileScreen
 
 @Composable
 fun NavGraph(
-    startDestination: String = Routes.Cards.name,
     navHostController: NavHostController,
+    viewModelFactory: ViewModelProvider.Factory,
+    startDestination: String = Routes.Cards.route // Используем route вместо name
 ) {
     NavHost(navController = navHostController, startDestination = startDestination) {
         composable(route = Routes.Cards.name) {
             CardsScreen()
         }
         composable(route = Routes.Finance.name) {
-            FinanceScreen()
+            val financialViewModel: FinancialScreenViewModel = viewModel(
+                factory = viewModelFactory
+            )
+            FinancialScreenContent(
+                financialViewModel,
+                onDepositClick = {},
+                onCreditClick = {}
+            )
         }
         composable(route = Routes.History.name) {
             HistoryScreen()
@@ -46,13 +53,6 @@ fun CardsScreen() {
 }
 
 @Composable
-fun FinanceScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Экран Финансы")
-    }
-}
-
-@Composable
 fun TransfersScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Text("Экран Переводы")
@@ -65,10 +65,3 @@ fun HistoryScreen() {
         Text("Экран История")
     }
 }
-
-//@Composable
-//fun ProfileScreen() {
-//    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-//        Text("Экран Профиль")
-//    }
-//}

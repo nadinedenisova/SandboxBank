@@ -4,15 +4,16 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.sandboxbank.App.ui.debitcards.debit.model.data.RemoteCardRepository
 import com.example.sandboxbank.App.ui.debitcards.utils.InternetUtil
 import com.example.sandboxbank.cardmanager.cards.debit.intent.CardIntent
+import com.example.sandboxbank.cardmanager.cards.debit.model.data.CardCreationResult
 import com.example.sandboxbank.cardmanager.cards.debit.model.data.CardRepository
+import com.example.sandboxbank.cardmanager.cards.debit.model.data.RemoteCardRepository
 import com.example.sandboxbank.cardmanager.cards.dto.CardRequest
-import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import jakarta.inject.Inject
 
 class CardViewModel @Inject constructor(
     private val remoteRepository: RemoteCardRepository,
@@ -21,7 +22,7 @@ class CardViewModel @Inject constructor(
     private val internetUtil: InternetUtil
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(CardState())
+    private val _state = MutableStateFlow<CardState>(CardState.Idle)
     val state: StateFlow<CardState> = _state
 
     private var requestNumber = 1L
@@ -37,43 +38,40 @@ class CardViewModel @Inject constructor(
     private fun createCard(request: CardRequest) {
         viewModelScope.launch {
             if (!internetUtil.isInternetAvailable()) {
-                _state.value = _state.value.copy(
-                    isLoading = false,
-                    error = "Error Internet Connection"
-                )
+                _state.value = CardState.Error("Нет подключения к интернету")
                 return@launch
             }
 
-            _state.value = _state.value.copy(isLoading = true)
+            _state.value = CardState.Loading
 
-            val result = remoteRepository.createDebitCard(
+            when (val result = remoteRepository.createDebitCard(
                 userId = userIdProvider(),
                 currentCardNumber = request.currentCardNumber,
                 requestNumber = requestNumber++
-            )
+            )) {
+                is CardCreationResult.Success -> {
+                    cardRepository.saveCard(result.card)
+                    _state.value = CardState.Success(result.card)
+                }
 
-            result.onSuccess { card ->
-                cardRepository.saveCard(card)
-                _state.value = _state.value.copy(
-                    isLoading = false,
-                    card = card,
-                    isLimitReached = false,
-                    error = null
-                )
-            }.onFailure { error ->
-                _state.value = _state.value.copy(
-                    isLoading = false,
-                    error = error.message
-                )
+                is CardCreationResult.LimitReached -> {
+                    _state.value = CardState.LimitReached
+                }
+
+                is CardCreationResult.Error -> {
+                    _state.value = CardState.Error(result.message)
+                }
             }
         }
     }
 
     fun clearCardResult() {
-        _state.value = _state.value.copy(card = null)
+        _state.value = CardState.Idle
     }
 
     fun clearError() {
-        _state.value = _state.value.copy(error = null)
+        if (_state.value is CardState.Error || _state.value is CardState.LimitReached) {
+            _state.value = CardState.Idle
+        }
     }
 }

@@ -1,24 +1,22 @@
 package com.example.sandboxbank.App.core.deposit.domain.db
 
+import com.example.sandboxbank.App.core.deposit.data.UserFinancialStats
 import com.example.sandboxbank.App.core.deposit.domain.model.FinancialItem
 import kotlinx.coroutines.flow.Flow
 
 interface FinancialItemRepository {
-    suspend fun getUserDepositCount(): Flow<Int>
 
-    suspend fun getUserDepositTotal(): Flow<Long>
+    suspend fun getUserFinancialStats(userId: Long): Result<UserFinancialStats>
 
-    suspend fun getUserCreditCount(): Flow<Int>
-
-    suspend fun getUserCreditTotal(): Flow<Long>
-
-    suspend fun insert(financialItem: FinancialItem)
+    suspend fun insert(userId: Long, financialItem: FinancialItem, requestNumber: Long): Result<FinancialItem>
 
     suspend fun changeBalance(id: Int, delta: Long)
 
-    fun getAllDeposits(): Flow<List<FinancialItem>>
+    suspend fun getAllDeposits(userId: Long): Result<List<FinancialItem>>
 
-    fun getById(id: Int): Flow<FinancialItem>
+    suspend fun getById(id: Long, userId: Long): Result<FinancialItem>
 
-    fun getAllCredits(): Flow<List<FinancialItem>>
+    suspend fun getAllCredits(userId: Long): Result<List<FinancialItem>>
+
+    suspend fun getAllProducts(userId: Long): Result<List<FinancialItem>>
 }

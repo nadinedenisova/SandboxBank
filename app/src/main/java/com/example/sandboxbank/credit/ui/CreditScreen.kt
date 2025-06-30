@@ -33,7 +33,7 @@ fun CreditScreenPreview() {
         percentRate = 49.5,
         percentType = 2,
         period = 12,
-        balance = 1234567.0,
+        balance = 1234567L,
         name = "Кредит №1"
     ), rememberNavController()
     )

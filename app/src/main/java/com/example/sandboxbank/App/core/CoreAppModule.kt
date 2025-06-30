@@ -8,9 +8,9 @@ import com.example.sandboxbank.App.core.di.annotations.AppContext
 import com.example.sandboxbank.App.core.di.annotations.BaseUrl
 import com.example.sandboxbank.App.core.di.annotations.PlainPref
 import com.example.sandboxbank.App.core.di.annotations.PrefsKey
-import com.example.sandboxbank.App.ui.debitcards.debit.model.data.RemoteCardRepository
 import com.example.sandboxbank.App.ui.debitcards.utils.InternetUtil
 import com.example.sandboxbank.cardmanager.cards.debit.model.data.CardRepository
+import com.example.sandboxbank.cardmanager.cards.debit.model.data.RemoteCardRepository
 import com.example.sandboxbank.profile.domain.GetStoreManager
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -78,17 +78,18 @@ object CoreAppModule {
         return CardRepository(sharedPreferences, gson)
     }
 
-    @ApplicationScope
     @Provides
+    @ApplicationScope
     fun provideRemoteCardRepository(
         api: Api,
-        @PlainPref sharedPrefs: SharedPreferences
+        @PlainPref sharedPrefs: SharedPreferences,
+        gson: Gson
     ): RemoteCardRepository {
-        val tokenProvider: suspend () -> String = {
-            sharedPrefs.getString("access_token", "") ?: ""
-        }
-        return RemoteCardRepository(api, tokenProvider)
+        return RemoteCardRepository(api, sharedPrefs, gson)
     }
+
+
+
 
     @ApplicationScope
     @Provides

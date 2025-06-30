@@ -10,3 +10,7 @@ val roboto = FontFamily(
     Font(R.font.roboto, FontWeight.Normal),
     Font(R.font.roboto_italic, FontWeight.Normal),
 )
+
+val inter = FontFamily(
+    Font(R.font.inter_18pt_regular, FontWeight.Normal),
+)

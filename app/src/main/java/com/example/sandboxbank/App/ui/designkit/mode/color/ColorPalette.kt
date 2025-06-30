@@ -1,5 +1,7 @@
-package com.example.sandboxbank.App.ui.designkit.mode.color
+package com.example.sandboxbank.App.ui.designkit.mode
 
+import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
 data class ColorPalette(
@@ -207,4 +209,13 @@ object DarkColorPalette {
     val cardBalanceLogo = Color(0xFF222222)
     val dialogBackground = Color(0x79797980) //фон диалога
     val checkMarkcheckMark = Color(0xFF14AE5C)
+}
+
+@Composable
+fun selectColor(light: Color, dark: Color): Color{
+    return if (isSystemInDarkTheme()){
+        dark
+    } else {
+        light
+    }
 }
