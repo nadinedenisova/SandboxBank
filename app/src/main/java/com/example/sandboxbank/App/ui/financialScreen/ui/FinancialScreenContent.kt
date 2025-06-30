@@ -73,7 +73,6 @@ fun FinancialScreenContent(
                 }
             }
 
-            is FinanceState.Empty -> {}
             is FinanceState.Error -> {}
             FinanceState.Loading -> {}
             else -> Unit
@@ -114,7 +113,6 @@ fun FinancialScreenContent(
                 }
             }
 
-            is FinanceState.Empty -> {}
             is FinanceState.Error -> {}
             FinanceState.Loading -> {}
             else -> Unit

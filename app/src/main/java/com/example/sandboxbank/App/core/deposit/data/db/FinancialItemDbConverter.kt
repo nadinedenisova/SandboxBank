@@ -3,6 +3,7 @@ package com.example.sandboxbank.App.core.deposit.data.db
 import com.example.sandboxbank.App.core.deposit.domain.model.Credit
 import com.example.sandboxbank.App.core.deposit.domain.model.Deposit
 import com.example.sandboxbank.App.core.deposit.domain.model.FinancialItem
+import java.math.BigDecimal
 
 class FinancialItemDbConverter {
     fun toEntity(financialItem: FinancialItem): FinancialEntity {
@@ -13,7 +14,7 @@ class FinancialItemDbConverter {
             financialItem.percentRate,
             financialItem.percentType,
             financialItem.period,
-            financialItem.balance,
+            (financialItem.balance * BigDecimal(100.0)).toLong(),
             financialItem.name,
         )
     }
@@ -27,7 +28,7 @@ class FinancialItemDbConverter {
                 percentRate = financialItem.percentRate,
                 percentType = financialItem.percentType,
                 period = financialItem.period,
-                balance = financialItem.balance,
+                balance = financialItem.balance.toBigDecimal()/ BigDecimal(100.0),
                 name = financialItem.name,
             )
             FinancialType.CREDIT.toStringValue() -> Credit(
@@ -37,7 +38,7 @@ class FinancialItemDbConverter {
                 percentRate = financialItem.percentRate,
                 percentType = financialItem.percentType,
                 period = financialItem.period,
-                balance = financialItem.balance,
+                balance = financialItem.balance.toBigDecimal()/ BigDecimal(100.0),
                 name = financialItem.name,
             )
             else -> throw IllegalArgumentException("Unknown financial item type: ${financialItem.type}")

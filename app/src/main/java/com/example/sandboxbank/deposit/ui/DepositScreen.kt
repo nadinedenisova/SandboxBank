@@ -9,6 +9,7 @@ import com.example.sandboxbank.App.core.deposit.data.db.FinancialType
 import com.example.sandboxbank.App.core.deposit.domain.model.Deposit
 import com.example.sandboxbank.App.ui.financialitem.FinancialItemDetailScreen
 import com.example.sandboxbank.R
+import java.math.BigDecimal
 
 @Composable
 fun DepositScreen(deposit: Deposit, navController: NavController) {
@@ -33,7 +34,7 @@ fun DepositScreenPreview() {
         percentRate = 8.5,
         percentType = 2,
         period = 12,
-        balance = 1234567L,
+        balance = BigDecimal(1234567L),
         name = "Вклад №1"
     ), rememberNavController()
     )

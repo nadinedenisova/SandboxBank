@@ -45,13 +45,13 @@ class FinancialItemNetworkRepositoryImpl(
                     val creditCount = credits.size
                     val creditTotal = credits.sumOf { it.balance }
 
-                    // Возвращаем результат
+                    // Возвращаем результатP
                     Result.success(
                         UserFinancialStats(
                             depositCount = depositCount,
-                            depositTotal = depositTotal,
+                            depositTotal = depositTotal.toLong(),
                             creditCount = creditCount,
-                            creditTotal = creditTotal
+                            creditTotal = creditTotal.toLong()
                         )
                     )
                 }
@@ -78,7 +78,7 @@ class FinancialItemNetworkRepositoryImpl(
                         userId = userId,
                         currentCreditNumber = financialItem.id,
                         requestNumber = requestNumber,
-                        balance = financialItem.balance,
+                        balance = financialItem.balance.toLong(),
                         period = financialItem.period,
                     )
                     api.createCredit(request, "Bearer $token") as Response<out ProductResponse>
