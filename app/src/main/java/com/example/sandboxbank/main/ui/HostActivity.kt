@@ -11,6 +11,10 @@ import com.example.sandboxbank.App.core.di.ViewModelFactory
 import com.example.sandboxbank.App.ui.mainscreen.ui.MainScreenContent
 import com.example.sandboxbank.notifications.AppNotifications
 import com.example.sandboxbank.notifications.NetworkChangeReceiver
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -42,6 +46,11 @@ class HostActivity : ComponentActivity() {
         networkChangeReceiver = NetworkChangeReceiver()
         val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         registerReceiver(networkChangeReceiver, filter)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            delay(3000)
+            AppNotifications.showMockNotification(this@HostActivity)
+        }
 
         setContent {
             MainScreenContent(viewModelFactory = viewModelFactory)

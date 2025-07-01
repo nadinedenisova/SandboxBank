@@ -11,6 +11,8 @@ import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.example.sandboxbank.R
+import kotlin.random.Random
 
 
 private const val CHANNEL_ID = "first_channel_id"
@@ -40,7 +42,7 @@ object AppNotifications {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Sandbox: уведомления о процентах и платежах"
             val descriptionText = "Информация от банка"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val importance = NotificationManager.IMPORTANCE_HIGH
             val mChannel = NotificationChannel(CHANNEL_ID, name, importance)
             mChannel.description = descriptionText
             val notificationManager =
@@ -90,6 +92,29 @@ object AppNotifications {
     ) {
         val notificationManager = NotificationManagerCompat.from(context)
         notificationManager.cancelAll()
+    }
+
+    fun showMockNotification(context: Context){
+        val value = Random.nextInt(1,2)
+        val sum = "%.2f".format(Random.nextDouble(100.00, 1000.00))
+
+        if (value == 1){
+            showNotification(
+                id = NOTIFICATION_ID,
+                context = context,
+                title = "Скоро выплата процентов",
+                text = "По вашему вкладу ожидаются проценты в размере ${sum} руб.",
+                icon = R.drawable.leading_icon
+            )
+        } else {
+            showNotification(
+                id = NOTIFICATION_ID,
+                context = context,
+                title = "Необходимо внести платёж",
+                text = "По вашему кредиту требуется внести платёж в размере ${sum} руб.",
+                icon = R.drawable.icon_percent
+            )
+        }
     }
 
 }
