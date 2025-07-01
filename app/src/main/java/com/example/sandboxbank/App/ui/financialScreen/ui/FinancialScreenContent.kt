@@ -39,9 +39,11 @@ import com.example.sandboxbank.App.core.deposit.domain.model.Credit
 import com.example.sandboxbank.App.core.deposit.domain.model.Deposit
 import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
 import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
+import com.example.sandboxbank.App.ui.designkit.mode.language.LanguageSingleton
 import com.example.sandboxbank.App.ui.financialScreen.data.FinanceState
 import com.example.sandboxbank.App.ui.financialScreen.domain.FinancialScreenViewModel
 import com.example.sandboxbank.R
+import com.example.sandboxbank.App.ui.designkit.mode.language.*
 
 @Composable
 fun FinancialScreenContent(
@@ -64,7 +66,7 @@ fun FinancialScreenContent(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        TitleContent(title = stringResource(R.string.deposits_title))
+        TitleContent(title = LanguageSingleton.localization.value.deposit())
 
         when(stateDepos) {
             is FinanceState.ContentDeposits -> {
@@ -94,7 +96,7 @@ fun FinancialScreenContent(
             }
         ) {
             Text(
-                text = stringResource(R.string.deposits_open_button),
+                text = LanguageSingleton.localization.value.depositOpen(),
                 style = TextStyle(
                     color = ColorSingleton.appPalette.value.background,
                     fontSize = 16.sp,
@@ -104,7 +106,7 @@ fun FinancialScreenContent(
             )
         }
 
-        TitleContent(title = stringResource(R.string.credits_title))
+        TitleContent(title = LanguageSingleton.localization.value.credits())
 
         when(stateCredits) {
             is FinanceState.ContentCredits -> {
@@ -134,7 +136,7 @@ fun FinancialScreenContent(
             }
         ) {
             Text(
-                text = stringResource(R.string.credit_open_button),
+                text = LanguageSingleton.localization.value.creditOpen(),
                 style = TextStyle(
                     color = ColorSingleton.appPalette.value.background,
                     fontSize = 16.sp,
@@ -193,7 +195,7 @@ fun DepositItem(item: Deposit, onClick:(deposit: Deposit)-> Unit
                 .weight(1f)
         ){
             Text(
-                text = item.name,
+                text = LanguageSingleton.localization.value.getForDepo(item.name),
                 maxLines = 1,
                 style = TextStyle(
                     color = ColorSingleton.appPalette.value.onSecondary,
@@ -246,6 +248,7 @@ fun CreditItem(item: Credit, onClick:(credit: Credit)-> Unit
             shape = RoundedCornerShape(8.dp)
         ) {
             Image(
+                modifier = Modifier.background(ColorSingleton.appPalette.value.background),
                 painter = painterResource(id =
                     if (item.name == "Автокредит")
                         R.drawable.auto_credit_icon
@@ -253,6 +256,7 @@ fun CreditItem(item: Credit, onClick:(credit: Credit)-> Unit
                         R.drawable.mortgage_icon
                 ),
                 contentDescription = null,
+                colorFilter = ColorFilter.tint(ColorSingleton.appPalette.value.primary)
             )
         }
         Column (
@@ -261,7 +265,7 @@ fun CreditItem(item: Credit, onClick:(credit: Credit)-> Unit
                 .weight(1f)
         ){
             Text(
-                text = item.name,
+                text = LanguageSingleton.localization.value.getForFinance(item.name),
                 maxLines = 1,
                 style = TextStyle(
                     color = ColorSingleton.appPalette.value.onSecondary,

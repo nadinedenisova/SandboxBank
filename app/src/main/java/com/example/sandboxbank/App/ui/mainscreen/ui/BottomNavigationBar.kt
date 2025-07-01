@@ -22,10 +22,12 @@ fun BottomNavigationBar(navController: NavHostController) {
     BottomAppBar(
         backgroundColor = ColorSingleton.appPalette.value.onSurfaceContainer
     ) {
-        Routes.entries.forEach { it ->
+        Routes.entries
+            .filter { it.icon != null }
+            .forEach { it ->
             BottomNavigationItem(
-                icon = { Icon(it.icon, contentDescription = "", tint = ColorSingleton.appPalette.value.onSurfaceVariant) },
-                label = { Text(LanguageSingleton.localization.value.getForRoute(it.route)) },
+                icon = { Icon(it.icon!!, contentDescription = "", tint = ColorSingleton.appPalette.value.onSurfaceVariant) },
+                label = { Text(LanguageSingleton.localization.value.getForRoute(it.route), color = ColorSingleton.appPalette.value.primaryInverce) },
                 selected = currentDestination?.route == it.route,
                 onClick = { navController.navigate(it.route) }
             )

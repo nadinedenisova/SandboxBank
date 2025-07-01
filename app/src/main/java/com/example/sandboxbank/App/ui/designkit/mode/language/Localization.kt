@@ -34,7 +34,7 @@ fun Localization.getForRoute(route: String):String{
     else if(route == "finance"){
         return LanguageSingleton
             .localization.value.finance()}
-    else if(route == "transfers"){
+    else if(route == "transaction"){
         return LanguageSingleton
             .localization.value.transfers()}
     else if(route == "history"){
@@ -43,6 +43,24 @@ fun Localization.getForRoute(route: String):String{
     else{
         return LanguageSingleton
             .localization.value.profile()
+    }
+}
+
+fun Localization.getForFinance(icon: String):String{
+    if(icon == "Автокредит"){
+        return LanguageSingleton
+            .localization.value.autoCredit()}
+    else{
+       return LanguageSingleton.localization.value.mortgage()
+   }
+}
+
+fun Localization.getForDepo(icon: String):String{
+    if(icon == "Накопительный вклад"){
+        return LanguageSingleton
+            .localization.value.depositCumulation()}
+    else{
+        return LanguageSingleton.localization.value.onDemand()
     }
 }
 

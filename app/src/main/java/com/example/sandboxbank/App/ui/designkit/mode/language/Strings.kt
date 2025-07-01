@@ -38,12 +38,47 @@ val history = Translatable(
 
 val transfers = Translatable(
     "Transfers",
-    hashMapOf(RUSSIAN to "Переводы"))
+    hashMapOf(RUSSIAN to "Перевод"))
 
 val cards = Translatable(
     "Cards",
     hashMapOf(RUSSIAN to "Карты"))
 
+val credits = Translatable(
+    "Credits",
+    hashMapOf(RUSSIAN to "Кредиты"))
+
+val creditRegistration = Translatable(
+    "Credit Registration",
+    hashMapOf(RUSSIAN to "Оформление кредита"))
+
+val creditOpen = Translatable(
+    "Open credit",
+    hashMapOf(RUSSIAN to "Оформить кредит"))
+
+val deposit = Translatable(
+    "Deposit",
+    hashMapOf(RUSSIAN to "Вклады"))
+
+val depositOpen = Translatable(
+    "Open deposit",
+    hashMapOf(RUSSIAN to "Открыть вклад"))
+
+val autoCredit = Translatable(
+    "AutoCredit",
+    hashMapOf(RUSSIAN to "Автокредит"))
+
+val mortgage = Translatable(
+    "Mortgage",
+    hashMapOf(RUSSIAN to "Ипотека"))
+
+val depositCumulation = Translatable(
+    "Cumulative deposit",
+    hashMapOf(RUSSIAN to "Накопительный вклад"))
+
+val onDemand = Translatable(
+    "On demand",
+    hashMapOf(RUSSIAN to "До востребования"))
 
 
 

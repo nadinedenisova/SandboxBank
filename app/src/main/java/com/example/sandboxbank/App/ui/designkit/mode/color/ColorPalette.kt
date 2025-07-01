@@ -1,11 +1,9 @@
 package com.example.sandboxbank.App.ui.designkit.mode
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import com.example.sandboxbank.App.App
-import com.example.sandboxbank.App.appContext
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton.appPalette
+
 
 data class ColorPalette(
     val primary: Color, // (Основной фон) Кнопка, текст в outline кнопке
@@ -99,6 +97,7 @@ val baseDarkPalette = baseLightPalette.copy(
     onSurfaceVariant = Color(0xFFCAC4D0),
     onSecondary = Color(0xFFFFFFFF),
     primaryInverce = Color(0XFFD0BCFE),
+    surfaceContainerHigh = Color(0xFF2B2930),
 )
 
 object LightColorPalette {
@@ -223,7 +222,7 @@ object DarkColorPalette {
 @Composable
 fun selectColor(light: Color, dark: Color): Color{
 
-    return if (ColorSingleton.appPalette == baseDarkPalette){
+    return if (appPalette == baseDarkPalette){
 //    return if (isSystemInDarkTheme()){
         dark
     } else {

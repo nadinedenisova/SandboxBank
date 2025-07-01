@@ -34,11 +34,14 @@ import com.example.sandboxbank.App.ui.applycredit.entity.ApplyCreditResponse
 import com.example.sandboxbank.App.ui.applycredit.sendMockRequest
 import com.example.sandboxbank.App.ui.designkit.mode.DarkColorPalette
 import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 import com.example.sandboxbank.App.ui.designkit.mode.inter
+import com.example.sandboxbank.App.ui.designkit.mode.language.LanguageSingleton
 import com.example.sandboxbank.App.ui.designkit.mode.roboto
 import com.example.sandboxbank.App.ui.designkit.mode.selectColor
 import com.example.sandboxbank.R
 import kotlin.math.pow
+import com.example.sandboxbank.App.ui.designkit.mode.language.*
 
 const val CREDIT_PERCENT = 25
 const val CREDIT_MAX_SUM = 3_000_000
@@ -90,7 +93,7 @@ fun ApplyCredit(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .background(selectColor(LightColorPalette.surface, DarkColorPalette.onSurface2))
+                .background(ColorSingleton.appPalette.value.surface)
                 .fillMaxWidth()
         ) {
             Icon(
@@ -102,20 +105,14 @@ fun ApplyCredit(
                     .clickable {
                         onBackClick()
                     },
-                tint = selectColor(
-                    LightColorPalette.onSurface,
-                    DarkColorPalette.onSurfaceContainerHighest
-                ),
+                tint = ColorSingleton.appPalette.value.onSurface,
             )
             Text(
-                text = stringResource(R.string.apply_credit_head),
+                text = LanguageSingleton.localization.value.creditRegistration(),
                 fontFamily = roboto,
                 fontWeight = FontWeight.W400,
                 fontSize = 22.sp,
-                color = selectColor(
-                    LightColorPalette.onSurface,
-                    DarkColorPalette.onSurfaceContainerHighest
-                )
+                color = ColorSingleton.appPalette.value.onSurface
             )
         }
         Box(
@@ -136,13 +133,9 @@ fun ApplyCredit(
                     contentAlignment = Alignment.BottomStart,
                     modifier = Modifier
                         .padding(bottom = 16.dp)
-                        .background(MaterialTheme.colorScheme.surfaceContainerHigh)
                         .fillMaxWidth()
                         .background(
-                            selectColor(
-                                LightColorPalette.surfaceContainerHigh,
-                                DarkColorPalette.surfaceContainerHigh
-                            )
+                            ColorSingleton.appPalette.value.surfaceContainerHigh
                         )
                 ) {
                     Text(
@@ -151,10 +144,7 @@ fun ApplyCredit(
                         fontFamily = inter,
                         fontWeight = FontWeight.W600,
                         fontSize = 16.sp,
-                        color = selectColor(
-                            LightColorPalette.onSurface,
-                            DarkColorPalette.onSurfaceContainerHighest
-                        )
+                        color = ColorSingleton.appPalette.value.onSurface
                     )
                 }
 
