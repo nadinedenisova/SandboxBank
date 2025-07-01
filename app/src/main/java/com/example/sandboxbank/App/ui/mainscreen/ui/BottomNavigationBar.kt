@@ -1,18 +1,30 @@
 package com.example.sandboxbank.App.ui.mainscreen.ui
 
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 import com.example.sandboxbank.App.ui.designkit.mode.language.LanguageSingleton
 import com.example.sandboxbank.App.ui.designkit.mode.language.getForRoute
 import com.example.sandboxbank.App.ui.mainscreen.data.Routes
+import com.example.sandboxbank.R
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
@@ -25,12 +37,24 @@ fun BottomNavigationBar(navController: NavHostController) {
         Routes.entries
             .filter { it.icon != null }
             .forEach { it ->
-            BottomNavigationItem(
-                icon = { Icon(it.icon!!, contentDescription = "", tint = ColorSingleton.appPalette.value.onSurfaceVariant) },
-                label = { Text(LanguageSingleton.localization.value.getForRoute(it.route), color = ColorSingleton.appPalette.value.primaryInverce) },
-                selected = currentDestination?.route == it.route,
-                onClick = { navController.navigate(it.route) }
-            )
-        }
+                BottomNavigationItem(
+                    modifier = Modifier.padding(bottom = 15.dp).weight(1f),
+                    icon = { Icon(ImageVector.vectorResource(it.icon!!), contentDescription = "") },
+                    label = {
+                        BasicText(
+                            text = it.title(),
+                            style = TextStyle(
+                                color = LightColorPalette.onSurfaceVariant,
+                                fontSize = 12.sp,
+                                fontFamily = FontFamily(Font(R.font.roboto)),
+                                fontWeight = FontWeight(500)
+                            ),
+                            softWrap = false,
+                        )
+                    },
+                    selected = currentDestination?.route == it.route,
+                    onClick = { navController.navigate(it.route) }
+                )
+            }
     }
 }

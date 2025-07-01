@@ -17,6 +17,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -32,17 +33,22 @@ import com.example.sandboxbank.R
 import com.example.sandboxbank.pinCode.PinCodeViewModel
 import com.example.sandboxbank.pinCode.PinDotsType
 import com.example.sandboxbank.pinCode.ui.intent.PinCodeIntent
+import com.example.sandboxbank.pinCode.ui.model.AuthScreenState
 import com.example.sandboxbank.pinCode.ui.model.AuthScreenUiState
 import com.example.sandboxbank.viewModel
 
 const val PIN_CODE_CORRECT_SIZE = 6
 
 @Composable
-fun PinCodeScreen(
-
-) {
+fun PinCodeScreen(onPinSuccess: () -> Unit) {
     val viewModel: PinCodeViewModel = viewModel()
     val authScreenState by viewModel.authScreenStateFlow.collectAsState()
+
+    LaunchedEffect(authScreenState.screenType) {
+        if (authScreenState.screenType == AuthScreenState.ScreenType.SUCCESS) {
+            onPinSuccess()
+        }
+    }
 
     PinCodeScreenContent(
         onEvent = viewModel::onEvent,

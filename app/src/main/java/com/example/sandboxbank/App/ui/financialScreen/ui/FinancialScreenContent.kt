@@ -50,6 +50,7 @@ fun FinancialScreenContent(
     viewModel: FinancialScreenViewModel,
     onDepositClick:(depositId: Long)-> Unit,
     onCreditClick:(creditId: Long)-> Unit,
+    onApplyCreditClick:()-> Unit,
 ) {
     val stateDepos = viewModel.stateDeposFlow.collectAsState().value
     val stateCredits = viewModel.stateCreditsFlow.collectAsState().value
@@ -133,6 +134,7 @@ fun FinancialScreenContent(
             ),
             shape = RoundedCornerShape(100.dp),
             onClick = {
+                onApplyCreditClick()
             }
         ) {
             Text(
