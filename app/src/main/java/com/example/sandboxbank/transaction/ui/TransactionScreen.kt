@@ -53,9 +53,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
+import com.example.sandboxbank.App.ui.designkit.mode.language.LanguageSingleton
 import com.example.sandboxbank.transaction.domain.TransactionViewModel
 import com.example.sandboxbank.transaction.ui.model.TransactionState
 import com.example.sandboxbank.transaction.ui.model.TransactionUiState
+import com.example.sandboxbank.App.ui.designkit.mode.language.*
 
 @Composable
 fun TransactionScreen(
@@ -77,6 +80,7 @@ fun TransactionScreen(
     )
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TransactionScreenContent(
     uiState: TransactionUiState,
@@ -88,12 +92,13 @@ fun TransactionScreenContent(
     onDismissStatus: () -> Unit,
     onBackClick: () -> Unit
 ) {
-    val tabTitles = listOf("Между своими счетами", "Другому пользователю", "Прочие пополнения")
+    val tabTitles = listOf(LanguageSingleton.localization.value.betweenAccounts(), LanguageSingleton.localization.value.toAnotherUser(), LanguageSingleton.localization.value.otherDeposits())
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
+            .background(ColorSingleton.appPalette.value.background)
     ) {
 
         TopBar(onBackClick = onBackClick)
@@ -107,10 +112,10 @@ fun TransactionScreenContent(
         Spacer(Modifier.height(16.dp))
 
         Column(
-            Modifier.background(LightColorPalette.background)
+            Modifier.background(ColorSingleton.appPalette.value.background)
         ) {
             AccountDropdown(
-                label = stringResource(R.string.transaction_deposit_out),
+                label = LanguageSingleton.localization.value.debitAccount(),
                 selected = uiState.debitFrom,
                 options = uiState.accounts,
                 onSelect = onDebitFromSelected
@@ -119,7 +124,7 @@ fun TransactionScreenContent(
             Spacer(Modifier.height(8.dp))
 
             AccountDropdown(
-                label = stringResource(R.string.transaction_deposit_in),
+                label = LanguageSingleton.localization.value.replenishmentAccount(),
                 selected = uiState.debitTo,
                 options = uiState.accounts,
                 onSelect = onDebitToSelected
@@ -130,9 +135,15 @@ fun TransactionScreenContent(
             OutlinedTextField(
                 value = uiState.amount,
                 onValueChange = onAmountChanged,
-                label = { Text(stringResource(R.string.transaction_sum)) },
+                label = { Text(LanguageSingleton.localization.value.amount(), color =ColorSingleton.appPalette.value.onSurface ) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                colors = ExposedDropdownMenuDefaults.textFieldColors(
+                        backgroundColor = ColorSingleton.appPalette.value.background,
+                textColor = ColorSingleton.appPalette.value.onSurface,
+                focusedIndicatorColor = ColorSingleton.appPalette.value.primary,
+                unfocusedIndicatorColor = ColorSingleton.appPalette.value.onSurface.copy(alpha = 0.5f)
+            )
             )
 
             Spacer(Modifier.height(16.dp))
@@ -141,7 +152,7 @@ fun TransactionScreenContent(
                 modifier = Modifier.align(Alignment.End),
                 enabled = uiState.status != TransactionState.Loading,
                 onClick = onTransactionClick,
-                colors = ButtonDefaults.buttonColors(LightColorPalette.primary),
+                colors = ButtonDefaults.buttonColors(ColorSingleton.appPalette.value.primary),
                 shape = RoundedCornerShape(16.dp)
             ) {
                 if (uiState.status == TransactionState.Loading) {
@@ -149,8 +160,8 @@ fun TransactionScreenContent(
                 } else {
                     Text(
                         modifier = Modifier.padding(vertical = 8.dp),
-                        text = stringResource(R.string.transaction_button),
-                        color = LightColorPalette.background,
+                        text = LanguageSingleton.localization.value.toTransfer(),
+                        color = ColorSingleton.appPalette.value.background,
                     )
                 }
             }
@@ -168,8 +179,8 @@ fun TopBar(
         TopAppBar(
             title = {
                 androidx.compose.material.Text(
-                    stringResource(R.string.transaction), style = TextStyle(
-                        color = LightColorPalette.onSurface,
+                    LanguageSingleton.localization.value.transfersTitle(), style = TextStyle(
+                        color = ColorSingleton.appPalette.value.onSurface,
                         fontSize = 20.sp,
                         fontFamily = FontFamily(
                             Font(R.font.roboto, weight = FontWeight.W400)
@@ -178,15 +189,17 @@ fun TopBar(
                 )
             },
             navigationIcon = {
-                IconButton(onClick = onBackClick) {
+                IconButton(
+                    onClick = onBackClick
+                ) {
                     Icon(
                         painterResource(R.drawable.icon_back_arrow_16x16),
-                        contentDescription = "Back"
+                        contentDescription = "Back",
+                        tint = ColorSingleton.appPalette.value.onSurface,
                     )
                 }
             },
-
-            backgroundColor = LightColorPalette.surface,
+            backgroundColor = ColorSingleton.appPalette.value.surface,
             elevation = 0.dp
         )
     }
@@ -210,31 +223,33 @@ fun AccountDropdown(
             value = selected,
             onValueChange = {},
             readOnly = true,
-            label = { Text(label) },
+            label = { Text(text = label, color =ColorSingleton.appPalette.value.onSurface) },
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
             },
             modifier = Modifier.fillMaxWidth(),
             colors = ExposedDropdownMenuDefaults.textFieldColors(
-                backgroundColor = LightColorPalette.background,
-                textColor = LightColorPalette.onSurface,
-                focusedIndicatorColor = LightColorPalette.primary,
-                unfocusedIndicatorColor = LightColorPalette.onSurface.copy(alpha = 0.5f)
+                backgroundColor = ColorSingleton.appPalette.value.background,
+                textColor = ColorSingleton.appPalette.value.onSurface,
+                focusedIndicatorColor = ColorSingleton.appPalette.value.primary,
+                unfocusedIndicatorColor = ColorSingleton.appPalette.value.onSurface.copy(alpha = 0.5f)
             )
         )
 
         ExposedDropdownMenu(
+            modifier = Modifier.background(ColorSingleton.appPalette.value.surface),
             expanded = expanded,
             onDismissRequest = { expanded = false },
         ) {
             options.forEach { option ->
                 DropdownMenuItem(
+                    modifier = Modifier.background(ColorSingleton.appPalette.value.surface),
                     onClick = {
                         onSelect(option)
                         expanded = false
                     }
                 ) {
-                    Text(option)
+                    Text(text = option, color = ColorSingleton.appPalette.value.onSurface)
                 }
             }
         }
@@ -246,29 +261,32 @@ fun AccountDropdown(
 fun TransferStatusDialog(status: TransactionState?, onDismiss: () -> Unit) {
     if (status != null) {
         AlertDialog(
+            backgroundColor = ColorSingleton.appPalette.value.surface,
             onDismissRequest = onDismiss,
             title = {
                 Text(
-                    when (status) {
-                        is TransactionState.Success -> stringResource(R.string.transaction_done)
-                        is TransactionState.NoInternet -> stringResource(R.string.transaction_internet)
-                        is TransactionState.Loading -> stringResource(R.string.transaction_progress)
-                        is TransactionState.Error -> stringResource(R.string.transaction_error)
-                    }
+                    text = when (status) {
+                        is TransactionState.Success -> LanguageSingleton.localization.value.transferDone()
+                        is TransactionState.NoInternet -> LanguageSingleton.localization.value.transferInternet()
+                        is TransactionState.Loading -> LanguageSingleton.localization.value.transferProgress()
+                        is TransactionState.Error -> LanguageSingleton.localization.value.transferError()
+                    },
+                    color =ColorSingleton.appPalette.value.onSurface
                 )
             },
             text = {
                 when (status) {
-                    is TransactionState.Error -> Text(status.message)
-                    is TransactionState.NoInternet -> Text(stringResource(R.string.transaction_check_internet))
+                    is TransactionState.Error -> Text(text = status.message, color = ColorSingleton.appPalette.value.onSurface)
+                    is TransactionState.NoInternet -> Text(text = LanguageSingleton.localization.value.transferCheck(), color = ColorSingleton.appPalette.value.onSurface)
                     else -> {}
                 }
             },
             confirmButton = {
                 TextButton(onClick = onDismiss) {
-                    Text(stringResource(R.string.transaction_close_button))
+                    Text(text = LanguageSingleton.localization.value.transferClose(), color =ColorSingleton.appPalette.value.onSurface)
                 }
-            }
+            },
+
         )
     }
 }
@@ -282,11 +300,12 @@ fun TransactionTabs(
     ScrollableTabRow(
         edgePadding = 0.dp,
         selectedTabIndex = selectedTabIndex,
-        contentColor = LightColorPalette.primary,
+        containerColor = ColorSingleton.appPalette.value.background,
+        contentColor = ColorSingleton.appPalette.value.background,
         indicator = { tabPositions ->
             TabRowDefaults.Indicator(
                 Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
-                color = LightColorPalette.primary
+                color = ColorSingleton.appPalette.value.primary
             )
         }
     ) {
@@ -297,7 +316,7 @@ fun TransactionTabs(
                 text = {
                     Text(
                         title,
-                        color = if (selectedTabIndex == index) LightColorPalette.primary else LightColorPalette.onSurface
+                        color = if (selectedTabIndex == index) ColorSingleton.appPalette.value.primary else ColorSingleton.appPalette.value.onSurface
                     )
                 }
             )
