@@ -1,7 +1,9 @@
 package com.example.sandboxbank.App.ui.financialitem
 
-sealed class FinancialItemDetailsUIState<out T> {
-    object Loading : FinancialItemDetailsUIState<Nothing>()
-    data class Success<T>(val data: T) : FinancialItemDetailsUIState<T>()
-    data class Error(val exception: Throwable) : FinancialItemDetailsUIState<Nothing>()
+import com.example.sandboxbank.App.core.deposit.domain.model.FinancialItem
+
+sealed class FinancialItemDetailsUIState {
+    object Loading : FinancialItemDetailsUIState()
+    data class Success(val data: FinancialItem) : FinancialItemDetailsUIState()
+    object Error : FinancialItemDetailsUIState()
 }

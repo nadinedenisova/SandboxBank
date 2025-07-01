@@ -7,6 +7,7 @@ import com.example.sandboxbank.App.ui.financialitem.FinancialItemDetailsViewMode
 import com.example.sandboxbank.App.ui.mainscreen.domain.MainScreenViewModel
 import com.example.sandboxbank.pinCode.PinCodeViewModel
 import com.example.sandboxbank.profile.domain.ProfileScreenViewModel
+import com.example.sandboxbank.transaction.domain.TransactionViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -37,4 +38,9 @@ interface ViewModelModule {
     @ViewModelKey(FinancialItemDetailsViewModel::class)
     @Binds
     fun bindFinancialItemDetailsViewModel(financialItemDetailsViewModel: FinancialItemDetailsViewModel): ViewModel
+
+    @IntoMap
+    @ViewModelKey(TransactionViewModel::class)
+    @Binds
+    fun bindTransactionViewModel(viewModel: TransactionViewModel): ViewModel
 }

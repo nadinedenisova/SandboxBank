@@ -22,7 +22,7 @@ class App : Application(), ComponentContainer {
         DaggerAppComponent.factory()
             .create(
                 context = this,
-                baseUrl = "https://c210-87-253-62-46.ngrok-free.app",
+                baseUrl = "https://63b3-87-253-62-46.ngrok-free.app",
                 prefsKey = APP_PREFERENCES,
             )
     }

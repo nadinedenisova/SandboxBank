@@ -1,5 +1,6 @@
 package com.example.sandboxbank
 
+import com.example.sandboxbank.transaction.data.dto.TransferRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -59,4 +60,9 @@ interface Api {
         @Header("Authorization") accessToken: String //"Bearer $accessToken"
     ): Response<ProductsResponse>
 
+    @POST("/transfer")
+    suspend fun makeTransfer(
+        @Body request: TransferRequest,
+        @Header("Authorization") accessToken: String
+    ): Response<Unit>
 }
