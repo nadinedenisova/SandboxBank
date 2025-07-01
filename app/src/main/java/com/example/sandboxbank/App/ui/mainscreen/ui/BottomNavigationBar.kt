@@ -26,6 +26,7 @@ import com.example.sandboxbank.App.ui.designkit.mode.language.getForRoute
 import com.example.sandboxbank.App.ui.mainscreen.data.Routes
 import com.example.sandboxbank.R
 
+
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -44,7 +45,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                         BasicText(
                             text = it.title(),
                             style = TextStyle(
-                                color = LightColorPalette.onSurfaceVariant,
+                                color = ColorSingleton.appPalette.value.onSurfaceVariant,
                                 fontSize = 12.sp,
                                 fontFamily = FontFamily(Font(R.font.roboto)),
                                 fontWeight = FontWeight(500)
