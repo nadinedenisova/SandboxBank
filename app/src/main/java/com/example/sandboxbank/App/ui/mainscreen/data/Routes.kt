@@ -43,5 +43,9 @@ enum class Routes(
         route = "credit/{creditId}",
         title = "Кредит",
         icon = null
-    ),
+    );
+    companion object {
+        fun depositDetails(depositId: Long) = "deposit/$depositId"
+        fun creditDetails(creditId: Long) = "credit/$creditId"
+    }
 }
