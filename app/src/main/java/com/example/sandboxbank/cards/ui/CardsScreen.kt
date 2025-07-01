@@ -1,0 +1,134 @@
+package com.example.sandboxbank.cards.ui
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.sandboxbank.App.ui.debitcards.debit.ui.compose.items.NoInternetDialog
+import com.example.sandboxbank.R
+import com.example.sandboxbank.cardmanager.cards.debit.ui.compose.items.CardView
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CardsScreen(
+    navController: NavController,
+    viewModel: CardsScreenViewModel,
+    ) {
+    val uiState = viewModel.uiState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.loadCards()
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(
+                    text = stringResource(R.string.cards),
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                ) },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                ),
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .background(MaterialTheme.colorScheme.background)
+        ) {
+            when (val state = uiState.value) {
+                is CardsListUIState.Loading -> {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
+                is CardsListUIState.Error -> {
+                    NoInternetDialog(
+                        onDismiss = {navController.popBackStack()},
+                        onRetry = { viewModel.retryLoading() }
+                    )
+                }
+                is CardsListUIState.Success, is CardsListUIState.SuccessEmpty -> {
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        CardView()
+                        // Дебетовая карта
+                        Button(
+                            onClick = { /* navController.navigate("makedebitcard") */ },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Image(
+                                    imageVector = ImageVector.vectorResource(R.drawable.icon_debit),
+                                    contentDescription = null,
+                                    modifier = Modifier.padding(end = 8.dp),
+                                )
+                                Text("Оформить дебетовую карту")
+                            }
+                        }
+
+                        // Дебетовая карта
+                        Button(
+                            onClick = { /* navController.navigate("makedebitcard") */ },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Image(
+                                    imageVector = ImageVector.vectorResource(R.drawable.icon_credit),
+                                    contentDescription = null,
+                                    modifier = Modifier.padding(end = 8.dp),
+                                )
+                                Text("Оформить кредитную карту")
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
+fun CardButtons() {
+
+}

@@ -18,6 +18,8 @@ import com.example.sandboxbank.App.ui.financialScreen.domain.FinancialScreenView
 import com.example.sandboxbank.App.ui.financialScreen.ui.FinancialScreenContent
 import com.example.sandboxbank.App.ui.financialitem.FinancialItemDetailsViewModel
 import com.example.sandboxbank.App.ui.mainscreen.data.Routes
+import com.example.sandboxbank.cards.ui.CardsScreen
+import com.example.sandboxbank.cards.ui.CardsScreenViewModel
 import com.example.sandboxbank.credit.ui.CreditScreen
 import com.example.sandboxbank.deposit.ui.DepositScreen
 import com.example.sandboxbank.profile.domain.ProfileScreenViewModel
@@ -34,7 +36,10 @@ fun NavGraph(
 ) {
     NavHost(navController = navHostController, startDestination = startDestination) {
         composable(route = Routes.Cards.name) {
-            CardsScreen()
+            val cardsViewModel: CardsScreenViewModel = viewModel(
+                factory = viewModelFactory
+            )
+            CardsScreen(navHostController, viewModel = cardsViewModel)
         }
         composable(route = Routes.Finance.name) {
             val financialViewModel: FinancialScreenViewModel = viewModel(
@@ -106,14 +111,6 @@ fun NavGraph(
             val profileScreenViewModel: ProfileScreenViewModel = viewModel( factory = viewModelFactory)
             ProfileScreen(profileScreenViewModel = profileScreenViewModel)
         }
-    }
-}
-
-
-@Composable
-fun CardsScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Экран Карт")
     }
 }
 
