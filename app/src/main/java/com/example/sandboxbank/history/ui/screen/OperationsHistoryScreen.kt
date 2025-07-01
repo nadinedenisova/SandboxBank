@@ -10,12 +10,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.TabRowDefaults.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,15 +25,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.sandboxbank.App.ui.designkit.mode.ColorPalette
 import com.example.sandboxbank.App.ui.designkit.mode.ColorSingleton
+import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
 import com.example.sandboxbank.R
 import com.example.sandboxbank.auth.ui.screen.CustomTopBar
+import com.example.sandboxbank.history.domain.model.OperationItems
 import com.example.sandboxbank.history.ui.state.HistoryViewState
 
 @Preview(showSystemUi = true)
 @Composable
 fun OperationsHistoryScreen() {
     val state: HistoryViewState = HistoryViewState.Preview
+    val mokList = listOf<OperationItems>()
 
     Column(
         modifier = Modifier
@@ -43,56 +46,99 @@ fun OperationsHistoryScreen() {
     ) {
         CustomTopBar(stringResource(R.string.operations_history)) { TODO() }
 
-
-
+        Spacer(Modifier.height(16.dp))
 
         when(state) {
-            HistoryViewState.Preview -> Preview()
-            HistoryViewState.DebitCards -> OperationsHistory(stringResource(R.string.debit_cards))
-            HistoryViewState.CreditCards -> OperationsHistory(stringResource(R.string.credit_cards))
-            HistoryViewState.CurrentLoan -> OperationsHistory(stringResource(R.string.current_loans))
-            HistoryViewState.CurrentDeposits -> OperationsHistory(stringResource(R.string.current_deposits))
-            HistoryViewState.Transfers -> OperationsHistory(stringResource(R.string.transfers))
+            HistoryViewState.Preview -> PreviewScreen()
+            HistoryViewState.DebitCards -> OperationsHistory(stringResource(R.string.debit_cards), mokList, Modifier)
+            HistoryViewState.CreditCards -> OperationsHistory(stringResource(R.string.credit_cards), mokList, Modifier)
+            HistoryViewState.CurrentLoan -> OperationsHistory(stringResource(R.string.current_loans), mokList, Modifier)
+            HistoryViewState.CurrentDeposits -> OperationsHistory(stringResource(R.string.current_deposits), mokList, Modifier)
+            HistoryViewState.Transfers -> OperationsHistory(stringResource(R.string.transfers), mokList, Modifier)
         }
     }
 }
 
 
-
 @Composable
 fun OperationsHistory(
-    title: String
+    title: String,
+    operations: List<OperationItems>,
+    modifier: Modifier = Modifier
 ) {
+    Text(title)
 
+    LazyColumn(modifier = modifier) {
+        operations.forEach { operation ->
+            item {
+                DatedItemSection(
+                    date = operation.data,
+                    items = operation.operation,
+                )
+            }
+        }
+    }
 }
 
 @Composable
-fun Preview(
+private fun DatedItemSection(
+    date: String,
+    items: List<Unit>,
+) {
+    Column {
+        Text(
+            text = date,
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+        )
+
+        Divider(
+            modifier = Modifier.padding(top = 8.dp),
+            thickness = 1.dp,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
+        )
+
+        items.forEach { item ->
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 4.dp)
+            ) {
+
+            }
+        }
+    }
+}
+
+@Composable
+fun PreviewScreen(
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = 16.dp)
             .background(
-                color = Color.Green,
+                color = ColorSingleton.appPalette.secondaryContainer,
                 shape = RoundedCornerShape(16.dp)
             )
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
         ) {
-            Item(stringResource(R.string.debit_cards), TODO())
-            Item(stringResource(R.string.credit_cards), TODO())
-            Item(stringResource(R.string.current_deposits), TODO())
-            Item(stringResource(R.string.current_loans), TODO())
-            Item(stringResource(R.string.transfers), TODO())
+            ItemOperation(stringResource(R.string.debit_cards), {})
+            ItemOperation(stringResource(R.string.credit_cards), {})
+            ItemOperation(stringResource(R.string.current_deposits), {})
+            ItemOperation(stringResource(R.string.current_loans), {})
+            ItemOperation(stringResource(R.string.transfers), {})
         }
     }
 }
 
 @Composable
-fun Item(
+fun ItemOperation(
     operation: String,
     onClick: () -> Unit
 ) {
@@ -100,7 +146,7 @@ fun Item(
         modifier = Modifier
             .clickable { onClick() }
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
+            .height(56.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
@@ -108,7 +154,8 @@ fun Item(
             modifier = Modifier
                 .weight(1f)
                 .padding(start = 16.dp),
-            textAlign = TextAlign.End
+            textAlign = TextAlign.Start,
+            style = MaterialTheme.typography.bodyLarge
         )
 
         Icon(

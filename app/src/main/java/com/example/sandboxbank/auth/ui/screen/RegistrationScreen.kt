@@ -16,6 +16,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.sandboxbank.App.ui.designkit.mode.ColorSingleton
 import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
 import com.example.sandboxbank.R
 import com.example.sandboxbank.auth.domain.model.ResultAuthState
@@ -185,6 +186,7 @@ fun CustomTopBar(
 ) {
     Row(modifier = Modifier
         .height(64.dp)
+        .background(color = ColorSingleton.appPalette.surfaceContainerHigh)
         .fillMaxWidth()
     ) {
 
