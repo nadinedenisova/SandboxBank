@@ -5,6 +5,7 @@ import com.example.sandboxbank.App.core.di.annotations.ViewModelKey
 import com.example.sandboxbank.App.ui.financialScreen.domain.FinancialScreenViewModel
 import com.example.sandboxbank.App.ui.financialitem.FinancialItemDetailsViewModel
 import com.example.sandboxbank.App.ui.mainscreen.domain.MainScreenViewModel
+import com.example.sandboxbank.auth.ui.viewmodel.AuthViewModel
 import com.example.sandboxbank.pinCode.PinCodeViewModel
 import com.example.sandboxbank.profile.domain.ProfileScreenViewModel
 import com.example.sandboxbank.transaction.domain.TransactionViewModel
@@ -43,4 +44,9 @@ interface ViewModelModule {
     @ViewModelKey(TransactionViewModel::class)
     @Binds
     fun bindTransactionViewModel(viewModel: TransactionViewModel): ViewModel
+
+    @IntoMap
+    @ViewModelKey(AuthViewModel::class)
+    @Binds
+    fun bindAuthViewModel(viewModel: AuthViewModel): ViewModel
 }
