@@ -16,6 +16,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 import com.example.sandboxbank.R
 import com.example.sandboxbank.auth.domain.model.ResultAuthState
 import com.example.sandboxbank.auth.ui.viewmodel.AuthViewModel
@@ -125,7 +126,7 @@ fun RegistrationScreen(
                         .align(Alignment.Start)
                         .padding(start = 16.dp),
                     text = stringResource(R.string.userExists),
-                    color = LightColorPalette.error,
+                    color = ColorSingleton.appPalette.value.onError,
                     style = MaterialTheme.typography.bodySmall
                 )
             }
@@ -151,7 +152,7 @@ fun RegistrationScreen(
                     .padding(start = 16.dp),
                 text = stringResource(R.string.hint_six_symbols),
                 style = MaterialTheme.typography.bodySmall,
-                color = if (isPasswordShort) LightColorPalette.error else LightColorPalette.onSecondary
+                color = if (isPasswordShort) ColorSingleton.appPalette.value.onError else ColorSingleton.appPalette.value.onSecondary
             )
 
             Spacer(modifier = Modifier.height(24.dp))

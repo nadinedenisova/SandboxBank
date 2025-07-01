@@ -101,6 +101,11 @@ fun NavGraph(
                 }
             )
         }
+
+        composable(route = Routes.Profile.route){
+            val profileScreenViewModel: ProfileScreenViewModel = viewModel( factory = viewModelFactory)
+            ProfileScreen(profileScreenViewModel = profileScreenViewModel)
+        }
     }
 }
 

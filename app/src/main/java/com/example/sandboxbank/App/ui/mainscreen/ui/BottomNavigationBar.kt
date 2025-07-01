@@ -5,6 +5,7 @@ import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -19,9 +20,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
+import com.example.sandboxbank.App.ui.designkit.mode.language.LanguageSingleton
+import com.example.sandboxbank.App.ui.designkit.mode.language.getForRoute
 import com.example.sandboxbank.App.ui.mainscreen.data.Routes
 import com.example.sandboxbank.R
+
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
@@ -29,7 +33,7 @@ fun BottomNavigationBar(navController: NavHostController) {
     val currentDestination = navBackStackEntry?.destination
 
     BottomAppBar(
-        backgroundColor = Color(0xF3, 0xED, 0xF7)
+        backgroundColor = ColorSingleton.appPalette.value.onSurfaceContainer
     ) {
         Routes.entries
             .filter { it.icon != null }
@@ -41,7 +45,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                         BasicText(
                             text = it.title(),
                             style = TextStyle(
-                                color = LightColorPalette.onSurfaceVariant,
+                                color = ColorSingleton.appPalette.value.onSurfaceVariant,
                                 fontSize = 12.sp,
                                 fontFamily = FontFamily(Font(R.font.roboto)),
                                 fontWeight = FontWeight(500)

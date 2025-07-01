@@ -1,4 +1,4 @@
-package com.example.sandboxbank.App.ui.designkit.mode
+package com.example.sandboxbank.App.ui.designkit.mode.color
 
 import androidx.compose.ui.graphics.Color
 
