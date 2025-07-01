@@ -3,6 +3,8 @@ package com.example.sandboxbank.App.core
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.sandboxbank.Api
+import com.example.sandboxbank.App.core.deposit.data.network.FinancialItemNetworkRepositoryImpl
+import com.example.sandboxbank.App.core.deposit.domain.db.FinancialItemRepository
 import com.example.sandboxbank.App.core.di.annotations.ApplicationScope
 import com.example.sandboxbank.App.core.di.annotations.AppContext
 import com.example.sandboxbank.App.core.di.annotations.BaseUrl
@@ -12,6 +14,8 @@ import com.example.sandboxbank.App.ui.debitcards.utils.InternetUtil
 import com.example.sandboxbank.cardmanager.cards.debit.model.data.CardRepository
 import com.example.sandboxbank.cardmanager.cards.debit.model.data.RemoteCardRepository
 import com.example.sandboxbank.profile.domain.GetStoreManager
+import com.example.sandboxbank.transaction.data.repository.TransactionRepository
+import com.example.sandboxbank.transaction.data.repository.TransactionRepositoryImpl
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -89,6 +93,14 @@ object CoreAppModule {
     }
 
 
+    @Provides
+    @ApplicationScope
+    fun provideFinancialItemRepository(
+        api: Api,
+    ): FinancialItemRepository {
+        return FinancialItemNetworkRepositoryImpl(api)
+    }
+
 
 
     @ApplicationScope
@@ -101,5 +113,18 @@ object CoreAppModule {
     @Provides
     fun provideInternetUtil(@AppContext context: Context): InternetUtil {
         return InternetUtil(context)
+    }
+
+    @ApplicationScope
+    @Provides
+    fun provideTransactionRepository(
+        api: Api,
+        internetUtil: InternetUtil,
+        @PlainPref sharedPrefs: SharedPreferences
+    ): TransactionRepository {
+        val tokenProvider: suspend () -> String = {
+            sharedPrefs.getString("access_token", "") ?: ""
+        }
+        return TransactionRepositoryImpl(api, internetUtil, tokenProvider)
     }
 }

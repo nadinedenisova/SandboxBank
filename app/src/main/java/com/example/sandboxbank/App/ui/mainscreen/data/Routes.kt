@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 enum class Routes(
     val route: String,
     val title: String,
-    val icon: ImageVector
+    val icon: ImageVector?
 ) {
     Cards(
         route = "cards",
@@ -19,8 +19,8 @@ enum class Routes(
         title = "Финансы",
         icon = Icons.Default.Info
     ),
-    Transfers(
-        route = "transfers",
+    Transaction(
+        route = "transaction",
         title = "Переводы",
         icon = Icons.Default.Info
     ),
@@ -34,4 +34,18 @@ enum class Routes(
         title = "Профиль",
         icon = Icons.Default.Info
     ),
+    Deposit(
+        route = "deposit/{depositId}",
+        title = "Вклад",
+        icon = null
+    ),
+    Credit(
+        route = "credit/{creditId}",
+        title = "Кредит",
+        icon = null
+    );
+    companion object {
+        fun depositDetails(depositId: Long) = "deposit/$depositId"
+        fun creditDetails(creditId: Long) = "credit/$creditId"
+    }
 }
