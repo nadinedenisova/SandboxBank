@@ -29,7 +29,7 @@ class NetworkChangeReceiver : BroadcastReceiver() {
     }
 
 
-    private fun isInternetAvailable(context: Context): Boolean {
+    fun isInternetAvailable(context: Context): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val connectivityManager =
                 context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
