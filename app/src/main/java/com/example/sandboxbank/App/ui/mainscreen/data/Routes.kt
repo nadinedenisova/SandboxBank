@@ -1,41 +1,38 @@
 package com.example.sandboxbank.App.ui.mainscreen.data
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import com.example.sandboxbank.R
 
 enum class Routes(
     val route: String,
     val title: @Composable () -> String,
-    val icon: ImageVector?
+    val icon: Int?
 ) {
     Cards(
         route = "cards",
         title = { stringResource(R.string.bottomnav_cards) },
-        icon = Icons.Default.Info
+        icon = R.drawable.icon_card
     ),
     Finance(
         route = "finance",
         title = { stringResource(R.string.bottomnav_finances) },
-        icon = Icons.Default.Info
+        icon = R.drawable.icon_card
     ),
     Transaction(
         route = "transaction",
         title = { stringResource(R.string.bottomnav_transactions) },
-        icon = Icons.Default.Info
+        icon = R.drawable.icon_transaction
     ),
     History(
         route = "history",
         title = { stringResource(R.string.bottomnav_history) },
-        icon = Icons.Default.Info
+        icon = R.drawable.icon_history
     ),
     Profile(
         route = "profile",
         title = { stringResource(R.string.bottomnav_profile) },
-        icon = Icons.Default.Info
+        icon = R.drawable.icon_profile
     ),
     Deposit(
         route = "deposit/{depositId}",
