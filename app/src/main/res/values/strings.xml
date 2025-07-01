@@ -125,4 +125,17 @@
     <string name="bottomnav_transactions" translatable="false">Переводы</string>
     <string name="bottomnav_history" translatable="false">История</string>
     <string name="bottomnav_profile" translatable="false">Профиль</string>
+
+    <!-- Переводы -->
+    <string name="transaction" translatable="false">Переводы</string>
+    <string name="transaction_deposit_out" translatable="false">Счёт списания</string>
+    <string name="transaction_deposit_in" translatable="false">Счёт пополнения</string>
+    <string name="transaction_sum" translatable="false">Сумма</string>
+    <string name="transaction_button" translatable="false">Перевести</string>
+    <string name="transaction_done" translatable="false">Перевод выполнен</string>
+    <string name="transaction_internet" translatable="false">Нет подключения к интернету</string>
+    <string name="transaction_progress" translatable="false">Выполняется...</string>
+    <string name="transaction_error" translatable="false">Ошибка</string>
+    <string name="transaction_close_button" translatable="false">Закрыть</string>
+    <string name="transaction_check_internet" translatable="false">Проверьте подключение и попробуйте снова.</string>
 </resources>

@@ -14,6 +14,8 @@ import com.example.sandboxbank.App.ui.debitcards.utils.InternetUtil
 import com.example.sandboxbank.cardmanager.cards.debit.model.data.CardRepository
 import com.example.sandboxbank.cardmanager.cards.debit.model.data.RemoteCardRepository
 import com.example.sandboxbank.profile.domain.GetStoreManager
+import com.example.sandboxbank.transaction.data.repository.TransactionRepository
+import com.example.sandboxbank.transaction.data.repository.TransactionRepositoryImpl
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -111,5 +113,18 @@ object CoreAppModule {
     @Provides
     fun provideInternetUtil(@AppContext context: Context): InternetUtil {
         return InternetUtil(context)
+    }
+
+    @ApplicationScope
+    @Provides
+    fun provideTransactionRepository(
+        api: Api,
+        internetUtil: InternetUtil,
+        @PlainPref sharedPrefs: SharedPreferences
+    ): TransactionRepository {
+        val tokenProvider: suspend () -> String = {
+            sharedPrefs.getString("access_token", "") ?: ""
+        }
+        return TransactionRepositoryImpl(api, internetUtil, tokenProvider)
     }
 }
