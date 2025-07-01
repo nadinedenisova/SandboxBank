@@ -1,5 +1,6 @@
 package com.example.sandboxbank.App.core.di.modules
 
+import com.example.sandboxbank.App.core.di.annotations.ActivityScope
 import com.example.sandboxbank.auth.data.repository.api.NetworkClient
 import com.example.sandboxbank.auth.data.repository.auth.AuthRepositoryImpl
 import com.example.sandboxbank.auth.data.storage.SecureStorageManager
@@ -11,11 +12,13 @@ import dagger.Provides
 
 @Module
 object AuthModule {
+    @ActivityScope
     @Provides
     fun provideAuthIterator(repository: AuthRepository): AuthInteractor {
         return AuthInteractorImpl(repository)
     }
 
+    @ActivityScope
     @Provides
     fun provideAuthRepository(
         networkClient: NetworkClient,
