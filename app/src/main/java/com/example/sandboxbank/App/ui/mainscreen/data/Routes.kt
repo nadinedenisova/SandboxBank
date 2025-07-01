@@ -19,8 +19,8 @@ enum class Routes(
         title = "Финансы",
         icon = Icons.Default.Info
     ),
-    Transfers(
-        route = "transfers",
+    Transaction(
+        route = "transaction",
         title = "Переводы",
         icon = Icons.Default.Info
     ),

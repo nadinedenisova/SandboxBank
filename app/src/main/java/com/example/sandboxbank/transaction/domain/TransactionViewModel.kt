@@ -2,10 +2,10 @@ package com.example.sandboxbank.transaction.domain
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.sandboxbank.transaction.data.repository.NoInternetException
 import com.example.sandboxbank.transaction.data.repository.TransactionRepository
 import com.example.sandboxbank.transaction.ui.model.TransactionState
 import com.example.sandboxbank.transaction.ui.model.TransactionUiState
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -41,25 +41,62 @@ class TransactionViewModel @Inject constructor(
         _uiState.update { it.copy(amount = value) }
     }
 
-    fun onTransferClick() {
+    fun onTransactionClick() {
         viewModelScope.launch {
             _uiState.update { it.copy(status = TransactionState.Loading) }
 
-            delay(1000)
-
+            val currentState = _uiState.value
             val connected = repository.checkInternetConnection()
             if (!connected) {
                 _uiState.update { it.copy(status = TransactionState.NoInternet) }
+                return@launch
+            }
+
+            val amountDouble = currentState.amount.toDoubleOrNull()
+            if (currentState.debitFrom.isBlank() ||
+                currentState.debitTo.isBlank() ||
+                amountDouble == null
+            ) {
+                _uiState.update {
+                    it.copy(status = TransactionState.Error("Заполните все поля корректно"))
+                }
+                return@launch
+            }
+
+            val type = when (currentState.selectedTab) {
+                0 -> "internal"
+                1 -> "toUser"
+                2 -> "other"
+                else -> "internal"
+            }
+
+            val result = repository.makeTransfer(
+                currentState.debitFrom,
+                currentState.debitTo,
+                amountDouble,
+                type
+            )
+
+            if (result.isSuccess) {
+                _uiState.update { it.copy(status = TransactionState.Success) }
             } else {
-                val currentState = _uiState.value
-                if (currentState.amount.isBlank() || currentState.debitTo.isBlank()) {
-                    _uiState.update { it.copy(status = TransactionState.Error("Заполните все поля")) }
+                val exception = result.exceptionOrNull()
+                if (exception is NoInternetException) {
+                    _uiState.update { it.copy(status = TransactionState.NoInternet) }
                 } else {
-                    _uiState.update { it.copy(status = TransactionState.Success) }
+                    _uiState.update {
+                        it.copy(
+                            status = TransactionState.Error(
+                                exception?.localizedMessage ?: "Ошибка"
+                            )
+                        )
+                    }
                 }
             }
         }
     }
+
+
 
     fun resetStatus() {
         _uiState.update { it.copy(status = null) }
