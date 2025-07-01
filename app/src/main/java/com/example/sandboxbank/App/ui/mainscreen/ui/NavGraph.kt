@@ -24,6 +24,8 @@ import com.example.sandboxbank.credit.ui.CreditScreen
 import com.example.sandboxbank.deposit.ui.DepositScreen
 import com.example.sandboxbank.profile.domain.ProfileScreenViewModel
 import com.example.sandboxbank.profile.ui.ProfileScreen
+import com.example.sandboxbank.transaction.domain.TransactionViewModel
+import com.example.sandboxbank.transaction.ui.TransactionScreen
 import java.math.BigDecimal
 
 @Composable
@@ -53,8 +55,13 @@ fun NavGraph(
         composable(route = Routes.History.name) {
             HistoryScreen()
         }
-        composable(route = Routes.Transfers.name) {
-            TransfersScreen()
+        composable(route = Routes.Transaction.name) {
+            val transactionViewModel: TransactionViewModel = viewModel(
+                factory = viewModelFactory
+            )
+            TransactionScreen(
+                viewModel = transactionViewModel,
+                { navHostController.popBackStack() })
         }
         composable(route = Routes.Deposit.route) { backStackEntry ->
             val depositId = backStackEntry.arguments?.getString("depositId")
