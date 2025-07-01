@@ -46,5 +46,9 @@ enum class Routes(
         route = "credit/{creditId}",
         title = { stringResource(R.string.credit) },
         icon = null
-    ),
+    );
+    companion object {
+        fun depositDetails(depositId: Long) = "deposit/$depositId"
+        fun creditDetails(creditId: Long) = "credit/$creditId"
+    }
 }
