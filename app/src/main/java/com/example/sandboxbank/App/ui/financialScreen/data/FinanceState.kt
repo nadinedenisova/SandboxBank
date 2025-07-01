@@ -18,8 +18,5 @@ sealed interface FinanceState {
         @StringRes val errorMessageId: Int
     ): FinanceState
 
-    data class Empty(
-        @StringRes val messageTextId: Int
-    ): FinanceState
 
 }

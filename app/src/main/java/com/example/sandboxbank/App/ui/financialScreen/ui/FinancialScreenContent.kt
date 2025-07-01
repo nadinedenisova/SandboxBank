@@ -77,7 +77,6 @@ fun FinancialScreenContent(
                 }
             }
 
-            is FinanceState.Empty -> {}
             is FinanceState.Error -> {}
             FinanceState.Loading -> {}
             else -> Unit
@@ -118,7 +117,6 @@ fun FinancialScreenContent(
                 }
             }
 
-            is FinanceState.Empty -> {}
             is FinanceState.Error -> {}
             FinanceState.Loading -> {}
             else -> Unit
@@ -249,7 +247,7 @@ fun CreditItem(item: Credit, onClick:(credit: Credit)-> Unit
         ) {
             Image(
                 painter = painterResource(id =
-                    if (item.type == "Автокредит")
+                    if (item.name == "Автокредит")
                         R.drawable.auto_credit_icon
                     else
                         R.drawable.mortgage_icon

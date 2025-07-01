@@ -1,6 +1,7 @@
 package com.example.sandboxbank.App.core.deposit.data.network
 
 import com.example.sandboxbank.Api
+import com.example.sandboxbank.App.core.deposit.data.FinancialType
 import com.example.sandboxbank.App.core.deposit.data.UserFinancialStats
 import com.example.sandboxbank.App.core.deposit.domain.db.FinancialItemRepository
 import com.example.sandboxbank.App.core.deposit.domain.model.Credit
@@ -22,7 +23,7 @@ import retrofit2.Response
  */
 class FinancialItemNetworkRepositoryImpl(
     private val api: Api,
-    private val accessTokenProvider: suspend () -> String
+    // private val accessTokenProvider: suspend () -> String
 ): FinancialItemRepository {
 
     override suspend fun getUserFinancialStats(userId: Long): Result<UserFinancialStats> = withContext(Dispatchers.IO) {
@@ -35,8 +36,8 @@ class FinancialItemNetworkRepositoryImpl(
                     val allItems = result.getOrNull() ?: emptyList()
 
                     // Фильтруем по типу
-                    val deposits = allItems.filter { it.type == "product_deposit" }
-                    val credits = allItems.filter { it.type == "product_credit" }
+                    val deposits = allItems.filterByType(FinancialType.DEPOSIT)
+                    val credits = allItems.filterByType(FinancialType.CREDIT)
 
                     // Считаем статистику
                     val depositCount = deposits.size
@@ -45,13 +46,13 @@ class FinancialItemNetworkRepositoryImpl(
                     val creditCount = credits.size
                     val creditTotal = credits.sumOf { it.balance }
 
-                    // Возвращаем результат
+                    // Возвращаем результатP
                     Result.success(
                         UserFinancialStats(
                             depositCount = depositCount,
-                            depositTotal = depositTotal,
+                            depositTotal = depositTotal.toLong(),
                             creditCount = creditCount,
-                            creditTotal = creditTotal
+                            creditTotal = creditTotal.toLong()
                         )
                     )
                 }
@@ -70,7 +71,8 @@ class FinancialItemNetworkRepositoryImpl(
         requestNumber: Long
     ): Result<FinancialItem> = withContext(Dispatchers.IO) {
         try {
-            val token = accessTokenProvider()
+            //val token = accessTokenProvider()
+            val token = "test token"
 
             val response: Response<out ProductResponse> = when (financialItem) {
                 is Credit -> {
@@ -78,7 +80,7 @@ class FinancialItemNetworkRepositoryImpl(
                         userId = userId,
                         currentCreditNumber = financialItem.id,
                         requestNumber = requestNumber,
-                        balance = financialItem.balance,
+                        balance = financialItem.balance.toLong(),
                         period = financialItem.period,
                     )
                     api.createCredit(request, "Bearer $token") as Response<out ProductResponse>
@@ -123,7 +125,7 @@ class FinancialItemNetworkRepositoryImpl(
             when (result.isSuccess) {
                 true -> {
                     val allItems = result.getOrNull() ?: emptyList()
-                    val creditItems = allItems.filterByType("product_credit")
+                    val creditItems = allItems.filterByType(FinancialType.CREDIT)
                     Result.success(creditItems)
                 }
                 false -> {
@@ -141,7 +143,7 @@ class FinancialItemNetworkRepositoryImpl(
             when (result.isSuccess) {
                 true -> {
                     val allItems = result.getOrNull() ?: emptyList()
-                    val creditItems = allItems.filterByType("product_deposit")
+                    val creditItems = allItems.filterByType(FinancialType.DEPOSIT)
                     Result.success(creditItems)
                 }
                 false -> {
@@ -181,7 +183,8 @@ class FinancialItemNetworkRepositoryImpl(
 
     override suspend fun getAllProducts(userId: Long): Result<List<FinancialItem>> = withContext(Dispatchers.IO) {
         try {
-            val token = accessTokenProvider()
+            val token = "test token"
+            //val token = accessTokenProvider()
             val response = api.getProducts(userId, "Bearer $token")
             if (response.isSuccessful) {
                 val body = response.body()
@@ -200,6 +203,6 @@ class FinancialItemNetworkRepositoryImpl(
         }
     }
 
-    private fun List<FinancialItem>.filterByType(type: String): List<FinancialItem> =
+    private fun List<FinancialItem>.filterByType(type: FinancialType): List<FinancialItem> =
         this.filter { it.type == type }
 }
