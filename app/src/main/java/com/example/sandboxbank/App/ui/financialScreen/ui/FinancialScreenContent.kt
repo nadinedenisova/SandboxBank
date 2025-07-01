@@ -48,8 +48,8 @@ import com.example.sandboxbank.App.ui.designkit.mode.language.*
 @Composable
 fun FinancialScreenContent(
     viewModel: FinancialScreenViewModel,
-    onDepositClick:(deposit: Deposit)-> Unit,
-    onCreditClick:(credit: Credit)-> Unit,
+    onDepositClick:(depositId: Long)-> Unit,
+    onCreditClick:(creditId: Long)-> Unit,
 ) {
     val stateDepos = viewModel.stateDeposFlow.collectAsState().value
     val stateCredits = viewModel.stateCreditsFlow.collectAsState().value
@@ -164,7 +164,7 @@ fun TitleContent(title: String) {
 }
 
 @Composable
-fun DepositItem(item: Deposit, onClick:(deposit: Deposit)-> Unit
+fun DepositItem(item: Deposit, onClick:(depositId: Long)-> Unit
 ){
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -173,7 +173,7 @@ fun DepositItem(item: Deposit, onClick:(deposit: Deposit)-> Unit
             .height(72.dp)
             .padding(top = 8.dp, bottom = 8.dp)
             .clickable{
-                onClick.invoke(item)
+                onClick.invoke(item.id)
             }
             .background(ColorSingleton.appPalette.value.surface)
     ) {
@@ -230,7 +230,7 @@ fun DepositItem(item: Deposit, onClick:(deposit: Deposit)-> Unit
 }
 
 @Composable
-fun CreditItem(item: Credit, onClick:(credit: Credit)-> Unit
+fun CreditItem(item: Credit, onClick:(creditId: Long)-> Unit
 ){
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -239,7 +239,7 @@ fun CreditItem(item: Credit, onClick:(credit: Credit)-> Unit
             .height(72.dp)
             .padding(top = 8.dp, bottom = 8.dp)
             .clickable{
-                onClick.invoke(item)
+                onClick.invoke(item.id)
             }
     ) {
         Card(

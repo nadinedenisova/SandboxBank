@@ -14,6 +14,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import retrofit2.Response
+import java.math.BigDecimal
+import kotlin.random.Random
 
 
 /**
@@ -195,7 +197,12 @@ class FinancialItemNetworkRepositoryImpl(
                     Result.failure(Exception("Empty response body"))
                 }
             } else {
-                Result.failure(HttpException(response))
+                // 70% шанс на mock, иначе ошибка
+                if (Random.nextInt(100) < 70) {
+                    Result.success(generateMockData())
+                } else {
+                    Result.failure(HttpException(response))
+                }
             }
 
         } catch (e: Exception) {
@@ -205,4 +212,70 @@ class FinancialItemNetworkRepositoryImpl(
 
     private fun List<FinancialItem>.filterByType(type: FinancialType): List<FinancialItem> =
         this.filter { it.type == type }
+}
+
+// Функция для создания фиктивных данных
+private fun generateMockData(): List<FinancialItem> {
+    return listOf(
+        Credit(
+            id = 1,
+            type = FinancialType.CREDIT,
+            openDate = System.currentTimeMillis() - 1000 * 60 * 60 * 24 * 15,
+            percentRate = 49.5,
+            percentType = 2,
+            period = 12,
+            balance = BigDecimal(1234567L),
+            name = "Кредит №1"
+        ),
+        Deposit(
+            id = 2,
+            type = FinancialType.DEPOSIT,
+            openDate = System.currentTimeMillis() - 2000 * 60 * 60 * 24 * 15,
+            percentRate = 8.5,
+            percentType = 2,
+            period = 12,
+            balance = BigDecimal(1234567L),
+            name = "Вклад №1"
+        ),
+        Credit(
+            id = 3,
+            type = FinancialType.CREDIT,
+            openDate = System.currentTimeMillis() - 3000 * 60 * 60 * 24 * 15,
+            percentRate = 249.5,
+            percentType = 2,
+            period = 12,
+            balance = BigDecimal(1234567L),
+            name = "Кредит №2"
+        ),
+        Deposit(
+            id = 4,
+            type = FinancialType.DEPOSIT,
+            openDate = System.currentTimeMillis() - 4000 * 60 * 60 * 24 * 15,
+            percentRate = 28.5,
+            percentType = 2,
+            period = 12,
+            balance = BigDecimal(1234567L),
+            name = "Вклад №2"
+        ),
+        Credit(
+            id = 5,
+            type = FinancialType.CREDIT,
+            openDate = System.currentTimeMillis() - 5000 * 60 * 60 * 24 * 15,
+            percentRate = 149.5,
+            percentType = 2,
+            period = 12,
+            balance = BigDecimal(1234567L),
+            name = "Кредит №2"
+        ),
+        Deposit(
+            id = 6,
+            type = FinancialType.DEPOSIT,
+            openDate = System.currentTimeMillis() - 6000 * 60 * 60 * 24 * 15,
+            percentRate = 18.5,
+            percentType = 2,
+            period = 12,
+            balance = BigDecimal(1234567L),
+            name = "Вклад №2"
+        ),
+    )
 }

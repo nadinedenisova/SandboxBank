@@ -4,18 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.sandboxbank.App.core.deposit.data.FinancialType
-import com.example.sandboxbank.App.core.deposit.domain.model.Deposit
 import com.example.sandboxbank.App.ui.financialitem.FinancialItemDetailScreen
 import com.example.sandboxbank.App.ui.financialitem.FinancialItemDetailsViewModel
 import com.example.sandboxbank.R
-import java.math.BigDecimal
 
 @Composable
-fun DepositScreen(deposit: Deposit, navController: NavController, viewModel: FinancialItemDetailsViewModel) {
+fun DepositScreen(depositId: Long, navController: NavController, viewModel: FinancialItemDetailsViewModel) {
     FinancialItemDetailScreen(
-        financialItem = deposit,
+        financialItemId = depositId,
         navController = navController,
         viewModel = viewModel,
         screenTitle = stringResource(R.string.deposit),
