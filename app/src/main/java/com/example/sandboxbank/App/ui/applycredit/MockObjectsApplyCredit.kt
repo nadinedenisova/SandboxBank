@@ -19,7 +19,7 @@ import kotlin.random.Random
 
         val resultArray = arrayListOf(
             ApplyCreditResponse.Success,
-            ApplyCreditResponse.NoConnection,
+            //ApplyCreditResponse.NoConnection,
             ApplyCreditResponse.CreditAmountLimit,
         )
         val numRows = resultArray.size
