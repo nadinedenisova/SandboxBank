@@ -17,7 +17,7 @@ enum class Routes(
     Finance(
         route = "finance",
         title = { stringResource(R.string.bottomnav_finances) },
-        icon = R.drawable.icon_card
+        icon = R.drawable.icon_finance
     ),
     Transaction(
         route = "transaction",
