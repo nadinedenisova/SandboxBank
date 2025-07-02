@@ -1,16 +1,13 @@
 package com.example.sandboxbank.App.ui.designkit.mode
 
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import com.example.sandboxbank.App.App
-import com.example.sandboxbank.App.appContext
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton.appPalette
+
 
 data class ColorPalette(
-    val primary: Color,          // (Основной фон) Кнопка, текст в outline кнопке
+    val primary: Color, // (Основной фон) Кнопка, текст в outline кнопке
+    val primarySecond: Color,
     val primaryFixedVariant:Color,   // Заголовоки
     val primaryInverce: Color,  // Кнопка стереть в пинкоде, сумма вкладов, сроки кроедитов с вкладами
     val secondary: Color,        // ввод пинкода, иконки
@@ -49,6 +46,7 @@ data class ColorPalette(
 
 val baseLightPalette = ColorPalette(
     primary = Color(0xFF65558F),            // (Основной фон) Кнопка, текст в outline кнопке
+    primarySecond = Color(0xFFD0BCFE),
     primaryFixedVariant = Color(0xFF4F378B), // Заголовоки
     primaryInverce = Color(0xFF6750A4),    // Кнопка стереть в пинкоде, сумма вкладов, сроки кроедитов с вкладами
     secondary = Color(0xFF625B71),           // ввод пинкода, иконки
@@ -89,11 +87,17 @@ val baseLightPalette = ColorPalette(
 
 val baseDarkPalette = baseLightPalette.copy(
     // Нейтральные цвета
+    primary = Color(0XFFD0BCFE),
     background = Color(0xFF000000),          // Фон приложения
     onSurface = Color(0xFFFFF9FF),
     surface = Color(0xFF141218),
     tertiary = Color(0xFFE2E2E2),
     onTertiary = Color(0xFF1A1C1C),
+    onSurfaceContainer = Color(0xFF211F26),
+    onSurfaceVariant = Color(0xFFCAC4D0),
+    onSecondary = Color(0xFFFFFFFF),
+    primaryInverce = Color(0XFFD0BCFE),
+    surfaceContainerHigh = Color(0xFF2B2930),
 )
 
 object LightColorPalette {
@@ -107,7 +111,6 @@ object LightColorPalette {
     val tertiary = Color(0xFF7D5260)
     val primary1 = Color(0xFF6B548D)    //активный переключатель
     val primary2 = Color(0xFFD0BCFE)//кнопка Выход из аккаунта
-
     // Нейтральные цвета
     val background = Color(0xFFFFFFFF)          // Фон приложения
     val surface = Color(0xFFFEF7FF)             // Светлая поверхность, navigationbar
@@ -116,7 +119,7 @@ object LightColorPalette {
     val inverseSurface = Color(0xFF322F35)      //slider value indicator
     val inverseOnSurface = Color(0xFFF5EFF7)      //slider value indicator
 
-    val error = Color(0xFFB00020)               // Красный цвет для ошибок
+    // val error = Color(0xFFB00020)               // Красный цвет для ошибок
     val onPrimary = Color(0xFFFFFFFF)            // Цвет текста на основном фоне
     val onPrimaryDark = Color(0xFF381E72)       //Успешный пин
     val onSecondary = Color(0xFF000000)          // Черный цвет текста на вторичном фоне
@@ -165,13 +168,12 @@ object DarkColorPalette {
     val secondaryContainer2 = Color(0xFF4A4458)           //фон неактивного слайдера
     val tertiaryFixedDim = Color(0xFFEFB8C8)         //Предупреждение на экране Карты, и цвет кнопки закрыть карту
     val onTertiaryFixedVariant = Color(0xFF633B48)  //цвет текста кнопки закрыть карту
-    val tertiary = Color(0xFFE2E2E2)            //обводка и текст кнопки Выход из аккаунта
+        val tertiary = Color(0xFFE2E2E2)            //обводка и текст кнопки Выход из аккаунта
     val onTertiary = Color(0xFF1A1C1C)          //кнопка Выход из аккаунта
-    val onSecondary = Color(0xFF332D41)
 
     //
     //    // Нейтральные цвета
-    val surface = Color(0xFFFEF7FF)             // мой профиль меню 2
+        val surface = Color(0xFFFEF7FF)             // мой профиль меню 2
     val surface1 = Color(0xFF151218)
     //    val surfaceContainerHigh = Color(0xFFECE6F0)
     val onSurfaceContainerHighest = Color(0xFFE6E0E9) //неактивный переключатель, пункт меню, заголовок "Открытие вклада"
@@ -220,7 +222,7 @@ object DarkColorPalette {
 @Composable
 fun selectColor(light: Color, dark: Color): Color{
 
-    return if (ColorSingleton.appPalette == baseDarkPalette){
+    return if (appPalette == baseDarkPalette){
 //    return if (isSystemInDarkTheme()){
         dark
     } else {

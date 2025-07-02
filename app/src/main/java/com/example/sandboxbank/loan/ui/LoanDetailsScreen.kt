@@ -29,9 +29,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
 import com.example.sandboxbank.R
 import androidx.compose.ui.text.TextStyle
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 
 @Composable
 fun LoanDetailsScreen() {
@@ -45,7 +45,7 @@ fun LoanDetailsScreenContent() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(LightColorPalette.background)
+                .background(ColorSingleton.appPalette.value.background)
                 .padding(40.dp)
         ) {
 
@@ -74,7 +74,7 @@ fun TopBar() {
             title = {
                 Text(
                     stringResource(R.string.loan_title), style = TextStyle(
-                        color = LightColorPalette.onSurface,
+                        color = ColorSingleton.appPalette.value.onSurface,
                         fontSize = 20.sp,
                         fontFamily = FontFamily(
                             Font(R.font.roboto, weight = FontWeight.W400)
@@ -91,7 +91,7 @@ fun TopBar() {
                 }
             },
 
-            backgroundColor = LightColorPalette.surface,
+            backgroundColor = ColorSingleton.appPalette.value.surface,
             elevation = 0.dp
         )
     }
@@ -110,14 +110,14 @@ fun LoanDetailsInfo() {
         ) {
             Text(
                 text = "Ремонт",
-                color = LightColorPalette.primary,
+                color = ColorSingleton.appPalette.value.primary,
                 fontWeight = FontWeight.Medium
             )
             IconButton(onClick = { /* handle back */ }) {
                 Icon(
                     painterResource(R.drawable.ic_loan_edit),
                     contentDescription = "Редактировать",
-                    tint = LightColorPalette.primary
+                    tint = ColorSingleton.appPalette.value.primary
                 )
             }
         }
@@ -133,7 +133,7 @@ fun LoanDetailsInfo() {
             modifier = Modifier.padding(top = 4.dp),
             text = "Ставка 25% годовых",
             style = TextStyle(
-                color = LightColorPalette.primary,
+                color = ColorSingleton.appPalette.value.primary,
                 fontSize = 16.sp,
                 fontFamily = FontFamily(
                     Font(R.font.roboto, weight = FontWeight.W400)
@@ -158,7 +158,7 @@ fun LoanDetailsButtons() {
             Text(
                 modifier = Modifier.padding(vertical = 8.dp),
                 text = stringResource(R.string.loan_payment),
-                color = LightColorPalette.primary,
+                color = ColorSingleton.appPalette.value.primary,
             )
         }
 
@@ -171,7 +171,7 @@ fun LoanDetailsButtons() {
             Text(
                 modifier = Modifier.padding(vertical = 8.dp),
                 text = stringResource(R.string.loan_close),
-                color = LightColorPalette.primary,
+                color = ColorSingleton.appPalette.value.primary,
             )
         }
     }
@@ -189,7 +189,7 @@ fun ScheduleReport() {
         Icon(
             painterResource(R.drawable.ic_loan_schedule),
             contentDescription = stringResource(R.string.loan_schedule),
-            tint = LightColorPalette.primary
+            tint = ColorSingleton.appPalette.value.primary
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
@@ -214,7 +214,7 @@ fun PaymentRequired() {
         Icon(
             painterResource(R.drawable.ic_loan_required),
             contentDescription = stringResource(R.string.loan_required),
-            tint = LightColorPalette.primary
+            tint = ColorSingleton.appPalette.value.primary
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(

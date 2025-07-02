@@ -17,10 +17,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 import com.example.sandboxbank.App.ui.designkit.mode.roboto
 import com.example.sandboxbank.R
 
@@ -84,8 +83,8 @@ fun NoInternetDialog(
                             .wrapContentWidth(),
                         shape = RoundedCornerShape(100.dp),
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = LightColorPalette.primary2,
-                            contentColor = LightColorPalette.background
+                            backgroundColor = ColorSingleton.appPalette.value.primarySecond,
+                            contentColor = ColorSingleton.appPalette.value.background
                         )
                     ) {
                         Text(
@@ -93,7 +92,7 @@ fun NoInternetDialog(
                             fontFamily = roboto,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Normal,
-                            color = LightColorPalette.background
+                            color = ColorSingleton.appPalette.value.background
                         )
                     }
 

@@ -15,9 +15,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -28,22 +28,27 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 import com.example.sandboxbank.R
 import com.example.sandboxbank.pinCode.PinCodeViewModel
 import com.example.sandboxbank.pinCode.PinDotsType
 import com.example.sandboxbank.pinCode.ui.intent.PinCodeIntent
+import com.example.sandboxbank.pinCode.ui.model.AuthScreenState
 import com.example.sandboxbank.pinCode.ui.model.AuthScreenUiState
 import com.example.sandboxbank.viewModel
 
 const val PIN_CODE_CORRECT_SIZE = 6
 
 @Composable
-fun PinCodeScreen(
-
-) {
+fun PinCodeScreen(onPinSuccess: () -> Unit) {
     val viewModel: PinCodeViewModel = viewModel()
     val authScreenState by viewModel.authScreenStateFlow.collectAsState()
+
+    LaunchedEffect(authScreenState.screenType) {
+        if (authScreenState.screenType == AuthScreenState.ScreenType.SUCCESS) {
+            onPinSuccess()
+        }
+    }
 
     PinCodeScreenContent(
         onEvent = viewModel::onEvent,
@@ -65,9 +70,9 @@ fun PinCodeScreenContent(
 @Composable
 fun PinDots(isFilled: Boolean, state: AuthScreenUiState) {
     val color = when (state.pinDotsType) {
-        PinDotsType.DEFAULT -> if (isFilled) LightColorPalette.secondary else Color.Unspecified
-        PinDotsType.INCORRECT -> LightColorPalette.onError
-        PinDotsType.SUCCESS -> LightColorPalette.primaryInverce
+        PinDotsType.DEFAULT -> if (isFilled) ColorSingleton.appPalette.value.secondary else Color.Unspecified
+        PinDotsType.INCORRECT -> ColorSingleton.appPalette.value.onError
+        PinDotsType.SUCCESS -> ColorSingleton.appPalette.value.primaryInverce
     }
 
     Icon(
@@ -104,7 +109,7 @@ fun KeyBoard(
             text = statePin.titleText,
             fontSize = 30.sp,
             textAlign = TextAlign.Center,
-            color = LightColorPalette.primaryFixedVariant
+            color = ColorSingleton.appPalette.value.primaryFixedVariant
         )
         Row(
             modifier = Modifier
@@ -177,7 +182,7 @@ private fun KeyButton(
             .padding(8.dp)
             .clip(shape)
             .background(
-                color = LightColorPalette.secondaryContainer,
+                color = ColorSingleton.appPalette.value.secondaryContainer,
                 shape = RoundedCornerShape(100)
             )
             .clickable(onClick = onClick)

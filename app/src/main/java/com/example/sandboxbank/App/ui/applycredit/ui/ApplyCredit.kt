@@ -1,5 +1,6 @@
 package com.example.sandboxbank.App.ui.applycredit.ui
 
+import android.content.Context
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -34,11 +36,17 @@ import com.example.sandboxbank.App.ui.applycredit.entity.ApplyCreditResponse
 import com.example.sandboxbank.App.ui.applycredit.sendMockRequest
 import com.example.sandboxbank.App.ui.designkit.mode.DarkColorPalette
 import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 import com.example.sandboxbank.App.ui.designkit.mode.inter
+import com.example.sandboxbank.App.ui.designkit.mode.language.LanguageSingleton
 import com.example.sandboxbank.App.ui.designkit.mode.roboto
 import com.example.sandboxbank.App.ui.designkit.mode.selectColor
 import com.example.sandboxbank.R
+import com.example.sandboxbank.notifications.AppNotifications
+import com.example.sandboxbank.notifications.NOTIFICATION_ID
+import com.example.sandboxbank.notifications.NetworkChangeReceiver
 import kotlin.math.pow
+import com.example.sandboxbank.App.ui.designkit.mode.language.*
 
 const val CREDIT_PERCENT = 25
 const val CREDIT_MAX_SUM = 3_000_000
@@ -49,6 +57,8 @@ const val SLIDER_STEPS = 11
 fun ApplyCredit(
     onBackClick: () -> Unit,
 ) {
+
+    val context = LocalContext.current
 
     val creditDates = listOf(3, 6, 9, 12, 15, 18, 21, 24)
     val creditSumLimits = getCreditLimit()
@@ -77,20 +87,22 @@ fun ApplyCredit(
             onConfirmation = {
                 dialogLimitIsVisible.value = false
 
-                             },
+            },
             onDismissRequest = { dialogLimitIsVisible.value = false },
         )
 
         NoConnection(
             visible = dialogConnectionIsVisible.value,
-            onConfirmation = { dialogConnectionIsVisible.value = false },
+            onConfirmation = {
+                dialogConnectionIsVisible.value = !isConnectedToInternet(context)
+                             },
             onDismissRequest = { dialogConnectionIsVisible.value = false },
         )
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .background(selectColor(LightColorPalette.surface, DarkColorPalette.onSurface2))
+                .background(ColorSingleton.appPalette.value.surface)
                 .fillMaxWidth()
         ) {
             Icon(
@@ -102,20 +114,14 @@ fun ApplyCredit(
                     .clickable {
                         onBackClick()
                     },
-                tint = selectColor(
-                    LightColorPalette.onSurface,
-                    DarkColorPalette.onSurfaceContainerHighest
-                ),
+                tint = ColorSingleton.appPalette.value.onSurface,
             )
             Text(
-                text = stringResource(R.string.apply_credit_head),
+                text = LanguageSingleton.localization.value.creditRegistration(),
                 fontFamily = roboto,
                 fontWeight = FontWeight.W400,
                 fontSize = 22.sp,
-                color = selectColor(
-                    LightColorPalette.onSurface,
-                    DarkColorPalette.onSurfaceContainerHighest
-                )
+                color = ColorSingleton.appPalette.value.onSurface
             )
         }
         Box(
@@ -136,13 +142,9 @@ fun ApplyCredit(
                     contentAlignment = Alignment.BottomStart,
                     modifier = Modifier
                         .padding(bottom = 16.dp)
-                        .background(MaterialTheme.colorScheme.surfaceContainerHigh)
                         .fillMaxWidth()
                         .background(
-                            selectColor(
-                                LightColorPalette.surfaceContainerHigh,
-                                DarkColorPalette.surfaceContainerHigh
-                            )
+                            ColorSingleton.appPalette.value.surfaceContainerHigh
                         )
                 ) {
                     Text(
@@ -151,10 +153,7 @@ fun ApplyCredit(
                         fontFamily = inter,
                         fontWeight = FontWeight.W600,
                         fontSize = 16.sp,
-                        color = selectColor(
-                            LightColorPalette.onSurface,
-                            DarkColorPalette.onSurfaceContainerHighest
-                        )
+                        color = ColorSingleton.appPalette.value.onSurface
                     )
                 }
 
@@ -280,22 +279,38 @@ fun ApplyCredit(
 
                 Button(
                     onClick = {
-                        val result = sendMockRequest()
+
+                        val result: ApplyCreditResponse = if (isConnectedToInternet(context)){
+                            sendMockRequest()
+                        } else {
+                            ApplyCreditResponse.NoConnection
+                        }
+
+
 
                         when (result) {
                             ApplyCreditResponse.CreditAmountLimit -> {
                                 dialogLimitIsVisible.value = true
-
                             }
+
                             ApplyCreditResponse.NoConnection -> {
                                 dialogConnectionIsVisible.value = true
+                                //Данные к сохранению
                                 val creditSaveState = ApplyCreditEntity(
                                     sum = sliderSumValue.toBigDecimal(),
                                     time = sliderDateValue.toInt(),
                                 )
                             }
+
                             ApplyCreditResponse.Success -> {
                                 dialogApprovedIsVisible.value = true
+                                AppNotifications.showNotification(
+                                    id =  NOTIFICATION_ID,
+                                    icon = R.drawable.check_mark,
+                                    title = "Оформлен кредит",
+                                    text = "Кредит на сумму ${sliderSumValue.toInt()}. Срок ${sliderDateValue.toInt()} мес.",
+                                    context = context
+                                )
                                 onBackClick()
                             }
                         }
@@ -322,6 +337,16 @@ fun ApplyCredit(
 
         }
     }
+}
+
+fun isConnectedToInternet(context: Context): Boolean {
+
+    if (NetworkChangeReceiver().isInternetAvailable(context)) {
+        return true
+    } else {
+        return false
+    }
+
 }
 
 

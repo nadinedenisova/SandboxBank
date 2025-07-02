@@ -2,6 +2,7 @@ package com.example.sandboxbank.transaction.domain
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.sandboxbank.App.ui.designkit.mode.language.LanguageSingleton
 import com.example.sandboxbank.transaction.data.repository.NoInternetException
 import com.example.sandboxbank.transaction.data.repository.TransactionRepository
 import com.example.sandboxbank.transaction.ui.model.TransactionState
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.example.sandboxbank.App.ui.designkit.mode.language.*
 
 class TransactionViewModel @Inject constructor(
     private val repository: TransactionRepository
@@ -19,8 +21,8 @@ class TransactionViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(
         TransactionUiState(
-            accounts = listOf("Дебетовая карта", "Кредитная карта", "Вклад", "Кредит"),
-            debitFrom = "Дебетовая карта"
+            accounts = listOf(LanguageSingleton.localization.value.debitCard(), LanguageSingleton.localization.value.creditCard(), LanguageSingleton.localization.value.depositCard(), LanguageSingleton.localization.value.credit()),
+            debitFrom = LanguageSingleton.localization.value.debitCard()
         )
     )
     val uiState: StateFlow<TransactionUiState> = _uiState.asStateFlow()
@@ -58,7 +60,7 @@ class TransactionViewModel @Inject constructor(
                 amountDouble == null
             ) {
                 _uiState.update {
-                    it.copy(status = TransactionState.Error("Заполните все поля корректно"))
+                    it.copy(status = TransactionState.Error(LanguageSingleton.localization.value.transferInfo()))
                 }
                 return@launch
             }
@@ -87,7 +89,7 @@ class TransactionViewModel @Inject constructor(
                     _uiState.update {
                         it.copy(
                             status = TransactionState.Error(
-                                exception?.localizedMessage ?: "Ошибка"
+                                exception?.localizedMessage ?: LanguageSingleton.localization.value.transferError()
                             )
                         )
                     }

@@ -4,8 +4,7 @@ import android.content.SharedPreferences
 import javax.inject.Inject
 import androidx.core.content.edit
 import com.example.sandboxbank.App.core.di.annotations.ActivityPref
-import com.example.sandboxbank.App.core.di.annotations.EncryptedPref
-import com.example.sandboxbank.profile.data.Language
+import com.example.sandboxbank.App.ui.designkit.mode.language.Language
 
 class SettingStoreManager @Inject constructor(
     @ActivityPref private val sharedPreferences: SharedPreferences
@@ -16,7 +15,8 @@ class SettingStoreManager @Inject constructor(
     }
 
 
-    fun setLanguage(lang: Language){
+    fun setLanguage(isEnglish: Boolean){
+        val lang = if(isEnglish) Language.ENG else Language.RUS
         sharedPreferences.edit {putString("lang", lang.name)}
     }
 

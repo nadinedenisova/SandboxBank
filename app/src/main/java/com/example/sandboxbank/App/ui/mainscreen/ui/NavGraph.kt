@@ -13,6 +13,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.sandboxbank.App.ui.applycredit.ui.ApplyCredit
 import com.example.sandboxbank.App.ui.financialScreen.domain.FinancialScreenViewModel
 import com.example.sandboxbank.App.ui.financialScreen.ui.FinancialScreenContent
 import com.example.sandboxbank.App.ui.financialitem.FinancialItemDetailsViewModel
@@ -46,6 +47,9 @@ fun NavGraph(
                 },
                 onCreditClick = { creditId ->
                     navHostController.navigate(Routes.creditDetails(creditId))
+                },
+                onApplyCreditClick = {
+                    navHostController.navigate(Routes.ApplyCredit.route)
                 }
             )
         }
@@ -88,6 +92,19 @@ fun NavGraph(
                 creditId = creditId!!, //аргумент объявлен как обязательный, null сюда не прилетит
                 navController = navHostController,
             )
+        }
+
+        composable(route = Routes.ApplyCredit.name){
+            ApplyCredit(
+                onBackClick = {
+                    navHostController.popBackStack()
+                }
+            )
+        }
+
+        composable(route = Routes.Profile.route){
+            val profileScreenViewModel: ProfileScreenViewModel = viewModel( factory = viewModelFactory)
+            ProfileScreen(profileScreenViewModel = profileScreenViewModel)
         }
     }
 }
