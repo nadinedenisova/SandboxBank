@@ -23,7 +23,9 @@ fun MainNavGraph(
         composable(MainRoutes.Auth.route) {
             LocalViewModelFactoryProvider(viewModelFactory) {
                 AuthScreen(
-                    onLoginSuccess = { navHostController.navigate("pin-code") },
+                    // fix чтобы пройти дальше вне зависимости от результата авторизации
+                    //onLoginSuccess = { navHostController.navigate("pin-code") },
+                    onLoginSuccess = { navHostController.navigate(MainRoutes.Main.route) },
                     onNavigateToRegistration = { navHostController.navigate("registration") }
                 )
             }
