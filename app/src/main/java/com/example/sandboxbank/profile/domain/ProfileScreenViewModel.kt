@@ -26,7 +26,10 @@ class ProfileScreenViewModel @Inject constructor(
 
     fun onEvent(event: ProfileEvent){
         when(event){
-            is ProfileEvent.SetLanguage -> viewModelScope.launch { println("lang") }
+            is ProfileEvent.SetLanguage -> viewModelScope.launch {
+                settingStoreManager.setLanguage(event.lang)
+                _profileState.value = ProfileState.Language(event.lang)
+            }
             is ProfileEvent.SetTheme -> viewModelScope.launch {
                 settingStoreManager.setDarkTheme(event.theme)
                 _profileState.value = ProfileState.Theme(event.theme)

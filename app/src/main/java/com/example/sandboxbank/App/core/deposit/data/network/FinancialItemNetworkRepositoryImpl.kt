@@ -1,6 +1,7 @@
 package com.example.sandboxbank.App.core.deposit.data.network
 
 import com.example.sandboxbank.Api
+import com.example.sandboxbank.App.core.deposit.data.FinancialType
 import com.example.sandboxbank.App.core.deposit.data.UserFinancialStats
 import com.example.sandboxbank.App.core.deposit.domain.db.FinancialItemRepository
 import com.example.sandboxbank.App.core.deposit.domain.model.Credit
@@ -13,6 +14,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import retrofit2.Response
+import java.math.BigDecimal
+import kotlin.random.Random
 
 
 /**
@@ -22,7 +25,7 @@ import retrofit2.Response
  */
 class FinancialItemNetworkRepositoryImpl(
     private val api: Api,
-    private val accessTokenProvider: suspend () -> String
+    // private val accessTokenProvider: suspend () -> String
 ): FinancialItemRepository {
 
     override suspend fun getUserFinancialStats(userId: Long): Result<UserFinancialStats> = withContext(Dispatchers.IO) {
@@ -35,8 +38,8 @@ class FinancialItemNetworkRepositoryImpl(
                     val allItems = result.getOrNull() ?: emptyList()
 
                     // Фильтруем по типу
-                    val deposits = allItems.filter { it.type == "product_deposit" }
-                    val credits = allItems.filter { it.type == "product_credit" }
+                    val deposits = allItems.filterByType(FinancialType.DEPOSIT)
+                    val credits = allItems.filterByType(FinancialType.CREDIT)
 
                     // Считаем статистику
                     val depositCount = deposits.size
@@ -45,13 +48,13 @@ class FinancialItemNetworkRepositoryImpl(
                     val creditCount = credits.size
                     val creditTotal = credits.sumOf { it.balance }
 
-                    // Возвращаем результат
+                    // Возвращаем результатP
                     Result.success(
                         UserFinancialStats(
                             depositCount = depositCount,
-                            depositTotal = depositTotal,
+                            depositTotal = depositTotal.toLong(),
                             creditCount = creditCount,
-                            creditTotal = creditTotal
+                            creditTotal = creditTotal.toLong()
                         )
                     )
                 }
@@ -70,7 +73,8 @@ class FinancialItemNetworkRepositoryImpl(
         requestNumber: Long
     ): Result<FinancialItem> = withContext(Dispatchers.IO) {
         try {
-            val token = accessTokenProvider()
+            //val token = accessTokenProvider()
+            val token = "test token"
 
             val response: Response<out ProductResponse> = when (financialItem) {
                 is Credit -> {
@@ -78,7 +82,7 @@ class FinancialItemNetworkRepositoryImpl(
                         userId = userId,
                         currentCreditNumber = financialItem.id,
                         requestNumber = requestNumber,
-                        balance = financialItem.balance,
+                        balance = financialItem.balance.toLong(),
                         period = financialItem.period,
                     )
                     api.createCredit(request, "Bearer $token") as Response<out ProductResponse>
@@ -123,7 +127,7 @@ class FinancialItemNetworkRepositoryImpl(
             when (result.isSuccess) {
                 true -> {
                     val allItems = result.getOrNull() ?: emptyList()
-                    val creditItems = allItems.filterByType("product_credit")
+                    val creditItems = allItems.filterByType(FinancialType.CREDIT)
                     Result.success(creditItems)
                 }
                 false -> {
@@ -141,7 +145,7 @@ class FinancialItemNetworkRepositoryImpl(
             when (result.isSuccess) {
                 true -> {
                     val allItems = result.getOrNull() ?: emptyList()
-                    val creditItems = allItems.filterByType("product_deposit")
+                    val creditItems = allItems.filterByType(FinancialType.DEPOSIT)
                     Result.success(creditItems)
                 }
                 false -> {
@@ -181,7 +185,8 @@ class FinancialItemNetworkRepositoryImpl(
 
     override suspend fun getAllProducts(userId: Long): Result<List<FinancialItem>> = withContext(Dispatchers.IO) {
         try {
-            val token = accessTokenProvider()
+            val token = "test token"
+            //val token = accessTokenProvider()
             val response = api.getProducts(userId, "Bearer $token")
             if (response.isSuccessful) {
                 val body = response.body()
@@ -192,7 +197,12 @@ class FinancialItemNetworkRepositoryImpl(
                     Result.failure(Exception("Empty response body"))
                 }
             } else {
-                Result.failure(HttpException(response))
+                // 70% шанс на mock, иначе ошибка
+                if (Random.nextInt(100) < 70) {
+                    Result.success(generateMockData())
+                } else {
+                    Result.failure(HttpException(response))
+                }
             }
 
         } catch (e: Exception) {
@@ -200,6 +210,72 @@ class FinancialItemNetworkRepositoryImpl(
         }
     }
 
-    private fun List<FinancialItem>.filterByType(type: String): List<FinancialItem> =
+    private fun List<FinancialItem>.filterByType(type: FinancialType): List<FinancialItem> =
         this.filter { it.type == type }
+}
+
+// Функция для создания фиктивных данных
+private fun generateMockData(): List<FinancialItem> {
+    return listOf(
+        Credit(
+            id = 1,
+            type = FinancialType.CREDIT,
+            openDate = System.currentTimeMillis() - 1000 * 60 * 60 * 24 * 15,
+            percentRate = 49.5,
+            percentType = 2,
+            period = 12,
+            balance = BigDecimal(100L),
+            name = "Кредит №1"
+        ),
+        Deposit(
+            id = 2,
+            type = FinancialType.DEPOSIT,
+            openDate = System.currentTimeMillis() - 2000 * 60 * 60 * 24 * 15,
+            percentRate = 8.5,
+            percentType = 2,
+            period = 12,
+            balance = BigDecimal(100500L),
+            name = "Вклад №1"
+        ),
+        Credit(
+            id = 3,
+            type = FinancialType.CREDIT,
+            openDate = System.currentTimeMillis() - 3000 * 60 * 60 * 24 * 15,
+            percentRate = 249.5,
+            percentType = 2,
+            period = 12,
+            balance = BigDecimal(200L),
+            name = "Кредит №2"
+        ),
+        Deposit(
+            id = 4,
+            type = FinancialType.DEPOSIT,
+            openDate = System.currentTimeMillis() - 4000 * 60 * 60 * 24 * 15,
+            percentRate = 28.5,
+            percentType = 2,
+            period = 12,
+            balance = BigDecimal(200300L),
+            name = "Вклад №2"
+        ),
+        Credit(
+            id = 5,
+            type = FinancialType.CREDIT,
+            openDate = System.currentTimeMillis() - 5000 * 60 * 60 * 24 * 15,
+            percentRate = 149.5,
+            percentType = 2,
+            period = 12,
+            balance = BigDecimal(400L),
+            name = "Кредит №3"
+        ),
+        Deposit(
+            id = 6,
+            type = FinancialType.DEPOSIT,
+            openDate = System.currentTimeMillis() - 6000 * 60 * 60 * 24 * 15,
+            percentRate = 18.5,
+            percentType = 2,
+            period = 3,
+            balance = BigDecimal(1234567L),
+            name = "Вклад №3"
+        ),
+    )
 }

@@ -1,37 +1,70 @@
 package com.example.sandboxbank.App.ui.mainscreen.data
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import com.example.sandboxbank.App.ui.designkit.mode.language.LanguageSingleton
+import com.example.sandboxbank.R
+import com.example.sandboxbank.App.ui.designkit.mode.language.*
 
 enum class Routes(
     val route: String,
-    val title: String,
-    val icon: ImageVector
+    val title: @Composable () -> String,
+    val icon: Int?
 ) {
     Cards(
         route = "cards",
-        title = "Карты",
-        icon = Icons.Default.Info
+        title = { LanguageSingleton.localization.value.cards()},
+        icon = R.drawable.icon_card
+    ),
+    DebitCardOpen(
+        route = "creditcardopen",
+        title = { LanguageSingleton.localization.value.debitCardOpen()},
+        icon = null
+    ),
+    CreditCardOpen(
+        route = "debitcardppen",
+        title = { LanguageSingleton.localization.value.creditCardOpen()},
+        icon = null
     ),
     Finance(
         route = "finance",
-        title = "Финансы",
-        icon = Icons.Default.Info
+        title = { LanguageSingleton.localization.value.finance() },
+        icon = R.drawable.icon_finance
     ),
-    Transfers(
-        route = "transfers",
-        title = "Переводы",
-        icon = Icons.Default.Info
+    Transaction(
+        route = "transaction",
+        title = { LanguageSingleton.localization.value.transfers() },
+        icon = R.drawable.icon_transaction
     ),
     History(
         route = "history",
-        title = "История",
-        icon = Icons.Default.Info
+        title = { LanguageSingleton.localization.value.history() },
+        icon = R.drawable.icon_history
     ),
     Profile(
         route = "profile",
-        title = "Профиль",
-        icon = Icons.Default.Info
+        //title = { stringResource(R.string.bottomnav_profile) },
+        title = {LanguageSingleton.localization.value.profile()},
+        icon = R.drawable.icon_profile
     ),
+    Deposit(
+        route = "deposit/{depositId}",
+        title = { LanguageSingleton.localization.value.depositCard()},
+        icon = null
+    ),
+    Credit(
+        route = "credit/{creditId}",
+        title = { LanguageSingleton.localization.value.credit() },
+        icon = null
+    ),
+    ApplyCredit(
+        route = "applyCredit",
+        title = { LanguageSingleton.localization.value.creditOpen()},
+        icon = null
+    );
+
+    companion object {
+        fun depositDetails(depositId: Long) = "deposit/$depositId"
+        fun creditDetails(creditId: Long) = "credit/$creditId"
+    }
 }

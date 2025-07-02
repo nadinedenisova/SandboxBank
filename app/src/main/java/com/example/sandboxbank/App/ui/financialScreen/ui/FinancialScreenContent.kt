@@ -1,6 +1,7 @@
 package com.example.sandboxbank.App.ui.financialScreen.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -36,15 +38,19 @@ import androidx.compose.ui.unit.sp
 import com.example.sandboxbank.App.core.deposit.domain.model.Credit
 import com.example.sandboxbank.App.core.deposit.domain.model.Deposit
 import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
+import com.example.sandboxbank.App.ui.designkit.mode.language.LanguageSingleton
 import com.example.sandboxbank.App.ui.financialScreen.data.FinanceState
 import com.example.sandboxbank.App.ui.financialScreen.domain.FinancialScreenViewModel
 import com.example.sandboxbank.R
+import com.example.sandboxbank.App.ui.designkit.mode.language.*
 
 @Composable
 fun FinancialScreenContent(
     viewModel: FinancialScreenViewModel,
-    onDepositClick:(deposit: Deposit)-> Unit,
-    onCreditClick:(credit: Credit)-> Unit,
+    onDepositClick:(depositId: Long)-> Unit,
+    onCreditClick:(creditId: Long)-> Unit,
+    onApplyCreditClick:()-> Unit,
 ) {
     val stateDepos = viewModel.stateDeposFlow.collectAsState().value
     val stateCredits = viewModel.stateCreditsFlow.collectAsState().value
@@ -56,13 +62,15 @@ fun FinancialScreenContent(
         modifier = Modifier
             .fillMaxSize()
             .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top))
+            .background(ColorSingleton.appPalette.value.background)
             .padding(16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        TitleContent(title = stringResource(R.string.deposits_title))
+        TitleContent(title = LanguageSingleton.localization.value.deposit())
 
         when(stateDepos) {
+            is FinanceState.Loading -> {}
             is FinanceState.ContentDeposits -> {
                 LazyColumn(modifier = Modifier
                     .fillMaxWidth()
@@ -73,9 +81,7 @@ fun FinancialScreenContent(
                 }
             }
 
-            is FinanceState.Empty -> {}
             is FinanceState.Error -> {}
-            FinanceState.Loading -> {}
             else -> Unit
         }
 
@@ -84,16 +90,16 @@ fun FinancialScreenContent(
                 .fillMaxWidth()
                 .height(64.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = LightColorPalette.primary,
+                containerColor = ColorSingleton.appPalette.value.primary,
             ),
             shape = RoundedCornerShape(100.dp),
             onClick = {
             }
         ) {
             Text(
-                text = stringResource(R.string.deposits_open_button),
+                text = LanguageSingleton.localization.value.depositOpen(),
                 style = TextStyle(
-                    color = LightColorPalette.background,
+                    color = ColorSingleton.appPalette.value.background,
                     fontSize = 16.sp,
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     fontWeight = FontWeight(500)
@@ -101,7 +107,7 @@ fun FinancialScreenContent(
             )
         }
 
-        TitleContent(title = stringResource(R.string.credits_title))
+        TitleContent(title = LanguageSingleton.localization.value.credits())
 
         when(stateCredits) {
             is FinanceState.ContentCredits -> {
@@ -114,9 +120,8 @@ fun FinancialScreenContent(
                 }
             }
 
-            is FinanceState.Empty -> {}
             is FinanceState.Error -> {}
-            FinanceState.Loading -> {}
+            is FinanceState.Loading -> {}
             else -> Unit
         }
 
@@ -125,16 +130,17 @@ fun FinancialScreenContent(
                 .fillMaxWidth()
                 .height(64.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = LightColorPalette.primary,
+                containerColor =ColorSingleton.appPalette.value.primary,
             ),
             shape = RoundedCornerShape(100.dp),
             onClick = {
+                onApplyCreditClick()
             }
         ) {
             Text(
-                text = stringResource(R.string.credit_open_button),
+                text = LanguageSingleton.localization.value.creditOpen(),
                 style = TextStyle(
-                    color = LightColorPalette.background,
+                    color = ColorSingleton.appPalette.value.background,
                     fontSize = 16.sp,
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     fontWeight = FontWeight(500)
@@ -151,7 +157,7 @@ fun TitleContent(title: String) {
             .padding(top = 8.dp, start = 16.dp, bottom = 8.dp, end = 16.dp),
         text = title,
         style = TextStyle(
-            color = LightColorPalette.primaryInverce,
+            color = ColorSingleton.appPalette.value.primaryInverce,
             fontSize = 24.sp,
             fontFamily = FontFamily(Font(R.font.roboto)),
             fontWeight = FontWeight(500)
@@ -160,7 +166,7 @@ fun TitleContent(title: String) {
 }
 
 @Composable
-fun DepositItem(item: Deposit, onClick:(deposit: Deposit)-> Unit
+fun DepositItem(item: Deposit, onClick:(depositId: Long)-> Unit
 ){
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -169,8 +175,9 @@ fun DepositItem(item: Deposit, onClick:(deposit: Deposit)-> Unit
             .height(72.dp)
             .padding(top = 8.dp, bottom = 8.dp)
             .clickable{
-                onClick.invoke(item)
+                onClick.invoke(item.id)
             }
+            .background(ColorSingleton.appPalette.value.surface)
     ) {
         Card(
             modifier = Modifier
@@ -178,8 +185,10 @@ fun DepositItem(item: Deposit, onClick:(deposit: Deposit)-> Unit
             shape = RoundedCornerShape(8.dp)
         ) {
             Image(
+                modifier = Modifier.background(ColorSingleton.appPalette.value.background),
                 painter = painterResource(id = R.drawable.leading_icon),
                 contentDescription = null,
+                colorFilter = ColorFilter.tint(ColorSingleton.appPalette.value.primary)
             )
         }
         Column (
@@ -188,10 +197,10 @@ fun DepositItem(item: Deposit, onClick:(deposit: Deposit)-> Unit
                 .weight(1f)
         ){
             Text(
-                text = item.name,
+                text = LanguageSingleton.localization.value.getForDepo(item.name),
                 maxLines = 1,
                 style = TextStyle(
-                    color = LightColorPalette.onSecondary,
+                    color = ColorSingleton.appPalette.value.onSecondary,
                     fontSize = 15.sp,
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     fontWeight = FontWeight(600)
@@ -201,7 +210,7 @@ fun DepositItem(item: Deposit, onClick:(deposit: Deposit)-> Unit
                 text = item.balance.toString(),
                 maxLines = 1,
                 style = TextStyle(
-                    color = LightColorPalette.primaryInverce,
+                    color = ColorSingleton.appPalette.value.primaryInverce,
                     fontSize = 20.sp,
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     fontWeight = FontWeight(600)
@@ -213,7 +222,7 @@ fun DepositItem(item: Deposit, onClick:(deposit: Deposit)-> Unit
             text = "${item.percentType} %",
             maxLines = 1,
             style = TextStyle(
-                color = LightColorPalette.onSecondary,
+                color = ColorSingleton.appPalette.value.onSecondary,
                 fontSize = 14.sp,
                 fontFamily = FontFamily(Font(R.font.roboto)),
                 fontWeight = FontWeight(600)
@@ -223,7 +232,7 @@ fun DepositItem(item: Deposit, onClick:(deposit: Deposit)-> Unit
 }
 
 @Composable
-fun CreditItem(item: Credit, onClick:(credit: Credit)-> Unit
+fun CreditItem(item: Credit, onClick:(creditId: Long)-> Unit
 ){
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -232,7 +241,7 @@ fun CreditItem(item: Credit, onClick:(credit: Credit)-> Unit
             .height(72.dp)
             .padding(top = 8.dp, bottom = 8.dp)
             .clickable{
-                onClick.invoke(item)
+                onClick.invoke(item.id)
             }
     ) {
         Card(
@@ -241,13 +250,15 @@ fun CreditItem(item: Credit, onClick:(credit: Credit)-> Unit
             shape = RoundedCornerShape(8.dp)
         ) {
             Image(
+                modifier = Modifier.background(ColorSingleton.appPalette.value.background),
                 painter = painterResource(id =
-                    if (item.type == "Автокредит")
+                    if (item.name == "Автокредит")
                         R.drawable.auto_credit_icon
                     else
                         R.drawable.mortgage_icon
                 ),
                 contentDescription = null,
+                colorFilter = ColorFilter.tint(ColorSingleton.appPalette.value.primary)
             )
         }
         Column (
@@ -256,10 +267,10 @@ fun CreditItem(item: Credit, onClick:(credit: Credit)-> Unit
                 .weight(1f)
         ){
             Text(
-                text = item.name,
+                text = LanguageSingleton.localization.value.getForFinance(item.name),
                 maxLines = 1,
                 style = TextStyle(
-                    color = LightColorPalette.onSecondary,
+                    color = ColorSingleton.appPalette.value.onSecondary,
                     fontSize = 15.sp,
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     fontWeight = FontWeight(600)
@@ -269,7 +280,7 @@ fun CreditItem(item: Credit, onClick:(credit: Credit)-> Unit
                 text = item.balance.toString(),
                 maxLines = 1,
                 style = TextStyle(
-                    color = LightColorPalette.primaryInverce,
+                    color = ColorSingleton.appPalette.value.primaryInverce,
                     fontSize = 20.sp,
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     fontWeight = FontWeight(600)

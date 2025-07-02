@@ -6,12 +6,12 @@ import com.example.sandboxbank.App.core.di.components.ActivityComponent
 import com.example.sandboxbank.App.core.di.components.AppComponent
 import com.example.sandboxbank.App.core.di.components.DaggerAppComponent
 import com.example.sandboxbank.App.core.di.components.ComponentContainer
-import com.example.sandboxbank.App.core.di.modules.ProfileModule.SETTING_FILE_NAME
-import com.example.sandboxbank.App.ui.designkit.mode.ColorSingleton
 import com.example.sandboxbank.App.ui.designkit.mode.baseDarkPalette
 import com.example.sandboxbank.App.ui.designkit.mode.baseLightPalette
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
+import com.example.sandboxbank.App.ui.designkit.mode.language.localizationApp
+import com.example.sandboxbank.App.ui.designkit.mode.language.supportedLocalesNow
 import com.example.sandboxbank.profile.domain.GetStoreManager
-import com.example.sandboxbank.profile.domain.SettingStoreManager
 import javax.inject.Inject
 
 private const val APP_PREFERENCES = "app_preferences"
@@ -22,7 +22,7 @@ class App : Application(), ComponentContainer {
         DaggerAppComponent.factory()
             .create(
                 context = this,
-                baseUrl = "https://c210-87-253-62-46.ngrok-free.app",
+                baseUrl = "https://63b3-87-253-62-46.ngrok-free.app",
                 prefsKey = APP_PREFERENCES,
             )
     }
@@ -52,12 +52,11 @@ class App : Application(), ComponentContainer {
         appComponent.inject(this)
 
         val isDarkTheme = getStoreManager.getTheme()
-        if(!isDarkTheme){
-            ColorSingleton.appPalette = baseLightPalette
+        if(isDarkTheme){
+            ColorSingleton.appPalette.value = baseDarkPalette
         }
-        else{
-            ColorSingleton.appPalette = baseDarkPalette
-        }
+        supportedLocalesNow
+        localizationApp(getStoreManager.getLanguage())
 
         super.onCreate()
     }
