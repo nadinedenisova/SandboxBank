@@ -126,6 +126,17 @@
     <string name="bottomnav_history" translatable="false">История</string>
     <string name="bottomnav_profile" translatable="false">Профиль</string>
 
+
+
+    <!-- История -->
+    <string name="operations_history" translatable="false">История операций</string>
+    <string name="debit_cards" translatable="false">Дебетовые карты</string>
+    <string name="credit_cards" translatable="false">Кредитные карты</string>
+    <string name="current_deposits" translatable="false">Действующие вклады</string>
+    <string name="current_loans" translatable="false">Действующие кредиты</string>
+    <string name="transfers" translatable="false">Переводы</string>
+
+
     <!-- Переводы -->
     <string name="transaction" translatable="false">Переводы</string>
     <string name="transaction_deposit_out" translatable="false">Счёт списания</string>
@@ -138,4 +149,5 @@
     <string name="transaction_error" translatable="false">Ошибка</string>
     <string name="transaction_close_button" translatable="false">Закрыть</string>
     <string name="transaction_check_internet" translatable="false">Проверьте подключение и попробуйте снова.</string>
+
 </resources>
