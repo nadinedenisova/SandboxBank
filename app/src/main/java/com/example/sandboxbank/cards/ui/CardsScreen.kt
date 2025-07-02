@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -21,12 +23,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.sandboxbank.App.ui.debitcards.debit.ui.compose.items.NoInternetDialog
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 import com.example.sandboxbank.R
 import com.example.sandboxbank.cardmanager.cards.debit.ui.compose.items.CardView
 
@@ -43,25 +47,13 @@ fun CardsScreen(
     }
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(
-                    text = stringResource(R.string.cards),
-                    style = MaterialTheme.typography.titleLarge.copy(
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                ) },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
-                ),
-            )
-        }
+
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .background(MaterialTheme.colorScheme.background)
+                .background(ColorSingleton.appPalette.value.surface)
         ) {
             when (val state = uiState.value) {
                 is CardsListUIState.Loading -> {
@@ -92,7 +84,11 @@ fun CardsScreen(
                         // Дебетовая карта
                         Button(
                             onClick = { /* navController.navigate("makedebitcard") */ },
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFFF3EDF7)
+                            ),
+                            shape = RoundedCornerShape(18.dp)
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Image(
@@ -100,14 +96,18 @@ fun CardsScreen(
                                     contentDescription = null,
                                     modifier = Modifier.padding(end = 8.dp),
                                 )
-                                Text("Оформить дебетовую карту")
+                                Text("Оформить дебетовую карту", color = Color(0xff65558F))
                             }
                         }
 
                         // Дебетовая карта
                         Button(
                             onClick = { /* navController.navigate("makedebitcard") */ },
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFFF3EDF7)
+                            ),
+                            shape = RoundedCornerShape(18.dp),
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Image(
@@ -115,7 +115,7 @@ fun CardsScreen(
                                     contentDescription = null,
                                     modifier = Modifier.padding(end = 8.dp),
                                 )
-                                Text("Оформить кредитную карту")
+                                Text("Оформить кредитную карту", color = Color(0xff65558F))
                             }
                         }
                     }
@@ -125,10 +125,4 @@ fun CardsScreen(
             }
         }
     }
-}
-
-
-@Composable
-fun CardButtons() {
-
 }

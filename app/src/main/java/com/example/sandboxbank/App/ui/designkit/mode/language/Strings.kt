@@ -6,7 +6,7 @@ val supportedLocalesNow = registerSupportedLocales(Language.RUS)
 
 val myProfile = Translatable(
     "My profile",
-    hashMapOf(RUSSIAN to "Мои профиль")
+    hashMapOf(RUSSIAN to "Мой профиль")
 )
 
 val changeTheme = Translatable(

@@ -224,7 +224,7 @@ private fun generateMockData(): List<FinancialItem> {
             percentRate = 49.5,
             percentType = 2,
             period = 12,
-            balance = BigDecimal(1234567L),
+            balance = BigDecimal(100L),
             name = "Кредит №1"
         ),
         Deposit(
@@ -234,7 +234,7 @@ private fun generateMockData(): List<FinancialItem> {
             percentRate = 8.5,
             percentType = 2,
             period = 12,
-            balance = BigDecimal(1234567L),
+            balance = BigDecimal(100500L),
             name = "Вклад №1"
         ),
         Credit(
@@ -244,7 +244,7 @@ private fun generateMockData(): List<FinancialItem> {
             percentRate = 249.5,
             percentType = 2,
             period = 12,
-            balance = BigDecimal(1234567L),
+            balance = BigDecimal(200L),
             name = "Кредит №2"
         ),
         Deposit(
@@ -254,7 +254,7 @@ private fun generateMockData(): List<FinancialItem> {
             percentRate = 28.5,
             percentType = 2,
             period = 12,
-            balance = BigDecimal(1234567L),
+            balance = BigDecimal(200300L),
             name = "Вклад №2"
         ),
         Credit(
@@ -264,8 +264,8 @@ private fun generateMockData(): List<FinancialItem> {
             percentRate = 149.5,
             percentType = 2,
             period = 12,
-            balance = BigDecimal(1234567L),
-            name = "Кредит №2"
+            balance = BigDecimal(400L),
+            name = "Кредит №3"
         ),
         Deposit(
             id = 6,
@@ -273,9 +273,9 @@ private fun generateMockData(): List<FinancialItem> {
             openDate = System.currentTimeMillis() - 6000 * 60 * 60 * 24 * 15,
             percentRate = 18.5,
             percentType = 2,
-            period = 12,
+            period = 3,
             balance = BigDecimal(1234567L),
-            name = "Вклад №2"
+            name = "Вклад №3"
         ),
     )
 }

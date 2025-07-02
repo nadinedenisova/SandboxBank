@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 
 @Composable
 fun FinancialItemActionRow(iconId: Int, text: String, onClick: () -> Unit) {
@@ -25,7 +26,7 @@ fun FinancialItemActionRow(iconId: Int, text: String, onClick: () -> Unit) {
         Icon(
             painter = painterResource(id = iconId),
             contentDescription = "",
-            tint = MaterialTheme.colorScheme.primary
+            tint = ColorSingleton.appPalette.value.primaryInverce
         )
 
         Spacer(modifier = Modifier.width(16.dp))
@@ -33,7 +34,8 @@ fun FinancialItemActionRow(iconId: Int, text: String, onClick: () -> Unit) {
         Text(
             text = text,
             style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            color = ColorSingleton.appPalette.value.primaryInverce,
         )
     }
 }
