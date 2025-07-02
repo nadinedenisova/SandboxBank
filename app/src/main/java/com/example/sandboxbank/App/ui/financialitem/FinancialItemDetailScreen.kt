@@ -25,8 +25,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.sandboxbank.App.core.deposit.domain.model.Deposit
-import com.example.sandboxbank.App.core.deposit.domain.model.FinancialItem
 import com.example.sandboxbank.App.ui.debitcards.debit.ui.compose.items.NoInternetDialog
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 import com.example.sandboxbank.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,18 +59,18 @@ fun FinancialItemDetailScreen(
                         Icon(
                             painter = painterResource(id = R.drawable.icon_back_arrow_16x16),
                             contentDescription = "",
-                            tint = MaterialTheme.colorScheme.onSurface,
+                            tint = ColorSingleton.appPalette.value.onSurface,
                         )
                     }},
 
                 title = { Text(
                     text = screenTitle,
                     style = MaterialTheme.typography.titleLarge.copy(
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = ColorSingleton.appPalette.value.onSurface
                     )
                 ) },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                    containerColor = ColorSingleton.appPalette.value.background,
                 ),
             )
         }
@@ -79,7 +79,7 @@ fun FinancialItemDetailScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .background(MaterialTheme.colorScheme.background)
+                .background(ColorSingleton.appPalette.value.background)
         ) {
             when (val state = uiState.value) {
                 is FinancialItemDetailsUIState.Loading -> {
@@ -120,7 +120,7 @@ fun FinancialItemDetailScreen(
                             modifier = Modifier.weight(1f))
                     }
 
-                    if (uiState.value is Deposit) {
+                    if (state is Deposit) {
                         /* операции по вкладу */
                         FinancialItemActionRow(
                             iconId = R.drawable.icon_operations,

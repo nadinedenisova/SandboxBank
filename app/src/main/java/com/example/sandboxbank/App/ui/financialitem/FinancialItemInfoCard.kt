@@ -12,6 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sandboxbank.App.core.deposit.domain.model.FinancialItem
+import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 import com.example.sandboxbank.R
 import java.math.BigDecimal
 import java.text.NumberFormat
@@ -28,7 +29,7 @@ fun FinancialItemInfoCard(financialItem: FinancialItem) {
                 fontSize = 20.sp
             ),
             fontWeight = FontWeight.Bold,
-            color = Color(0xFF6750A4)
+            color = ColorSingleton.appPalette.value.primaryInverce
         )
 
         Text(
@@ -37,7 +38,8 @@ fun FinancialItemInfoCard(financialItem: FinancialItem) {
                 fontSize = 32.sp
             ),
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 32.dp, bottom = 0.dp)
+            modifier = Modifier.padding(top = 32.dp, bottom = 0.dp),
+            color = ColorSingleton.appPalette.value.onSecondary
         )
 
         Text(
@@ -45,20 +47,11 @@ fun FinancialItemInfoCard(financialItem: FinancialItem) {
             style = MaterialTheme.typography.bodyLarge.copy(
                 fontSize = 16.sp
             ),
-            //color = MaterialTheme.colorScheme.onSurfaceVariant,
-            color = Color(0xFF6750A4)
+            color = ColorSingleton.appPalette.value.primaryInverce,
         )
     }
 }
 
-// Расширение для Double:
-fun Long.toFormattedBalance(): String {
-    val numberFormat = NumberFormat.getNumberInstance(Locale("ru", "RU")).apply {
-        maximumFractionDigits = 2
-        minimumFractionDigits = 2
-    }
-    return numberFormat.format(this)
-}
 fun BigDecimal.toFormattedBalance(): String {
     val numberFormat = NumberFormat.getNumberInstance(Locale("ru", "RU")).apply {
         maximumFractionDigits = 2

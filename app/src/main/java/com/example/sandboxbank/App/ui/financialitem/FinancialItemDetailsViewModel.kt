@@ -17,9 +17,6 @@ class FinancialItemDetailsViewModel @Inject constructor(
     private val internetUtil: InternetUtil,
 ) : ViewModel() {
 
-    private val _financialItem = MutableStateFlow<FinancialItem?>(null)
-    val financialItem: StateFlow<FinancialItem?> = _financialItem
-
     private val _uiState = MutableStateFlow<FinancialItemDetailsUIState>(
         FinancialItemDetailsUIState.Loading
     )
@@ -39,7 +36,7 @@ class FinancialItemDetailsViewModel @Inject constructor(
         _uiState.value = FinancialItemDetailsUIState.Loading
         currentId = id
         viewModelScope.launch {
-            delay(1500)
+            delay(500)
             val result = financialItemRepository.getById(id, userId)
             if (result.isSuccess) {
                 val value = result.getOrNull()
