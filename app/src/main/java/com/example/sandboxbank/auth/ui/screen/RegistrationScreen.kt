@@ -15,19 +15,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.sandboxbank.App.ui.designkit.mode.ColorSingleton
-
 import com.example.sandboxbank.App.ui.designkit.mode.LightColorPalette
 import com.example.sandboxbank.App.ui.designkit.mode.color.ColorSingleton
 import com.example.sandboxbank.R
 import com.example.sandboxbank.auth.domain.model.ResultAuthState
 import com.example.sandboxbank.auth.ui.viewmodel.AuthViewModel
 import com.example.sandboxbank.viewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 @Composable
@@ -191,7 +184,7 @@ fun CustomTopBar(
 ) {
     Row(modifier = Modifier
         .height(64.dp)
-        .background(color = ColorSingleton.appPalette.surfaceContainerHigh)
+        .background(color = ColorSingleton.appPalette.value.surfaceContainerHigh)
         .fillMaxWidth()
     ) {
 
