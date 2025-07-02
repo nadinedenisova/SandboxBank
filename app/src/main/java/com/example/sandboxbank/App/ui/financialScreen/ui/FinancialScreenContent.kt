@@ -70,6 +70,7 @@ fun FinancialScreenContent(
         TitleContent(title = LanguageSingleton.localization.value.deposit())
 
         when(stateDepos) {
+            is FinanceState.Loading -> {}
             is FinanceState.ContentDeposits -> {
                 LazyColumn(modifier = Modifier
                     .fillMaxWidth()
@@ -81,7 +82,6 @@ fun FinancialScreenContent(
             }
 
             is FinanceState.Error -> {}
-            FinanceState.Loading -> {}
             else -> Unit
         }
 
@@ -121,7 +121,7 @@ fun FinancialScreenContent(
             }
 
             is FinanceState.Error -> {}
-            FinanceState.Loading -> {}
+            is FinanceState.Loading -> {}
             else -> Unit
         }
 
