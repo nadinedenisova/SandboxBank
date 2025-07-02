@@ -1,5 +1,7 @@
 package com.example.sandboxbank.App.ui.mainscreen.ui
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
@@ -14,10 +16,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.sandboxbank.App.ui.applycredit.ui.ApplyCredit
+import com.example.sandboxbank.App.ui.debitcards.debit.ui.compose.DebitCardScreenRoute
 import com.example.sandboxbank.App.ui.financialScreen.domain.FinancialScreenViewModel
 import com.example.sandboxbank.App.ui.financialScreen.ui.FinancialScreenContent
 import com.example.sandboxbank.App.ui.financialitem.FinancialItemDetailsViewModel
 import com.example.sandboxbank.App.ui.mainscreen.data.Routes
+import com.example.sandboxbank.cardmanager.cards.debit.ui.CardViewModel
 import com.example.sandboxbank.cards.ui.CardsScreen
 import com.example.sandboxbank.cards.ui.CardsScreenViewModel
 import com.example.sandboxbank.credit.ui.CreditScreen
@@ -28,6 +32,7 @@ import com.example.sandboxbank.transaction.domain.TransactionViewModel
 import com.example.sandboxbank.transaction.ui.TransactionScreen
 import java.math.BigDecimal
 
+@RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun NavGraph(
     navHostController: NavHostController,
@@ -111,6 +116,17 @@ fun NavGraph(
             val profileScreenViewModel: ProfileScreenViewModel = viewModel( factory = viewModelFactory)
             ProfileScreen(profileScreenViewModel = profileScreenViewModel)
         }
+
+  // not implemented ???
+//        composable(route = Routes.CreditCardOpen.route) {
+//            val cardViewModel: CardViewModel = viewModel( factory = viewModelFactory)
+//            CreditCardScreenRoute(viewModel = cardViewModel, {navHostController.popBackStack()})
+//        }
+
+//        composable(route = Routes.DebitCardOpen.route) {
+//            val cardViewModel: CardViewModel = viewModel( factory = viewModelFactory)
+//            DebitCardScreenRoute(viewModel = cardViewModel, {navHostController.popBackStack()})
+//        }
     }
 }
 

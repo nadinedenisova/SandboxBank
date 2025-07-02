@@ -7,6 +7,7 @@ import com.example.sandboxbank.App.ui.financialitem.FinancialItemDetailsViewMode
 import com.example.sandboxbank.App.ui.mainscreen.domain.MainScreenViewModel
 import com.example.sandboxbank.cards.ui.CardsScreenViewModel
 import com.example.sandboxbank.auth.ui.viewmodel.AuthViewModel
+import com.example.sandboxbank.cardmanager.cards.debit.ui.CardViewModel
 import com.example.sandboxbank.pinCode.PinCodeViewModel
 import com.example.sandboxbank.profile.domain.ProfileScreenViewModel
 import com.example.sandboxbank.transaction.domain.TransactionViewModel
@@ -55,4 +56,11 @@ interface ViewModelModule {
     @ViewModelKey(AuthViewModel::class)
     @Binds
     fun bindAuthViewModel(viewModel: AuthViewModel): ViewModel
+
+//      not yet implemented
+//    @IntoMap
+//    @ViewModelKey(CardViewModel::class)
+//    @Binds
+//    fun bindCardViewModel(viewModel: CardViewModel): ViewModel
+
 }

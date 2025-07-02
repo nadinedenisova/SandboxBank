@@ -58,10 +58,7 @@ class HostActivity : ComponentActivity() {
         }
 
         setContent {
-            val navController = rememberNavController()
-
-            MainNavGraph(
-                navHostController = navController,
+            MainScreenContent(
                 viewModelFactory = viewModelFactory
             )
         }

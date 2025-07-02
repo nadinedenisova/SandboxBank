@@ -56,6 +56,14 @@ val creditOpen = Translatable(
     "Open credit",
     hashMapOf(RUSSIAN to "Оформить кредит"))
 
+val debitCardOpen = Translatable(
+    "Open debit card",
+    hashMapOf(RUSSIAN to "Оформить дебетовую карту"))
+
+val creditCardOpen = Translatable(
+    "Open credit card",
+    hashMapOf(RUSSIAN to "Оформить кредитную карту"))
+
 val deposit = Translatable(
     "Deposit",
     hashMapOf(RUSSIAN to "Вклады"))

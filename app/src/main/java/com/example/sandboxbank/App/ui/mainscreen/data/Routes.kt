@@ -16,6 +16,16 @@ enum class Routes(
         title = { LanguageSingleton.localization.value.cards()},
         icon = R.drawable.icon_card
     ),
+    DebitCardOpen(
+        route = "creditcardopen",
+        title = { LanguageSingleton.localization.value.debitCardOpen()},
+        icon = null
+    ),
+    CreditCardOpen(
+        route = "debitcardppen",
+        title = { LanguageSingleton.localization.value.creditCardOpen()},
+        icon = null
+    ),
     Finance(
         route = "finance",
         title = { LanguageSingleton.localization.value.finance() },
