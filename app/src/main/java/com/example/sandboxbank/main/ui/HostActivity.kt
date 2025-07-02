@@ -57,11 +57,20 @@ class HostActivity : ComponentActivity() {
             AppNotifications.showMockNotification(this@HostActivity)
         }
 
+//        setContent {
+//            MainScreenContent(
+//                viewModelFactory = viewModelFactory
+//            )
+//        }
         setContent {
-            MainScreenContent(
+            val navController = rememberNavController()
+
+            MainNavGraph(
+                navHostController = navController,
                 viewModelFactory = viewModelFactory
             )
         }
+
     }
 
     override fun onDestroy() {
